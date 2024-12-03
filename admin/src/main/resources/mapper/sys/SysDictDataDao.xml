@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ronllan.modules.sys.dao.SysDictDataDao">
+
+	<resultMap id="SysDictDataEntity" type="com.ronllan.modules.sys.entity.SysDictDataEntity"></resultMap>
+
+	<select id="getList" resultMap="SysDictDataEntity">
+		select t1.*
+			from sys_dict_data t1 
+			inner join sys_dict_type t2 on t1.dict_type_id = t2.id
+		<where>
+			<if test="dictName != null and dictName.trim() != ''">
+				and t2.dict_name like #{dictName}
+			</if>
+			<if test="deptId != null and deptId.trim() != ''">
+				and t2.dept_id = #{deptId}
+			</if>
+			<if test="deptIdList != null">
+				and t2.dept_id in
+				<foreach item="id" collection="deptIdList" open="(" separator="," close=")">
+					#{id}
+				</foreach>
+			</if>
+		</where>
+		order by t1.sort
+	</select>
+	
+</mapper>
