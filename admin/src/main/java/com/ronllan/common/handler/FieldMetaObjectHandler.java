@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * 公共字段，自动填充值
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Component
 public class FieldMetaObjectHandler implements MetaObjectHandler {
@@ -21,24 +21,24 @@ public class FieldMetaObjectHandler implements MetaObjectHandler {
     private final static String UPDATE_DATE = "updateDate";
     private final static String UPDATER = "updater";
     private final static String DEPT_ID = "deptId";
+    private final static String LOGICAL_DELETE = "logicalDelete";
 
     @Override
     public void insertFill(MetaObject metaObject) {
         UserDetail user = SecurityUser.getUser();
         Date date = new Date();
-
         //创建者
         strictInsertFill(metaObject, CREATOR, Long.class, user.getId());
         //创建时间
         strictInsertFill(metaObject, CREATE_DATE, Date.class, date);
-
         //创建者所属部门
         strictInsertFill(metaObject, DEPT_ID, Long.class, user.getDeptId());
-
         //更新者
         strictInsertFill(metaObject, UPDATER, Long.class, user.getId());
         //更新时间
         strictInsertFill(metaObject, UPDATE_DATE, Date.class, date);
+        //逻辑删除
+        strictInsertFill(metaObject, LOGICAL_DELETE, Long.class, 0l);
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * 基础实体类，所有实体都需要继承
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 public abstract class BaseEntity implements Serializable {
@@ -24,10 +24,16 @@ public abstract class BaseEntity implements Serializable {
      * 创建者
      */
     @TableField(fill = FieldFill.INSERT)
-    private Long  creator;
+    private Long creator;
     /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
     private Date createDate;
+    /**
+     * 逻辑删除
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private Long logicalDelete;
+    
 }
