@@ -50,24 +50,19 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
         //分页参数
         long curPage = 1;
         long limit = 10;
-
         if (params.get(Constant.PAGE) != null) {
             curPage = Long.parseLong((String) params.get(Constant.PAGE));
         }
         if (params.get(Constant.LIMIT) != null) {
             limit = Long.parseLong((String) params.get(Constant.LIMIT));
         }
-
         //分页对象
         Page<T> page = new Page<>(curPage, limit);
-
         //分页参数
         params.put(Constant.PAGE, page);
-
         //排序字段
         String orderField = (String) params.get(Constant.ORDER_FIELD);
         String order = (String) params.get(Constant.ORDER);
-
         //前端字段排序
         if (StringUtils.isNotBlank(orderField) && StringUtils.isNotBlank(order)) {
             if (Constant.ASC.equalsIgnoreCase(order)) {
@@ -76,30 +71,26 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
                 return page.addOrder(OrderItem.desc(orderField));
             }
         }
-
         //没有排序字段，则不排序
         if (StringUtils.isBlank(defaultOrderField)) {
             return page;
         }
-
         //默认排序
         if (isAsc) {
             page.addOrder(OrderItem.asc(defaultOrderField));
         } else {
             page.addOrder(OrderItem.desc(defaultOrderField));
         }
-
         return page;
     }
 
-    protected <T> PageData<T> getPageData(List<?> list, long total, Class<T> target) {
+    protected <T> PageData<T> getPageData(IPage page,List<?> list, Class<T> target) {
         List<T> targetList = ConvertUtils.sourceToTarget(list, target);
-
-        return new PageData<>(targetList, total);
+        return new PageData<>(page,targetList);
     }
 
     protected <T> PageData<T> getPageData(IPage page, Class<T> target) {
-        return getPageData(page.getRecords(), page.getTotal(), target);
+        return getPageData(page,page.getRecords(), target);
     }
 
     protected void paramsToLike(Map<String, Object> params, String... likes) {

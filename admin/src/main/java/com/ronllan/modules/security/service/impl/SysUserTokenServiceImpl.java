@@ -84,14 +84,11 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
     public PageData<SysOnlineEntity> onlinePage(Map<String, Object> params) {
         //转换成like
         paramsToLike(params, "username");
-
         //分页
         IPage<?> page = getPage(params, "t1.update_date", false);
-
         //查询
         params.put("expireDate", new Date());
         List<SysOnlineEntity> list = baseDao.getOnlineList(params);
-
-        return new PageData<>(list, page.getTotal());
+        return new PageData<>(page,list);
     }
 }

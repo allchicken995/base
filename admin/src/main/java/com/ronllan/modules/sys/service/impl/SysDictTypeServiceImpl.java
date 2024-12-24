@@ -54,7 +54,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
         }
         //查询
         List<SysDictTypeEntity> list = baseDao.getList(params);
-        return getPageData(list, page.getTotal(), SysDictTypeDto.class);
+        return getPageData(page,list,SysDictTypeDto.class);
     }
 
     private QueryWrapper<SysDictTypeEntity> getWrapper(Map<String, Object> params) {
