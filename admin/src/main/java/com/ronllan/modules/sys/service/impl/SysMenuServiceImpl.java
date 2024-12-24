@@ -87,7 +87,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
         List<SysMenuEntity> menuList;
         //系统管理员，拥有最高权限
         if (user.getSuperAdmin() == SuperAdminEnum.YES.value()) {
-            menuList = baseDao.getMenuList(menuType, HttpContextUtils.getLanguage());
+            menuList = baseDao.getAdminMenuList(HttpContextUtils.getLanguage());
         } else {
             menuList = baseDao.getUserMenuList(user.getId(), menuType, HttpContextUtils.getLanguage());
         }

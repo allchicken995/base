@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * 数据过滤
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class DataFilterInterceptor implements InnerInterceptor {
 
@@ -32,10 +32,8 @@ public class DataFilterInterceptor implements InnerInterceptor {
         if(scope == null || StrUtil.isBlank(scope.getSqlFilter())){
             return;
         }
-
         // 拼接新SQL
         String buildSql = getSelect(boundSql.getSql(), scope);
-
         // 重写SQL
         PluginUtils.mpBoundSql(boundSql).sql(buildSql);
     }
@@ -44,7 +42,6 @@ public class DataFilterInterceptor implements InnerInterceptor {
         if (parameter == null){
             return null;
         }
-
         // 判断参数里是否有DataScope对象
         if (parameter instanceof Map) {
             Map<?, ?> parameterMap = (Map<?, ?>) parameter;
@@ -56,7 +53,6 @@ public class DataFilterInterceptor implements InnerInterceptor {
         } else if (parameter instanceof DataScope) {
             return (DataScope) parameter;
         }
-
         return null;
     }
 
@@ -64,7 +60,6 @@ public class DataFilterInterceptor implements InnerInterceptor {
         try {
             Select select = (Select) CCJSqlParserUtil.parse(buildSql);
             PlainSelect plainSelect = (PlainSelect) select.getSelectBody();
-
             Expression expression = plainSelect.getWhere();
             if(expression == null){
                 plainSelect.setWhere(new StringValue(scope.getSqlFilter()));
@@ -72,7 +67,6 @@ public class DataFilterInterceptor implements InnerInterceptor {
                 AndExpression andExpression =  new AndExpression(expression, new StringValue(scope.getSqlFilter()));
                 plainSelect.setWhere(andExpression);
             }
-
             return select.toString().replaceAll("'", "");
         }catch (JSQLParserException e){
             return buildSql;

@@ -6,33 +6,26 @@
 	<resultMap id="SysDictTypeEntity" type="com.ronllan.modules.sys.entity.SysDictTypeEntity"></resultMap>
     
     <select id="getList" resultMap="SysDictTypeEntity">
-		select t1.*, (select t2.name from sys_dept t2 where t2.id=t1.dept_id) deptName
-			from sys_dict_type t1 
+		select 
+			sysDictType.*
+		from sys_dict_type sysDictType 
 		<where>
 			<if test="dictType != null and dictType.trim() != ''">
-				and t1.dict_type like #{dictType}
+				and sysDictType.dict_type like #{dictType}
 			</if>
 			<if test="dictName != null and dictName.trim() != ''">
-				and t1.dict_name like #{dictName}
-			</if>
-			<if test="deptId != null and deptId.trim() != ''">
-				and t1.dept_id = #{deptId}
-			</if>
-			<if test="deptIdList != null">
-				and t1.dept_id in
-				<foreach item="id" collection="deptIdList" open="(" separator="," close=")">
-					#{id}
-				</foreach>
+				and sysDictType.dict_name like #{dictName}
 			</if>
 		</where>
-		order by t1.sort
+		order by sysDictType.sort
 	</select>
 
 	<select id="getObjectById" resultMap="SysDictTypeEntity">
-		select t1.*, (select t2.name from sys_dept t2 where t2.id=t1.dept_id) deptName
-			from sys_dict_type t1 
+		select 
+			sysDictType.*
+		from sys_dict_type sysDictType 
 		<where>
-			and t1.id = #{id}
+			and sysDictType.id = #{id}
 		</where>
 	</select>
 	

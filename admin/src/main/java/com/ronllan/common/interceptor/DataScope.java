@@ -3,7 +3,7 @@ package com.ronllan.common.interceptor;
 /**
  * 数据范围
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 public class DataScope {

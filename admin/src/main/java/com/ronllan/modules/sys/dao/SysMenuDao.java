@@ -28,6 +28,12 @@ public interface SysMenuDao extends BaseDao<SysMenuEntity> {
 	List<SysMenuEntity> getMenuList(@Param("menuType") Integer menuType, @Param("language") String language);
 
 	/**
+	 * 查询管理员用户菜单列表
+	 *
+	 * @param language 语言
+	 */
+	List<SysMenuEntity> getAdminMenuList(@Param("language") String language);
+	/**
 	 * 查询用户菜单列表
 	 *
 	 * @param userId 用户ＩＤ

@@ -26,6 +26,15 @@
 		</where>
 		order by t1.sort asc
 	</select>
+	
+	<select id="getAdminMenuList" resultMap="SysMenuEntity">
+		select t1.*, (select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
+		and lang.table_id=t1.id and lang.language=#{language}) as name
+	  	from sys_menu t1
+	  	where
+	  		t1.menu_type in(0,1)
+		order by t1.sort asc
+	</select>
 
 	<select id="getUserMenuList" resultMap="SysMenuEntity">
 		select t3.*, (select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
