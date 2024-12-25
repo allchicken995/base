@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ronllan.modules.sys.dao.SysIconDao">
+
+	<resultMap id="SysIconEntity" type="com.ronllan.modules.sys.entity.SysIconEntity"></resultMap>
+    
+    <select id="getList" resultMap="SysIconEntity">
+		select sysIcon.*
+			from sys_icon sysIcon 
+		where
+		    sysIcon.logical_delete = 0
+			<if test="name != null and name.trim() != ''">
+				and sysIcon.name like  concat(concat('%',#{name}),'%')
+			</if>
+		order by pubMedium.category
+	</select>
+
+</mapper>

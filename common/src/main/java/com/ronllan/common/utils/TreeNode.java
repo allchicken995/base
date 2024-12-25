@@ -19,10 +19,12 @@ public class TreeNode<T> implements Serializable {
      * 主键
      */
     private Long id;
+    
     /**
      * 上级ID
      */
     private Long pid;
+    
     /**
      * 子节点列表
      */

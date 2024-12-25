@@ -1,41 +1,36 @@
 package com.ronllan.modules.sys.entity;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.ronllan.common.entity.BaseEntity;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Date;
-
 /**
- * 部门管理
+ * 图标管理
  *
  * @author glq gugameds066@gmail.com
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName("sys_dept")
-public class SysDeptEntity extends BaseEntity {
+@TableName("sys_icon")
+public class SysIconEntity extends BaseEntity {
     /**
-     * 上级ID
-     */
-    private Long pid;
-    /**
-     * 所有上级ID，用逗号分开
-     */
-    private String pids;
-    /**
-     * 部门名称
+     * 图标名称
      */
     private String name;
     /**
-     * 负责人ID
+     * 正常图标
      */
-    @TableField(updateStrategy = FieldStrategy.ALWAYS)
-    private Long leaderId;
+    private String normalIcon;
+    /**
+     * 选中图标
+     */
+    private String selectedIcon;
     /**
      * 排序
      */
@@ -50,10 +45,5 @@ public class SysDeptEntity extends BaseEntity {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateDate;
-    /**
-     * 上级部门名称
-     */
-    @TableField(exist = false)
-    private String parentName;
 
 }
