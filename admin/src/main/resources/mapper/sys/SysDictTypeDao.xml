@@ -17,7 +17,6 @@
 				and sysDictType.dict_name like #{dictName}
 			</if>
 		</where>
-		order by sysDictType.sort
 	</select>
 
 	<select id="getObjectById" resultMap="SysDictTypeEntity">

@@ -10,7 +10,7 @@ import com.ronllan.common.validator.AssertUtils;
 /**
  * 树形结构工具类，如：菜单、部门等
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 public class TreeUtils {
@@ -47,23 +47,19 @@ public class TreeUtils {
      */
     public static <T extends TreeNode> List<T> build(List<T> treeNodes) {
         List<T> result = new ArrayList<>();
-
         //list转map
         Map<Long, T> nodeMap = new LinkedHashMap<>(treeNodes.size());
         for(T treeNode : treeNodes){
             nodeMap.put(treeNode.getId(), treeNode);
         }
-
         for(T node : nodeMap.values()) {
             T parent = nodeMap.get(node.getPid());
             if(parent != null && !(node.getId().equals(parent.getId()))){
                 parent.getChildren().add(node);
                 continue;
             }
-
             result.add(node);
         }
-
         return result;
     }
 

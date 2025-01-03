@@ -1,9 +1,9 @@
 package com.ronllan.modules.sys.service;
 
-import com.ronllan.common.service.BaseService;
-
 import java.util.List;
 
+import com.ronllan.common.service.BaseService;
+import com.ronllan.modules.sys.dto.SysRoleMenuDto;
 import com.ronllan.modules.sys.entity.SysRoleMenuEntity;
 
 
@@ -17,14 +17,14 @@ public interface SysRoleMenuService extends BaseService<SysRoleMenuEntity> {
 	/**
 	 * 根据角色ID，获取菜单ID列表
 	 */
-	List<Long> getMenuIdList(Long roleId);
+	List<SysRoleMenuDto> getMenuRoleList(Long roleId);
 
 	/**
 	 * 保存或修改
 	 * @param roleId      角色ID
 	 * @param menuIdList  菜单ID列表
 	 */
-	void saveOrUpdate(Long roleId, List<Long> menuIdList);
+	void saveOrUpdate(Long roleId, List<SysRoleMenuDto> menuIdList);
 
 	/**
 	 * 根据角色id，删除角色菜单关系

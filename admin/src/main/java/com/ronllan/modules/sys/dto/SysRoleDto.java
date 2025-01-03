@@ -43,7 +43,7 @@ public class SysRoleDto implements Serializable {
     private Date createDate;
 
     @Schema(description = "菜单ID列表")
-    private List<Long> menuIdList;
+    private List<SysRoleMenuDto> menuRoleList;
 
     @Schema(description = "部门ID列表")
     private List<Long> deptIdList;

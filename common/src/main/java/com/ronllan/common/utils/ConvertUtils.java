@@ -34,7 +34,6 @@ public class ConvertUtils {
         if (sourceList == null) {
             return null;
         }
-
         List targetList = new ArrayList<>(sourceList.size());
         try {
             for (Object source : sourceList) {
@@ -45,7 +44,6 @@ public class ConvertUtils {
         } catch (Exception e) {
             log.error("convert error ", e);
         }
-
         return targetList;
     }
 }

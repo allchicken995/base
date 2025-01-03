@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * 菜单管理
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -44,9 +44,13 @@ public class SysMenuEntity extends BaseEntity {
      */
     private Integer openStyle;
     /**
-     * 菜单图标
+     * 正常图标
      */
-    private String icon;
+    private String normalIcon;
+    /**
+     * 选中图标
+     */
+    private String selectedIcon;
     /**
      * 排序
      */

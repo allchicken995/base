@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * 角色与菜单对应关系
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Mapper
 public interface SysRoleMenuDao extends BaseDao<SysRoleMenuEntity> {
@@ -19,7 +19,7 @@ public interface SysRoleMenuDao extends BaseDao<SysRoleMenuEntity> {
 	/**
 	 * 根据角色ID，获取菜单ID列表
 	 */
-	List<Long> getMenuIdList(Long roleId);
+	List<SysRoleMenuEntity> getMenuRoleList(Long roleId);
 
 	/**
 	 * 根据角色id，删除角色菜单关系

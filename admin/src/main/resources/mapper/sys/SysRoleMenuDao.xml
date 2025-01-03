@@ -3,8 +3,18 @@
 
 <mapper namespace="com.ronllan.modules.sys.dao.SysRoleMenuDao">
 
-	<select id="getMenuIdList" resultType="long">
-		select menu_id from sys_role_menu where role_id = #{value}
+	<resultMap id="SysRoleMenuEntity" type="com.ronllan.modules.sys.entity.SysRoleMenuEntity"></resultMap>
+    <parameterMap id="SysRoleMenuEntity" type="com.ronllan.modules.sys.entity.SysRoleMenuEntity"></parameterMap>
+
+	<select id="getMenuRoleList" resultMap="SysRoleMenuEntity">
+		select 
+			sysMenu.id as menuId
+			,sysMenu.pid as menuPid
+		from 
+			sys_role_menu sysRoleMenu
+		inner join sys_menu sysMenu on sysMenu.id = sysRoleMenu.menu_id
+		where 
+			role_id = #{value}
 	</select>
 
 	<delete id="deleteByRoleIds">

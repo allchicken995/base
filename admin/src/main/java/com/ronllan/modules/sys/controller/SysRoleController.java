@@ -78,8 +78,7 @@ public class SysRoleController {
     public Result<SysRoleDto> get(@PathVariable("id") Long id) {
         SysRoleDto data = sysRoleService.get(id);
         //查询角色对应的菜单
-        List<Long> menuIdList = sysRoleMenuService.getMenuIdList(id);
-        data.setMenuIdList(menuIdList);
+        data.setMenuRoleList(sysRoleMenuService.getMenuRoleList(id));
         //查询角色对应的数据权限
         List<Long> deptIdList = sysRoleDataScopeService.getDeptIdList(id);
         data.setDeptIdList(deptIdList);
