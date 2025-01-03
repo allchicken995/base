@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 验证码
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Service
 public class CaptchaServiceImpl implements CaptchaService {

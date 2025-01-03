@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * 系统用户
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

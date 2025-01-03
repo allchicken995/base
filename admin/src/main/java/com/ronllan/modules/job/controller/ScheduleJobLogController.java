@@ -1,7 +1,7 @@
 package com.ronllan.modules.job.controller;
 
 import com.github.xiaoymin.knife4j.annotations.Ignore;
-import com.ronllan.modules.job.dto.ScheduleJobLogDTO;
+import com.ronllan.modules.job.dto.ScheduleJobLogDto;
 import com.ronllan.modules.job.service.ScheduleJobLogService;
 
 import com.ronllan.common.constant.Constant;
@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * 定时任务日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @RestController
 @RequestMapping("/sys/scheduleLog")
@@ -39,18 +39,18 @@ public class ScheduleJobLogController {
             @Parameter(name = "jobId", description = "jobId")
     })
     @RequiresPermissions("sys:schedule:log")
-    public Result<PageData<ScheduleJobLogDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<ScheduleJobLogDTO> page = scheduleJobLogService.page(params);
+    public Result<PageData<ScheduleJobLogDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
+        PageData<ScheduleJobLogDto> page = scheduleJobLogService.page(params);
 
-        return new Result<PageData<ScheduleJobLogDTO>>().ok(page);
+        return new Result<PageData<ScheduleJobLogDto>>().ok(page);
     }
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
     @RequiresPermissions("sys:schedule:log")
-    public Result<ScheduleJobLogDTO> info(@PathVariable("id") Long id) {
-        ScheduleJobLogDTO log = scheduleJobLogService.get(id);
+    public Result<ScheduleJobLogDto> info(@PathVariable("id") Long id) {
+        ScheduleJobLogDto log = scheduleJobLogService.get(id);
 
-        return new Result<ScheduleJobLogDTO>().ok(log);
+        return new Result<ScheduleJobLogDto>().ok(log);
     }
 }

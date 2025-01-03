@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 初始化定时任务数据
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Component
 public class JobCommandLineRunner implements CommandLineRunner {

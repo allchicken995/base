@@ -10,7 +10,7 @@ import com.ronllan.modules.sys.entity.SysRoleMenuEntity;
 /**
  * 角色与菜单对应关系
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysRoleMenuService extends BaseService<SysRoleMenuEntity> {
 

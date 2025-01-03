@@ -9,7 +9,7 @@ import com.ronllan.modules.sys.entity.SysRoleDataScopeEntity;
 /**
  * 角色数据权限
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 public interface SysRoleDataScopeService extends BaseService<SysRoleDataScopeEntity> {

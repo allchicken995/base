@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 异常处理器
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @Slf4j

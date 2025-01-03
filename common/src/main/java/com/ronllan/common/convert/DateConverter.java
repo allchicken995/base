@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 日期转换
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Component
 public class DateConverter implements Converter<String, Date> {

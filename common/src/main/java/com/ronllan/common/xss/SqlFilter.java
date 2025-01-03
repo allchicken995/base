@@ -7,7 +7,7 @@ import com.ronllan.common.exception.DefineException;
 
 /**
  * SQL过滤
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class SqlFilter {
 

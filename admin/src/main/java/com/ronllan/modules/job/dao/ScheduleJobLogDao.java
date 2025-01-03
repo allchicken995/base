@@ -9,7 +9,7 @@ import com.ronllan.modules.job.entity.ScheduleJobLogEntity;
 /**
  * 定时任务日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Mapper
 public interface ScheduleJobLogDao extends BaseDao<ScheduleJobLogEntity> {

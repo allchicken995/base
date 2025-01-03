@@ -3,7 +3,7 @@ package com.ronllan.modules.log.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ronllan.modules.log.dao.SysLogOperationDao;
-import com.ronllan.modules.log.dto.SysLogOperationDTO;
+import com.ronllan.modules.log.dto.SysLogOperationDto;
 import com.ronllan.modules.log.entity.SysLogOperationEntity;
 import com.ronllan.modules.log.service.SysLogOperationService;
 
@@ -22,27 +22,27 @@ import java.util.Map;
 /**
  * 操作日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @Service
 public class SysLogOperationServiceImpl extends BaseServiceImpl<SysLogOperationDao, SysLogOperationEntity> implements SysLogOperationService {
 
     @Override
-    public PageData<SysLogOperationDTO> page(Map<String, Object> params) {
+    public PageData<SysLogOperationDto> page(Map<String, Object> params) {
         IPage<SysLogOperationEntity> page = baseDao.selectPage(
             getPage(params, Constant.CREATE_DATE, false),
             getWrapper(params)
         );
 
-        return getPageData(page, SysLogOperationDTO.class);
+        return getPageData(page, SysLogOperationDto.class);
     }
 
     @Override
-    public List<SysLogOperationDTO> list(Map<String, Object> params) {
+    public List<SysLogOperationDto> list(Map<String, Object> params) {
         List<SysLogOperationEntity> entityList = baseDao.selectList(getWrapper(params));
 
-        return ConvertUtils.sourceToTarget(entityList, SysLogOperationDTO.class);
+        return ConvertUtils.sourceToTarget(entityList, SysLogOperationDto.class);
     }
 
     private QueryWrapper<SysLogOperationEntity> getWrapper(Map<String, Object> params){

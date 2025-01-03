@@ -9,7 +9,7 @@ import org.springframework.web.filter.DelegatingFilterProxy;
 /**
  * Filter配置
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Configuration
 public class FilterConfig {

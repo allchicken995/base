@@ -20,11 +20,11 @@ import java.util.Date;
 /**
  * 定时任务
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @Tag(name = "定时任务")
-public class ScheduleJobDTO implements Serializable {
+public class ScheduleJobDto implements Serializable {
 
     @Schema(description = "id")
     @Null(message = "{id.null}", groups = AddGroup.class)

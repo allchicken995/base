@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * 国际化
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @TableName("sys_language")

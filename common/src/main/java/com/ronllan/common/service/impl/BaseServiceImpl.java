@@ -31,7 +31,7 @@ import com.ronllan.common.utils.ConvertUtils;
 /**
  * 基础服务类，所有Service都要继承
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements BaseService<T> {
 	

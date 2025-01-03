@@ -3,7 +3,7 @@ package com.ronllan.common.validator.group;
 /**
  * MinIO
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface MinioGroup {
 }

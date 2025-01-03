@@ -10,7 +10,7 @@ import com.ronllan.modules.sys.entity.SysUserEntity;
 /**
  * shiro相关接口
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface ShiroService {
     /**

@@ -7,7 +7,7 @@ import org.apache.shiro.subject.Subject;
 /**
  * 用户
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class SecurityUser {
 

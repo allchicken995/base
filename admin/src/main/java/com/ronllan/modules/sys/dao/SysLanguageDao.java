@@ -10,7 +10,7 @@ import com.ronllan.modules.sys.entity.SysLanguageEntity;
 /**
  * 国际化
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Mapper
 public interface SysLanguageDao extends BaseDao<SysLanguageEntity> {

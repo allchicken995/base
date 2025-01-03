@@ -8,7 +8,7 @@ import com.ronllan.common.exception.DefineException;
 /**
  * 生成token
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class TokenGenerator {
 

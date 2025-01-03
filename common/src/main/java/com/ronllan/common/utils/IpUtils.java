@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * IP地址
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Slf4j
 public class IpUtils {

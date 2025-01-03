@@ -19,7 +19,7 @@ import java.util.Date;
 /**
  * 字典类型
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @Schema(description = "字典类型")

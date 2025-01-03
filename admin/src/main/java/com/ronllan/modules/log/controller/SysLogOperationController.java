@@ -3,7 +3,7 @@ package com.ronllan.modules.log.controller;
 import com.github.xiaoymin.knife4j.annotations.Ignore;
 import com.ronllan.common.annotation.LogOperation;
 import com.ronllan.common.utils.ExcelUtils;
-import com.ronllan.modules.log.dto.SysLogOperationDTO;
+import com.ronllan.modules.log.dto.SysLogOperationDto;
 import com.ronllan.modules.log.excel.SysLogOperationExcel;
 import com.ronllan.modules.log.service.SysLogOperationService;
 
@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * 操作日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @AllArgsConstructor
@@ -49,10 +49,10 @@ public class SysLogOperationController {
             @Parameter(name = "status", description = "状态  0：失败    1：成功")
     })
     @RequiresPermissions("sys:log:operation")
-    public Result<PageData<SysLogOperationDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysLogOperationDTO> page = sysLogOperationService.page(params);
+    public Result<PageData<SysLogOperationDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
+        PageData<SysLogOperationDto> page = sysLogOperationService.page(params);
 
-        return new Result<PageData<SysLogOperationDTO>>().ok(page);
+        return new Result<PageData<SysLogOperationDto>>().ok(page);
     }
 
     @GetMapping("export")
@@ -60,7 +60,7 @@ public class SysLogOperationController {
     @LogOperation("导出")
     @RequiresPermissions("sys:log:operation")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<SysLogOperationDTO> list = sysLogOperationService.list(params);
+        List<SysLogOperationDto> list = sysLogOperationService.list(params);
 
         ExcelUtils.exportExcelToTarget(response, null, "操作日志", list, SysLogOperationExcel.class);
     }

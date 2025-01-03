@@ -12,7 +12,7 @@ import com.ronllan.modules.sys.entity.SysOnlineEntity;
 /**
  * 用户Token
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysUserTokenService extends BaseService<SysUserTokenEntity> {
 

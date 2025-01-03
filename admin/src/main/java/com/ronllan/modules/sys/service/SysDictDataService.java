@@ -11,7 +11,7 @@ import com.ronllan.modules.sys.entity.SysDictDataEntity;
 /**
  * 数据字典
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysDictDataService extends BaseService<SysDictDataEntity> {
 

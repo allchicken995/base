@@ -19,7 +19,7 @@ import cn.hutool.core.collection.CollUtil;
 /**
  * 角色与菜单对应关系
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Service
 public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuDao, SysRoleMenuEntity> implements SysRoleMenuService {

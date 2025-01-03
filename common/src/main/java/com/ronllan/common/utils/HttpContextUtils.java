@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Http
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class HttpContextUtils {
 

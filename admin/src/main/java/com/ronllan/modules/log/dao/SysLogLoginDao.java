@@ -9,7 +9,7 @@ import com.ronllan.modules.log.entity.SysLogLoginEntity;
 /**
  * 登录日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @Mapper

@@ -15,7 +15,7 @@ import java.util.Map;
 /**
  * 系统用户Token
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Mapper
 public interface SysUserTokenDao extends BaseDao<SysUserTokenEntity> {

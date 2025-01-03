@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 修改密码
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @Data

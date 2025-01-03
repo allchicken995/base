@@ -11,7 +11,7 @@ import com.ronllan.modules.sys.entity.SysDeptEntity;
 /**
  * 部门管理
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysDeptService extends BaseService<SysDeptEntity> {
 

@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * 操作日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @ContentRowHeight(20)

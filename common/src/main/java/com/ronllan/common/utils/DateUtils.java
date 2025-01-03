@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 日期处理
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class DateUtils {
     /**

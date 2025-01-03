@@ -12,7 +12,7 @@ import java.util.Date;
 /**
  * 用户岗位关系
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @TableName("sys_user_post")

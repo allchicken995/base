@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 /**
  * 分页工具类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @Schema(description = "分页数据")

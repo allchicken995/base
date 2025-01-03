@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * 部门管理
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @AllArgsConstructor
 @RestController

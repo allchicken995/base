@@ -14,7 +14,7 @@ import com.ronllan.modules.sys.entity.SysRoleEntity;
 /**
  * 角色
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysRoleService extends BaseService<SysRoleEntity> {
 

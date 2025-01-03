@@ -8,7 +8,7 @@ import com.ronllan.common.page.PageData;
 /**
  *  CRUD基础服务接口
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface CrudService<T, D> extends BaseService<T> {
 

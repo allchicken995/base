@@ -11,7 +11,7 @@ import com.ronllan.modules.job.entity.ScheduleJobEntity;
 /**
  * 定时任务工具类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class ScheduleUtils {
     private final static String JOB_NAME = "TASK_";

@@ -4,7 +4,7 @@ package com.ronllan.common.constant;
 /**
  * 常量
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface Constant {
     /**

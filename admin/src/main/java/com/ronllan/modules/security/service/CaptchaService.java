@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * 验证码
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface CaptchaService {
 

@@ -33,7 +33,7 @@ import lombok.AllArgsConstructor;
 /**
  * 字典类型
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @AllArgsConstructor
 @RestController

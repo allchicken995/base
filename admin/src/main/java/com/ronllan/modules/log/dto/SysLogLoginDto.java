@@ -9,29 +9,33 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 异常日志
+ * 登录日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @Data
-@Schema(description = "异常日志")
-public class SysLogErrorDTO implements Serializable {
+@Schema(description = "登录日志")
+public class SysLogLoginDto implements Serializable {
 
     @Schema(description = "id")
     private Long id;
-    @Schema(description = "请求URI")
-    private String requestUri;
-    @Schema(description = "请求方式")
-    private String requestMethod;
-    @Schema(description = "请求参数")
-    private String requestParams;
+
+    @Schema(description = "用户操作  0：用户登录   1：用户退出")
+    private Integer operation;
+
+    @Schema(description = "状态  0：失败    1：成功    2：账号已锁定")
+    private Integer status;
+
     @Schema(description = "用户代理")
     private String userAgent;
+
     @Schema(description = "操作IP")
     private String ip;
-    @Schema(description = "异常信息")
-    private String errorInfo;
+
+    @Schema(description = "用户名")
+    private String creatorName;
+
     @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private Date createDate;

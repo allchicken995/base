@@ -5,29 +5,29 @@ import com.ronllan.common.service.BaseService;
 
 import java.util.Map;
 
-import com.ronllan.modules.job.dto.ScheduleJobDTO;
+import com.ronllan.modules.job.dto.ScheduleJobDto;
 import com.ronllan.modules.job.entity.ScheduleJobEntity;
 
 /**
  * 定时任务
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface ScheduleJobService extends BaseService<ScheduleJobEntity> {
 
-	PageData<ScheduleJobDTO> page(Map<String, Object> params);
+	PageData<ScheduleJobDto> page(Map<String, Object> params);
 
-	ScheduleJobDTO get(Long id);
+	ScheduleJobDto get(Long id);
 
 	/**
 	 * 保存定时任务
 	 */
-	void save(ScheduleJobDTO dto);
+	void save(ScheduleJobDto dto);
 	
 	/**
 	 * 更新定时任务
 	 */
-	void update(ScheduleJobDTO dto);
+	void update(ScheduleJobDto dto);
 	
 	/**
 	 * 批量删除定时任务

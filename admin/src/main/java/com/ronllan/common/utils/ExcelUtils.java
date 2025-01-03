@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * excel工具类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class ExcelUtils {
 

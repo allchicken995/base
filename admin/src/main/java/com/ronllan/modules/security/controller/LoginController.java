@@ -22,7 +22,7 @@ import com.ronllan.modules.log.entity.SysLogLoginEntity;
 import com.ronllan.modules.log.enums.LoginOperationEnum;
 import com.ronllan.modules.log.enums.LoginStatusEnum;
 import com.ronllan.modules.log.service.SysLogLoginService;
-import com.ronllan.modules.security.dto.LoginDTO;
+import com.ronllan.modules.security.dto.LoginDto;
 import com.ronllan.modules.security.password.PasswordUtils;
 import com.ronllan.modules.security.service.CaptchaService;
 import com.ronllan.modules.security.service.SysUserTokenService;
@@ -37,7 +37,7 @@ import java.util.Date;
 /**
  * 登录
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @AllArgsConstructor
 @RestController
@@ -59,7 +59,7 @@ public class LoginController {
 
     @PostMapping("login")
     @Operation(summary = "登录")
-    public Result login(HttpServletRequest request, @RequestBody LoginDTO login) {
+    public Result login(HttpServletRequest request, @RequestBody LoginDto login) {
         //效验数据
         ValidatorUtils.validateEntity(login);
         //验证码是否正确

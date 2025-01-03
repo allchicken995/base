@@ -9,11 +9,11 @@ import java.io.Serializable;
 /**
  * 登录表单
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @Schema(description = "登录表单")
-public class LoginDTO implements Serializable {
+public class LoginDto implements Serializable {
 
     @Schema(description = "用户名", required = true)
     @NotBlank(message = "{sysuser.username.require}")

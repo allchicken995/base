@@ -7,14 +7,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 操作日志注解
+ * 外键操作注解
  *
  * @author glq gugameds066@gmail.com
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface LogOperation {
-
-	String value() default "";
+public @interface ForeignKey {
+	
 }

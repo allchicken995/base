@@ -13,7 +13,7 @@ import com.ronllan.common.exception.DefineException;
 /**
  * Redis切面处理类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Slf4j
 @Aspect

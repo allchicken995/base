@@ -47,7 +47,7 @@ import lombok.AllArgsConstructor;
 /**
  * 用户管理
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @AllArgsConstructor
 @RestController

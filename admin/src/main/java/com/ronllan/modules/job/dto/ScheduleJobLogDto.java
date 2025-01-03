@@ -12,12 +12,12 @@ import java.util.Date;
 /**
  * 定时任务日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @Data
 @Schema(description = "定时任务日志")
-public class ScheduleJobLogDTO implements Serializable {
+public class ScheduleJobLogDto implements Serializable {
 
     @Schema(description = "id")
     private Long id;

@@ -13,7 +13,7 @@ import com.ronllan.modules.sys.entity.SysUserEntity;
 /**
  * 系统用户
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysUserService extends BaseService<SysUserEntity> {
 

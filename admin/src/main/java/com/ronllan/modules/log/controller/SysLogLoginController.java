@@ -3,7 +3,7 @@ package com.ronllan.modules.log.controller;
 import com.github.xiaoymin.knife4j.annotations.Ignore;
 import com.ronllan.common.annotation.LogOperation;
 import com.ronllan.common.utils.ExcelUtils;
-import com.ronllan.modules.log.dto.SysLogLoginDTO;
+import com.ronllan.modules.log.dto.SysLogLoginDto;
 import com.ronllan.modules.log.excel.SysLogLoginExcel;
 import com.ronllan.modules.log.service.SysLogLoginService;
 
@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * 登录日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @AllArgsConstructor
@@ -50,10 +50,10 @@ public class SysLogLoginController {
             @Parameter(name = "creatorName", description = "用户名")
     })
     @RequiresPermissions("sys:log:login")
-    public Result<PageData<SysLogLoginDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysLogLoginDTO> page = sysLogLoginService.page(params);
+    public Result<PageData<SysLogLoginDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
+        PageData<SysLogLoginDto> page = sysLogLoginService.page(params);
 
-        return new Result<PageData<SysLogLoginDTO>>().ok(page);
+        return new Result<PageData<SysLogLoginDto>>().ok(page);
     }
 
     @GetMapping("export")
@@ -61,7 +61,7 @@ public class SysLogLoginController {
     @LogOperation("导出")
     @RequiresPermissions("sys:log:login")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<SysLogLoginDTO> list = sysLogLoginService.list(params);
+        List<SysLogLoginDto> list = sysLogLoginService.list(params);
 
         ExcelUtils.exportExcelToTarget(response, null, "登录日志", list, SysLogLoginExcel.class);
     }

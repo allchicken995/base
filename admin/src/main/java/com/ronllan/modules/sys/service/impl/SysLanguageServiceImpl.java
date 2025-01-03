@@ -10,7 +10,7 @@ import com.ronllan.modules.sys.service.SysLanguageService;
 /**
  * 国际化
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Service
 public class SysLanguageServiceImpl extends BaseServiceImpl<SysLanguageDao, SysLanguageEntity> implements SysLanguageService {

@@ -1,7 +1,7 @@
 package com.ronllan.common.redis;
 
 /**
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 public class RedisKeys {

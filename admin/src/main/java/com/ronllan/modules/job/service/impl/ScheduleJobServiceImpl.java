@@ -3,7 +3,7 @@ package com.ronllan.modules.job.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ronllan.modules.job.dao.ScheduleJobDao;
-import com.ronllan.modules.job.dto.ScheduleJobDTO;
+import com.ronllan.modules.job.dto.ScheduleJobDto;
 import com.ronllan.modules.job.entity.ScheduleJobEntity;
 import com.ronllan.modules.job.service.ScheduleJobService;
 import com.ronllan.modules.job.utils.ScheduleUtils;
@@ -28,19 +28,19 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
     private final Scheduler scheduler;
 
     @Override
-    public PageData<ScheduleJobDTO> page(Map<String, Object> params) {
+    public PageData<ScheduleJobDto> page(Map<String, Object> params) {
         IPage<ScheduleJobEntity> page = baseDao.selectPage(
                 getPage(params, Constant.CREATE_DATE, false),
                 getWrapper(params)
         );
-        return getPageData(page, ScheduleJobDTO.class);
+        return getPageData(page, ScheduleJobDto.class);
     }
 
     @Override
-    public ScheduleJobDTO get(Long id) {
+    public ScheduleJobDto get(Long id) {
         ScheduleJobEntity entity = baseDao.selectById(id);
 
-        return ConvertUtils.sourceToTarget(entity, ScheduleJobDTO.class);
+        return ConvertUtils.sourceToTarget(entity, ScheduleJobDto.class);
     }
 
     private QueryWrapper<ScheduleJobEntity> getWrapper(Map<String, Object> params) {
@@ -54,7 +54,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(ScheduleJobDTO dto) {
+    public void save(ScheduleJobDto dto) {
         ScheduleJobEntity entity = ConvertUtils.sourceToTarget(dto, ScheduleJobEntity.class);
 
         entity.setStatus(Constant.ScheduleStatus.NORMAL.getValue());
@@ -65,7 +65,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(ScheduleJobDTO dto) {
+    public void update(ScheduleJobDto dto) {
         ScheduleJobEntity entity = ConvertUtils.sourceToTarget(dto, ScheduleJobEntity.class);
 
         ScheduleUtils.updateScheduleJob(scheduler, entity);

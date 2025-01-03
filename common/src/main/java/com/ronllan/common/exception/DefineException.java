@@ -6,7 +6,7 @@ import com.ronllan.common.utils.MessageUtils;
 /**
  * 自定义异常
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public class DefineException extends RuntimeException {
 

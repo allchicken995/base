@@ -11,7 +11,7 @@ import org.springframework.util.PathMatcher;
 /**
  * XSS 配置文件
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Configuration
 @EnableConfigurationProperties(XssProperties.class)

@@ -5,17 +5,17 @@ import com.ronllan.common.service.BaseService;
 
 import java.util.Map;
 
-import com.ronllan.modules.job.dto.ScheduleJobLogDTO;
+import com.ronllan.modules.job.dto.ScheduleJobLogDto;
 import com.ronllan.modules.job.entity.ScheduleJobLogEntity;
 
 /**
  * 定时任务日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface ScheduleJobLogService extends BaseService<ScheduleJobLogEntity> {
 
-	PageData<ScheduleJobLogDTO> page(Map<String, Object> params);
+	PageData<ScheduleJobLogDto> page(Map<String, Object> params);
 
-	ScheduleJobLogDTO get(Long id);
+	ScheduleJobLogDto get(Long id);
 }

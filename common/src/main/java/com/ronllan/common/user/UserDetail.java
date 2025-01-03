@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 登录用户信息
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 public class UserDetail implements Serializable {

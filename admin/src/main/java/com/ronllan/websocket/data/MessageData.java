@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * 响应客户端数据
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 public class MessageData<T> {

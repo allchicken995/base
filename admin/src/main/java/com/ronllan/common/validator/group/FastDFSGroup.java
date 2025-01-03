@@ -3,7 +3,7 @@ package com.ronllan.common.validator.group;
 /**
  * FastDFS
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface FastDFSGroup {
 }

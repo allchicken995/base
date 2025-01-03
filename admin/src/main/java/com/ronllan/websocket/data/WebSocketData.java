@@ -8,7 +8,7 @@ import lombok.Data;
 /**
  * WebSocket连接数据
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @AllArgsConstructor

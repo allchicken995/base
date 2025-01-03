@@ -12,7 +12,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 /**
  * WebSocket配置
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Configuration
 public class WebSocketConfig extends ServerEndpointConfig.Configurator {

@@ -3,7 +3,7 @@ package com.ronllan.modules.job.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ronllan.modules.job.dao.ScheduleJobLogDao;
-import com.ronllan.modules.job.dto.ScheduleJobLogDTO;
+import com.ronllan.modules.job.dto.ScheduleJobLogDto;
 import com.ronllan.modules.job.entity.ScheduleJobLogEntity;
 import com.ronllan.modules.job.service.ScheduleJobLogService;
 
@@ -21,12 +21,12 @@ import java.util.Map;
 public class ScheduleJobLogServiceImpl extends BaseServiceImpl<ScheduleJobLogDao, ScheduleJobLogEntity> implements ScheduleJobLogService {
 
 	@Override
-	public PageData<ScheduleJobLogDTO> page(Map<String, Object> params) {
+	public PageData<ScheduleJobLogDto> page(Map<String, Object> params) {
 		IPage<ScheduleJobLogEntity> page = baseDao.selectPage(
 			getPage(params, Constant.CREATE_DATE, false),
 			getWrapper(params)
 		);
-		return getPageData(page, ScheduleJobLogDTO.class);
+		return getPageData(page, ScheduleJobLogDto.class);
 	}
 
 	private QueryWrapper<ScheduleJobLogEntity> getWrapper(Map<String, Object> params){
@@ -39,10 +39,10 @@ public class ScheduleJobLogServiceImpl extends BaseServiceImpl<ScheduleJobLogDao
 	}
 
 	@Override
-	public ScheduleJobLogDTO get(Long id) {
+	public ScheduleJobLogDto get(Long id) {
 		ScheduleJobLogEntity entity = baseDao.selectById(id);
 
-		return ConvertUtils.sourceToTarget(entity, ScheduleJobLogDTO.class);
+		return ConvertUtils.sourceToTarget(entity, ScheduleJobLogDto.class);
 	}
 
 }

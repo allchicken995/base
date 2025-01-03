@@ -9,7 +9,7 @@ import com.ronllan.modules.sys.entity.SysRoleEntity;
 /**
  * 角色管理
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Mapper
 public interface SysRoleDao extends BaseDao<SysRoleEntity> {

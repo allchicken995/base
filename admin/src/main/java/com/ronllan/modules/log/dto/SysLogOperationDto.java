@@ -11,12 +11,12 @@ import java.util.Date;
 /**
  * 操作日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @Data
 @Schema(description = "操作日志")
-public class SysLogOperationDTO implements Serializable {
+public class SysLogOperationDto implements Serializable {
     @Schema(description = "id")
     private Long id;
 

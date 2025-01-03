@@ -3,7 +3,7 @@ package com.ronllan.modules.log.controller;
 import com.github.xiaoymin.knife4j.annotations.Ignore;
 import com.ronllan.common.annotation.LogOperation;
 import com.ronllan.common.utils.ExcelUtils;
-import com.ronllan.modules.log.dto.SysLogErrorDTO;
+import com.ronllan.modules.log.dto.SysLogErrorDto;
 import com.ronllan.modules.log.excel.SysLogErrorExcel;
 import com.ronllan.modules.log.service.SysLogErrorService;
 
@@ -29,7 +29,7 @@ import java.util.Map;
 /**
  * 异常日志
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 @AllArgsConstructor
@@ -48,10 +48,10 @@ public class SysLogErrorController {
             @Parameter(name = Constant.ORDER, description = "排序方式，可选值(asc、desc)")
     })
     @RequiresPermissions("sys:log:error")
-    public Result<PageData<SysLogErrorDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysLogErrorDTO> page = sysLogErrorService.page(params);
+    public Result<PageData<SysLogErrorDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
+        PageData<SysLogErrorDto> page = sysLogErrorService.page(params);
 
-        return new Result<PageData<SysLogErrorDTO>>().ok(page);
+        return new Result<PageData<SysLogErrorDto>>().ok(page);
     }
 
     @GetMapping("export")
@@ -59,7 +59,7 @@ public class SysLogErrorController {
     @LogOperation("导出")
     @RequiresPermissions("sys:log:error")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<SysLogErrorDTO> list = sysLogErrorService.list(params);
+        List<SysLogErrorDto> list = sysLogErrorService.list(params);
 
         ExcelUtils.exportExcelToTarget(response, null, "异常日志", list, SysLogErrorExcel.class);
     }

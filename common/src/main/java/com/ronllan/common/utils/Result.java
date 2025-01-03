@@ -10,7 +10,7 @@ import com.ronllan.common.exception.ErrorCode;
 /**
  * 响应数据
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @Schema(description = "响应")

@@ -12,7 +12,7 @@ import com.ronllan.modules.sys.entity.SysMenuEntity;
 /**
  * 菜单管理
  * 
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysMenuService extends BaseService<SysMenuEntity> {
 

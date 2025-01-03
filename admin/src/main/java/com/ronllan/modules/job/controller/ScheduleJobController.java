@@ -2,7 +2,7 @@ package com.ronllan.modules.job.controller;
 
 import com.github.xiaoymin.knife4j.annotations.Ignore;
 import com.ronllan.common.annotation.LogOperation;
-import com.ronllan.modules.job.dto.ScheduleJobDTO;
+import com.ronllan.modules.job.dto.ScheduleJobDto;
 import com.ronllan.modules.job.service.ScheduleJobService;
 
 import com.ronllan.common.constant.Constant;
@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 定时任务
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @RestController
 @RequestMapping("/sys/schedule")
@@ -44,26 +44,26 @@ public class ScheduleJobController {
             @Parameter(name = "beanName", description = "beanName")
     })
     @RequiresPermissions("sys:schedule:page")
-    public Result<PageData<ScheduleJobDTO>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<ScheduleJobDTO> page = scheduleJobService.page(params);
+    public Result<PageData<ScheduleJobDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
+        PageData<ScheduleJobDto> page = scheduleJobService.page(params);
 
-        return new Result<PageData<ScheduleJobDTO>>().ok(page);
+        return new Result<PageData<ScheduleJobDto>>().ok(page);
     }
 
     @GetMapping("{id}")
     @Operation(summary = "信息")
     @RequiresPermissions("sys:schedule:info")
-    public Result<ScheduleJobDTO> info(@PathVariable("id") Long id) {
-        ScheduleJobDTO schedule = scheduleJobService.get(id);
+    public Result<ScheduleJobDto> info(@PathVariable("id") Long id) {
+        ScheduleJobDto schedule = scheduleJobService.get(id);
 
-        return new Result<ScheduleJobDTO>().ok(schedule);
+        return new Result<ScheduleJobDto>().ok(schedule);
     }
 
     @PostMapping
     @Operation(summary = "保存")
     @LogOperation("保存")
     @RequiresPermissions("sys:schedule:save")
-    public Result save(@RequestBody ScheduleJobDTO dto) {
+    public Result save(@RequestBody ScheduleJobDto dto) {
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
 
         scheduleJobService.save(dto);
@@ -75,7 +75,7 @@ public class ScheduleJobController {
     @Operation(summary = "修改")
     @LogOperation("修改")
     @RequiresPermissions("sys:schedule:update")
-    public Result update(@RequestBody ScheduleJobDTO dto) {
+    public Result update(@RequestBody ScheduleJobDto dto) {
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
 
         scheduleJobService.update(dto);

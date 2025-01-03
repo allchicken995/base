@@ -3,7 +3,7 @@ package com.ronllan.modules.sys.enums;
 /**
  * 超级管理员枚举
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  * @since 1.0.0
  */
 public enum SuperAdminEnum {

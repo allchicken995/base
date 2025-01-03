@@ -8,7 +8,7 @@ import com.ronllan.common.service.BaseService;
 /**
  * 国际化
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 public interface SysLanguageService extends BaseService<SysLanguageEntity> {
 
