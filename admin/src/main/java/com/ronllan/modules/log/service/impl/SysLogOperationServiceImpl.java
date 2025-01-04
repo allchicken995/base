@@ -34,23 +34,19 @@ public class SysLogOperationServiceImpl extends BaseServiceImpl<SysLogOperationD
             getPage(params, Constant.CREATE_DATE, false),
             getWrapper(params)
         );
-
         return getPageData(page, SysLogOperationDto.class);
     }
 
     @Override
     public List<SysLogOperationDto> list(Map<String, Object> params) {
         List<SysLogOperationEntity> entityList = baseDao.selectList(getWrapper(params));
-
         return ConvertUtils.sourceToTarget(entityList, SysLogOperationDto.class);
     }
 
     private QueryWrapper<SysLogOperationEntity> getWrapper(Map<String, Object> params){
         String status = (String) params.get("status");
-
         QueryWrapper<SysLogOperationEntity> wrapper = new QueryWrapper<>();
         wrapper.eq(StringUtils.isNotBlank(status), "status", status);
-
         return wrapper;
     }
 

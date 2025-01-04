@@ -6,8 +6,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.ronllan.common.dict.ForeignKeyDict;
-
 /**
  * 外键注解
  *
@@ -18,12 +16,7 @@ import com.ronllan.common.dict.ForeignKeyDict;
 @Documented
 public @interface ForeignKeyField {
 	 /**
-     * 关联表
-     */
-	String[] table() default "";
-
-    /**
-     * 处理方式
-     */
-    String handle() default ForeignKeyDict.NOACTION;
+	 * 处理方式
+	 */
+	String[] handle() default "";
 }

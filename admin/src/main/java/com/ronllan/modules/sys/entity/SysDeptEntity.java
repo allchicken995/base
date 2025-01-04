@@ -3,7 +3,10 @@ package com.ronllan.modules.sys.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.ronllan.common.annotation.ForeignKeyField;
+import com.ronllan.common.dict.ForeignKeyDict;
 import com.ronllan.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,7 +22,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_dept")
 public class SysDeptEntity extends BaseEntity {
-    /**
+	/**
      * 上级ID
      */
     private Long pid;

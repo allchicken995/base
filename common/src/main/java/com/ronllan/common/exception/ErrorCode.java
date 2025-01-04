@@ -10,18 +10,50 @@ package com.ronllan.common.exception;
  * @since 1.0.0
  */
 public interface ErrorCode {
+	/**
+     * 服务器内部异常
+     */
     int INTERNAL_SERVER_ERROR = 500;
+    /**
+     * 未授权
+     */
     int UNAUTHORIZED = 401;
+    /**
+     * 拒绝访问，没有权限
+     */
     int FORBIDDEN = 403;
-
-    int NOT_NULL = 10001;
-    int DB_RECORD_EXISTS = 10002;
-    int PARAMS_GET_ERROR = 10003;
-    int ACCOUNT_PASSWORD_ERROR = 10004;
-    int ACCOUNT_DISABLE = 10005;
-    int IDENTIFIER_NOT_NULL = 10006;
-    int CAPTCHA_ERROR = 10007;
-    int SUB_MENU_EXIST = 10008;
+    /**
+     * {0}不能为空
+     */
+    int NOT_NULL_1 = 10001;
+    /**
+     * 数据库中已存在该记录
+     */
+    int DB_RECORD_EXISTS_0 = 10002;
+    /**
+     * 数据删除失败
+     */
+    int DATA_DELETE_ERROR_0 = 10003;
+    /**
+     * 账号或密码错误
+     */
+    int ACCOUNT_PASSWORD_ERROR_0 = 10004;
+    /**
+     * 账号已被停用
+     */
+    int ACCOUNT_DISABLE_0 = 10005;
+    /**
+     * 唯一标识不能为空
+     */
+    int IDENTIFIER_NOT_NULL_0 = 10006;
+    /**
+     * 验证码不正确
+     */
+    int CAPTCHA_ERROR_0 = 10007;
+    /**
+     * 处理对象不能为空
+     */
+    int HANDLE_OBJECT_NOT_NULL_0 = 10008;
     int PASSWORD_ERROR = 10009;
     int ACCOUNT_NOT_EXIST = 10010;
     int SUPERIOR_DEPT_ERROR = 10011;

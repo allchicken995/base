@@ -1,5 +1,6 @@
 package com.ronllan.modules.sys.dao;
 
+import com.ronllan.common.annotation.ForeignKey;
 import com.ronllan.common.dao.BaseDao;
 
 import org.apache.ibatis.annotations.Mapper;

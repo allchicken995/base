@@ -90,6 +90,15 @@ public interface BaseService<T> {
 
     /**
      * <p>
+     * 根据 ID 逻辑删除
+     * </p>
+     *
+     * @param id 主键ID
+     */
+    boolean delete(Serializable id);
+    
+    /**
+     * <p>
      * 根据 ID 删除
      * </p>
      *

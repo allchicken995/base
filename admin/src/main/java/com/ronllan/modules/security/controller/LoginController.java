@@ -52,7 +52,7 @@ public class LoginController {
     @Operation(summary = "验证码")
     public void captcha(HttpServletResponse response, String uuid) throws IOException {
         //uuid不能为空
-        AssertUtils.isBlank(uuid, ErrorCode.IDENTIFIER_NOT_NULL);
+        AssertUtils.isBlank(uuid, ErrorCode.IDENTIFIER_NOT_NULL_0);
         //生成验证码
         captchaService.create(response, uuid);
     }
@@ -65,7 +65,7 @@ public class LoginController {
         //验证码是否正确
         boolean flag = captchaService.validate(login.getUuid(), login.getCaptcha());
         if (!flag) {
-            return new Result().error(ErrorCode.CAPTCHA_ERROR);
+            return new Result().error(ErrorCode.CAPTCHA_ERROR_0);
         }
         //用户信息
         SysUserDto user = sysUserService.getByUsername(login.getUsername());
@@ -80,7 +80,7 @@ public class LoginController {
             log.setStatus(LoginStatusEnum.FAIL.value());
             log.setCreatorName(login.getUsername());
             sysLogLoginService.save(log);
-            throw new DefineException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+            throw new DefineException(ErrorCode.ACCOUNT_PASSWORD_ERROR_0);
         }
         //密码错误
         if (!PasswordUtils.matches(login.getPassword(), user.getPassword())) {
@@ -88,7 +88,7 @@ public class LoginController {
             log.setCreator(user.getId());
             log.setCreatorName(user.getUsername());
             sysLogLoginService.save(log);
-            throw new DefineException(ErrorCode.ACCOUNT_PASSWORD_ERROR);
+            throw new DefineException(ErrorCode.ACCOUNT_PASSWORD_ERROR_0);
         }
         //账号停用
         if (user.getStatus() == UserStatusEnum.DISABLE.value()) {
@@ -96,7 +96,7 @@ public class LoginController {
             log.setCreator(user.getId());
             log.setCreatorName(user.getUsername());
             sysLogLoginService.save(log);
-            throw new DefineException(ErrorCode.ACCOUNT_DISABLE);
+            throw new DefineException(ErrorCode.ACCOUNT_DISABLE_0);
         }
         //登录成功
         log.setStatus(LoginStatusEnum.SUCCESS.value());

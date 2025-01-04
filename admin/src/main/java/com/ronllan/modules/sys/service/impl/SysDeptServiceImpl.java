@@ -1,5 +1,6 @@
 package com.ronllan.modules.sys.service.impl;
 
+import com.ronllan.common.annotation.ForeignKey;
 import com.ronllan.common.constant.Constant;
 import com.ronllan.common.exception.DefineException;
 import com.ronllan.common.exception.ErrorCode;

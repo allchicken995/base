@@ -23,7 +23,9 @@ import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import com.ronllan.common.annotation.ForeignKey;
 import com.ronllan.common.constant.Constant;
+import com.ronllan.common.dao.BaseDao;
 import com.ronllan.common.page.PageData;
 import com.ronllan.common.service.BaseService;
 import com.ronllan.common.utils.ConvertUtils;
@@ -33,10 +35,11 @@ import com.ronllan.common.utils.ConvertUtils;
  *
  * @author glq gugameds066@gmail.com
  */
-public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements BaseService<T> {
+public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseService<T> {
 	
     @Autowired
     protected M baseDao;
+    
     protected Log log = LogFactory.getLog(getClass());
 
     /**
@@ -202,4 +205,11 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements Bas
     public boolean deleteBatchIds(Collection<? extends Serializable> idList) {
         return SqlHelper.retBool(baseDao.deleteBatchIds(idList));
     }
+
+	@Override
+	public boolean delete(Serializable id) {
+		return SqlHelper.retBool(baseDao.delete(id));
+	}
+    
+    
 }

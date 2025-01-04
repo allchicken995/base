@@ -3,6 +3,8 @@ package com.ronllan.modules.sys.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.ronllan.common.annotation.ForeignKeyField;
+import com.ronllan.common.dict.ForeignKeyDict;
 import com.ronllan.common.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,6 +20,12 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_dict_type")
 public class SysDictTypeEntity extends BaseEntity {
+	/**
+     * 外键
+     */
+	@TableField(exist = false)
+    @ForeignKeyField(handle={"com.ronllan.modules.sys.entity.SysDictDataEntity.dictTypeId="+ForeignKeyDict.CASCADE})
+    private Long fk;
     /**
      * 字典类型
      */

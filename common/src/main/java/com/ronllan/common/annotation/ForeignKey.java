@@ -7,7 +7,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 外键操作注解
+ * 启用外键关联操作
  *
  * @author glq gugameds066@gmail.com
  */
