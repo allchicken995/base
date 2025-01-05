@@ -12,9 +12,7 @@ import com.ronllan.common.service.impl.BaseServiceImpl;
 import com.ronllan.common.utils.ConvertUtils;
 import com.ronllan.modules.sys.dao.SysDictTypeDao;
 import com.ronllan.modules.sys.dto.SysDictTypeDto;
-import com.ronllan.modules.sys.entity.SysDictDataEntity;
 import com.ronllan.modules.sys.entity.SysDictTypeEntity;
-import com.ronllan.modules.sys.service.SysDictDataService;
 import com.ronllan.modules.sys.service.SysDictTypeService;
 
 import lombok.AllArgsConstructor;
@@ -27,7 +25,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysDictTypeEntity> implements SysDictTypeService {
-	private final SysDictDataService sysDictDataService;
 
     @Override
     public PageData<SysDictTypeDto> page(Map<String, Object> params) {
@@ -40,7 +37,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
 
     @Override
     public SysDictTypeDto get(Long id) {
-        SysDictTypeEntity entity = baseDao.getObjectById(id);
+    	SysDictTypeEntity entity = baseDao.getObjectById(new SysDictTypeEntity(id));
         return ConvertUtils.sourceToTarget(entity, SysDictTypeDto.class);
     }
 
@@ -62,7 +59,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long[] ids) {
     	for(Long id : ids) {
-    		baseDao.delete(new SysDictTypeEntity() {{setId(id);}});
+    		baseDao.delete(new SysDictTypeEntity(id));
     	}
     }
 

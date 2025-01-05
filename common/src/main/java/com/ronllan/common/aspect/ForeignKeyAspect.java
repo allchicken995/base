@@ -36,7 +36,7 @@ public class ForeignKeyAspect {
 	@Autowired
 	private ApplicationContext applicationContext;
 	
-    @Before(value = "@annotation(com.ronllan.common.annotation.ForeignKey)")
+    @Before(value = "execution(Object com.ronllan.common.dao.BaseDao.getObjectById(Object)) || @annotation(com.ronllan.common.annotation.ForeignKey)")
     public void before(JoinPoint joinPoint) throws Throwable {
     	Object[] args = joinPoint.getArgs();
     	if (args != null && args.length > 0) {

@@ -18,14 +18,5 @@
 			</if>
 		</where>
 	</select>
-
-	<select id="getObjectById" resultMap="SysDictTypeEntity">
-		select 
-			sysDictType.*
-		from sys_dict_type sysDictType 
-		<where>
-			and sysDictType.id = #{id}
-		</where>
-	</select>
 	
 </mapper>

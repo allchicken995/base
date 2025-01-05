@@ -1,5 +1,6 @@
 package com.ronllan.common.dao;
 
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -12,6 +13,13 @@ import com.ronllan.common.annotation.ForeignKey;
  * @since 1.0.0
  */
 public interface BaseDao<T> extends BaseMapper<T> {
+	/**
+     * 根据ID查询对象
+     *
+     * @param entity 实体对象
+     */
+	@Select("select * from ${tableName} where id=#{id} and logical_delete=0 ")
+	T getObjectById(T entity);
 	/**
      * 外键处理逻辑
      *

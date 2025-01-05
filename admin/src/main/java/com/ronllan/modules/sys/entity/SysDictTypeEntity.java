@@ -21,6 +21,18 @@ import java.util.Date;
 @TableName("sys_dict_type")
 public class SysDictTypeEntity extends BaseEntity {
 	/**
+     * 构造器
+     */
+	public SysDictTypeEntity() {
+		super();
+	}
+	/**
+     * 构造器
+     */
+	public SysDictTypeEntity(Long id) {
+		super.setId(id);
+	}
+	/**
      * 外键
      */
 	@TableField(exist = false)

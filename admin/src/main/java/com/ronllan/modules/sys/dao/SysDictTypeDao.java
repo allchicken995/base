@@ -20,9 +20,5 @@ public interface SysDictTypeDao extends BaseDao<SysDictTypeEntity> {
      * 字典类型列表
      */
     List<SysDictTypeEntity> getList(Map<String, Object> params);
-    /**
-     * 根据ID获取字典类型
-     */
-    SysDictTypeEntity getObjectById(Long id);
     
 }
