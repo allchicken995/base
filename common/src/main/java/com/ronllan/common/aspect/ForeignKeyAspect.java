@@ -86,32 +86,42 @@ public class ForeignKeyAspect {
     							throw new DefineException(ErrorCode.HANDLE_OBJECT_NOT_NULL_0);
     						}
     						String handleInterfaceName = handleClassName.replace("entity", "dao").replace("Entity", "Dao");
+    						BaseEntity target = (BaseEntity) joinPoint.getArgs()[0];
     						BaseDao dao = (BaseDao) applicationContext.getBean(Class.forName(handleInterfaceName));
     						switch (handleType) {
 								case ForeignKeyDict.CASCADE:
-									BaseEntity target = (BaseEntity) joinPoint.getArgs()[0];
 									QueryWrapper wrapper = new QueryWrapper<>();
 							        wrapper.eq(foreignKey.replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), target.getId());
 									List<BaseEntity> list = dao.selectList(wrapper);
 									for(BaseEntity entity : list) {
 										dao.delete(entity);
 									}
-//									Object object = Class.forName(handleClassName).newInstance();
-//									for (Field temp : object.getClass().getDeclaredFields()) {
-//										temp.setAccessible(true);
-//										if(foreignKey.equals(temp.getName())){
-//											temp.set(object, id);
-//										}
-//									}
 									break;
 								case ForeignKeyDict.SETNULL:
-									
+									String tableName = null;
+									Object object = Class.forName(handleClassName).newInstance();
+									for(Annotation temp : object.getClass().getAnnotations()) {
+						    			if(TableName.class.getCanonicalName().equals(temp.annotationType().getCanonicalName())) {
+						    				tableName = ((TableName)temp).value();
+						    			}
+						    		}
+									for (Field temp : object.getClass().getSuperclass().getDeclaredFields()) {
+										temp.setAccessible(true);
+										if("tableName".equals(temp.getName())){
+											temp.set(object, tableName);
+										}else if("foreignKey".equals(temp.getName())){
+											temp.set(object, foreignKey.replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase());
+										}else if("foreignValue".equals(temp.getName())){
+											temp.set(object, target.getId());
+										}
+									}
+									dao.handleForeignKey(object);
 									break;
-								default:
+								case ForeignKeyDict.NOACTION:
 									break;
+								case ForeignKeyDict.RESTRICT:
+									throw new DefineException(ErrorCode.DATA_DELETE_NOT_ALLOW_0);
 							}
-//    						dao.handleForeignKey(className);
-    						System.out.println(dao);
     					}
     					break;
     				}

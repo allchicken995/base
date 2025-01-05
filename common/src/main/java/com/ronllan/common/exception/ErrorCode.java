@@ -54,8 +54,14 @@ public interface ErrorCode {
      * 处理对象不能为空
      */
     int HANDLE_OBJECT_NOT_NULL_0 = 10008;
-    int PASSWORD_ERROR = 10009;
-    int ACCOUNT_NOT_EXIST = 10010;
+    /**
+     * 原密码不正确
+     */
+    int PASSWORD_ERROR_0 = 10009;
+    /**
+     * 存在关联数据，不允许删除
+     */
+    int DATA_DELETE_NOT_ALLOW_0 = 10010;
     int SUPERIOR_DEPT_ERROR = 10011;
     int SUPERIOR_MENU_ERROR = 10012;
     int DATA_SCOPE_PARAMS_ERROR = 10013;

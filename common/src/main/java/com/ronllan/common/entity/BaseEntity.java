@@ -40,4 +40,14 @@ public abstract class BaseEntity implements Serializable {
      */
     @TableField(exist = false)
     private String tableName;
+    /**
+     * 外键名
+     */
+    @TableField(exist = false)
+    private String foreignKey;
+    /**
+     * 外键值
+     */
+    @TableField(exist = false)
+    private Long foreignValue;
 }
