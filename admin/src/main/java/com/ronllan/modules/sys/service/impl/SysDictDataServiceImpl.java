@@ -88,7 +88,7 @@ public class SysDictDataServiceImpl extends BaseServiceImpl<SysDictDataDao, SysD
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long[] ids) {
-        deleteBatchIds(Arrays.asList(ids));
+//        deleteBatchIds(Arrays.asList(ids));
     }
 
 }

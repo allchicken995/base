@@ -66,7 +66,7 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         //删除菜单
-        deleteById(id);
+//        deleteById(id);
 
         //删除菜单国际化
         sysLanguageService.deleteLanguage("sys_menu", id);

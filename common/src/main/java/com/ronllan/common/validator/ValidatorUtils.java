@@ -40,7 +40,6 @@ public class ValidatorUtils {
         Validator validator = Validation.byDefaultProvider().configure().messageInterpolator(
                         new ResourceBundleMessageInterpolator(new MessageSourceResourceBundleLocator(getMessageSource())))
                 .buildValidatorFactory().getValidator();
-
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
         if (!constraintViolations.isEmpty()) {
             ConstraintViolation<Object> constraint = constraintViolations.iterator().next();

@@ -1,6 +1,6 @@
 package com.ronllan.common.dao;
 
-import java.io.Serializable;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ronllan.common.annotation.ForeignKey;
@@ -19,10 +19,11 @@ public interface BaseDao<T> extends BaseMapper<T> {
      */
     int handleForeignKey(T entity);
 	/**
-     * 根据 ID 逻辑删除
+     * 逻辑删除
      *
-     * @param id 主键ID
+     * @param entity 实体对象
      */
 	@ForeignKey
-    int delete(Serializable id);
+	@Update("update ${tableName} set logical_delete = id where id=#{id} ")
+    int delete(T entity);
 }

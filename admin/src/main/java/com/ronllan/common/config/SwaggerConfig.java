@@ -26,7 +26,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI().info(new Info()
-                .title("余姚外宣素材报送平台")
+                .title("基础框架")
                 .description("admin文档")
                 .version("3.0")
                 .termsOfService("https://www.ronllan.com"));

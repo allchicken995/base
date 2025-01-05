@@ -15,6 +15,6 @@
 			</if>
 		</where>
 		order by sysDictData.sort
-	</select>
+	</select>	
 	
 </mapper>

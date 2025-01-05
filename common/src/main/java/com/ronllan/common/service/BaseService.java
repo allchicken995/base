@@ -90,28 +90,11 @@ public interface BaseService<T> {
 
     /**
      * <p>
-     * 根据 ID 逻辑删除
+     * 逻辑删除
      * </p>
      *
-     * @param id 主键ID
+     * @param entity 实体对象
      */
-    boolean delete(Serializable id);
+    boolean delete(T entity);
     
-    /**
-     * <p>
-     * 根据 ID 删除
-     * </p>
-     *
-     * @param id 主键ID
-     */
-    boolean deleteById(Serializable id);
-
-    /**
-     * <p>
-     * 删除（根据ID 批量删除）
-     * </p>
-     *
-     * @param idList 主键ID列表
-     */
-    boolean deleteBatchIds(Collection<? extends Serializable> idList);
 }

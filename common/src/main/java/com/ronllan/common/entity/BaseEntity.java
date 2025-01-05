@@ -35,5 +35,9 @@ public abstract class BaseEntity implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT)
     private Long logicalDelete;
-    
+    /**
+     * 表名
+     */
+    @TableField(exist = false)
+    private String tableName;
 }

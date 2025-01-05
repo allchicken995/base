@@ -81,7 +81,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
         }
 
         //删除数据
-        this.deleteBatchIds(Arrays.asList(ids));
+//        this.deleteBatchIds(Arrays.asList(ids));
     }
 
     @Override

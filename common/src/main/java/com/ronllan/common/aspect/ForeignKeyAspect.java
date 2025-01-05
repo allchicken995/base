@@ -7,15 +7,18 @@ import java.util.List;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ronllan.common.annotation.ForeignKeyField;
 import com.ronllan.common.dao.BaseDao;
 import com.ronllan.common.dict.ForeignKeyDict;
+import com.ronllan.common.entity.BaseEntity;
 import com.ronllan.common.exception.DefineException;
 import com.ronllan.common.exception.ErrorCode;
 
@@ -33,6 +36,27 @@ public class ForeignKeyAspect {
 	@Autowired
 	private ApplicationContext applicationContext;
 	
+    @Before(value = "@annotation(com.ronllan.common.annotation.ForeignKey)")
+    public void before(JoinPoint joinPoint) throws Throwable {
+    	Object[] args = joinPoint.getArgs();
+    	if (args != null && args.length > 0) {
+    		String tableName = null;
+    		Object object = args[0];
+    		for(Annotation annotation : object.getClass().getAnnotations()) {
+    			if(TableName.class.getCanonicalName().equals(annotation.annotationType().getCanonicalName())) {
+    				tableName = ((TableName)annotation).value();
+    			}
+    		}
+    		for (Field field : object.getClass().getSuperclass().getDeclaredFields()) {
+    			field.setAccessible(true);
+				if("tableName".equals(field.getName())){
+					field.set(object, tableName);
+					break;
+				}
+			}
+        }
+    }
+	
     @AfterReturning(returning = "result", pointcut = "@annotation(com.ronllan.common.annotation.ForeignKey)")
     public void after(JoinPoint joinPoint, Integer result) throws Throwable {
     	if(result!=1) {
@@ -46,7 +70,7 @@ public class ForeignKeyAspect {
     	for(Field field : Class.forName(className).getDeclaredFields()) {
     		if("fk".equals(field.getName())) {
     			for(Annotation annotation : field.getAnnotations()) {
-    				if("com.ronllan.common.annotation.ForeignKeyField".equals(annotation.annotationType().getCanonicalName())) {
+    				if(ForeignKeyField.class.getCanonicalName().equals(annotation.annotationType().getCanonicalName())) {
     					for(String handle : ((ForeignKeyField)annotation).handle()) {
     						String foreignKey = handle.split("=")[0].split("\\.")[handle.split("=")[0].split("\\.").length-1];
     						String handleType = handle.split("=")[1];
@@ -65,10 +89,13 @@ public class ForeignKeyAspect {
     						BaseDao dao = (BaseDao) applicationContext.getBean(Class.forName(handleInterfaceName));
     						switch (handleType) {
 								case ForeignKeyDict.CASCADE:
-									Long id = (Long) joinPoint.getArgs()[0];
+									BaseEntity target = (BaseEntity) joinPoint.getArgs()[0];
 									QueryWrapper wrapper = new QueryWrapper<>();
-							        wrapper.eq(foreignKey, id);
-									List list = dao.selectList(wrapper);
+							        wrapper.eq(foreignKey.replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), target.getId());
+									List<BaseEntity> list = dao.selectList(wrapper);
+									for(BaseEntity entity : list) {
+										dao.delete(entity);
+									}
 //									Object object = Class.forName(handleClassName).newInstance();
 //									for (Field temp : object.getClass().getDeclaredFields()) {
 //										temp.setAccessible(true);
@@ -76,8 +103,6 @@ public class ForeignKeyAspect {
 //											temp.set(object, id);
 //										}
 //									}
-									
-									System.out.println(list);
 									break;
 								case ForeignKeyDict.SETNULL:
 									
@@ -88,8 +113,10 @@ public class ForeignKeyAspect {
 //    						dao.handleForeignKey(className);
     						System.out.println(dao);
     					}
+    					break;
     				}
     			}
+    			break;
     		}
     	}
     }

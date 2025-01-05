@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
@@ -23,7 +22,6 @@ import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
-import com.ronllan.common.annotation.ForeignKey;
 import com.ronllan.common.constant.Constant;
 import com.ronllan.common.dao.BaseDao;
 import com.ronllan.common.page.PageData;
@@ -196,19 +194,9 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         return baseDao.selectById(id);
     }
 
-    @Override
-    public boolean deleteById(Serializable id) {
-        return SqlHelper.retBool(baseDao.deleteById(id));
-    }
-
-    @Override
-    public boolean deleteBatchIds(Collection<? extends Serializable> idList) {
-        return SqlHelper.retBool(baseDao.deleteBatchIds(idList));
-    }
-
 	@Override
-	public boolean delete(Serializable id) {
-		return SqlHelper.retBool(baseDao.delete(id));
+	public boolean delete(T entity) {
+		return SqlHelper.retBool(baseDao.delete(entity));
 	}
     
     

@@ -28,13 +28,4 @@
 		</where>
 	</select>
 	
-	<delete id="delete">
-		update 
-			sys_dict_type 
-		set
-			logical_delete = id
-		where
-			id = #{id}
-	</delete>	
-	
 </mapper>

@@ -148,7 +148,7 @@ public class SysUserController {
         if (idList.contains(SecurityUser.getUserId())) {
             throw new DefineException(ErrorCode.DEL_MYSELF_ERROR);
         }
-        sysUserService.deleteBatchIds(idList);
+//        sysUserService.deleteBatchIds(idList);
         return new Result();
     }
 

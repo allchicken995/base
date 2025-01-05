@@ -15,6 +15,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface LogOperation {
-
+	/**
+     * 操作备注
+     */
 	String value() default "";
 }
