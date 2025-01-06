@@ -1,25 +1,24 @@
 package com.ronllan.common.exception;
 
-import cn.hutool.core.map.MapUtil;
-import com.ronllan.common.exception.ErrorCode;
-import com.ronllan.common.exception.ExceptionUtils;
-import com.ronllan.common.utils.HttpContextUtils;
-import com.ronllan.common.utils.IpUtils;
-import com.ronllan.common.utils.JsonUtils;
-import com.ronllan.common.utils.Result;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Map;
+
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.ronllan.common.utils.HttpContextUtils;
+import com.ronllan.common.utils.IpUtils;
+import com.ronllan.common.utils.JsonUtils;
+import com.ronllan.common.utils.Result;
 import com.ronllan.modules.log.entity.SysLogErrorEntity;
 import com.ronllan.modules.log.service.SysLogErrorService;
 
-import java.util.Map;
+import cn.hutool.core.map.MapUtil;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**

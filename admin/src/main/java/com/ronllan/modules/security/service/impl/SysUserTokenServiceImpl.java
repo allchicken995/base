@@ -36,7 +36,9 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
         //过期时间
         Date expireTime = new Date(now.getTime() + EXPIRE * 1000);
         //判断是否生成过token
-        SysUserTokenEntity tokenEntity = getObjectById(userId);
+        SysUserTokenEntity entity = new SysUserTokenEntity();
+        entity.setUserId(userId);
+        SysUserTokenEntity tokenEntity = getObject(entity);
         if (tokenEntity == null) {
             //生成一个token
             token = TokenGenerator.generateValue();
