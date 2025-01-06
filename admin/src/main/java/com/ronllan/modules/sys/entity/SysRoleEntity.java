@@ -3,11 +3,12 @@ package com.ronllan.modules.sys.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.ronllan.common.annotation.ForeignKeyField;
+import com.ronllan.common.dict.ForeignKeyDict;
 import com.ronllan.common.entity.BaseEntity;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Date;
 
 /**
  * 角色
@@ -31,14 +32,4 @@ public class SysRoleEntity extends BaseEntity {
      */
     @TableField(fill = FieldFill.INSERT)
     private Long deptId;
-    /**
-     * 更新者
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Long updater;
-    /**
-     * 更新时间
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateDate;
 }

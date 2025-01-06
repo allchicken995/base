@@ -43,10 +43,6 @@ public class SysDictTypeEntity extends BaseEntity {
      */
     private Integer sort;
     /**
-     * 部门ID
-     */
-    private Long deptId;
-    /**
      * 更新者
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)

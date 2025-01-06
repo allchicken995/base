@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.ronllan.common.annotation.ForeignKeyField;
+import com.ronllan.common.dict.ForeignKeyDict;
 import com.ronllan.common.entity.BaseEntity;
 
 import lombok.Data;
@@ -20,6 +22,17 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_dept")
 public class SysDeptEntity extends BaseEntity {
+	/**
+     * 外键
+     */
+	@TableField(exist = false)
+	@ForeignKeyField(handle={
+    		"com.ronllan.modules.sys.entity.SysUserEntity.deptId="+ForeignKeyDict.SETNULL
+    	   ,"com.ronllan.modules.sys.entity.SysUserEntity.deptId="+ForeignKeyDict.SETNULL
+    	   ,"com.ronllan.modules.sys.entity.SysRoleEntity.deptId="+ForeignKeyDict.SETNULL
+    	   ,"com.ronllan.modules.sys.entity.SysRoleDataScopeEntity.deptId="+ForeignKeyDict.SETNULL
+    })
+	private Long fk;
 	/**
      * 上级ID
      */

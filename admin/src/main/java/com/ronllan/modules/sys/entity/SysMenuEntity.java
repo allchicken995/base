@@ -1,13 +1,13 @@
 package com.ronllan.modules.sys.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.ronllan.common.annotation.ForeignKeyField;
+import com.ronllan.common.dict.ForeignKeyDict;
 import com.ronllan.common.entity.BaseEntity;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.Date;
 
 /**
  * 菜单管理
@@ -18,6 +18,15 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_menu")
 public class SysMenuEntity extends BaseEntity {
+	/**
+     * 外键
+     */
+	@TableField(exist = false)
+	@ForeignKeyField(handle={
+    		"com.ronllan.modules.sys.entity.SysRoleMenuEntity.roleId="+ForeignKeyDict.CASCADE
+    	   ,"com.ronllan.modules.sys.entity.SysRoleUserEntity.roleId="+ForeignKeyDict.CASCADE
+    })
+	private Long fk;
     /**
      * 父菜单ID，一级菜单为0
      */
@@ -55,16 +64,6 @@ public class SysMenuEntity extends BaseEntity {
      * 排序
      */
     private Integer sort;
-    /**
-     * 更新者
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Long updater;
-    /**
-     * 更新时间
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateDate;
     /**
      * 上级菜单名称
      */
