@@ -1,6 +1,5 @@
 package com.ronllan.common.dao;
 
-import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

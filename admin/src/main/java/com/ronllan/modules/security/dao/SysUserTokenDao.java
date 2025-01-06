@@ -20,8 +20,6 @@ import java.util.Map;
 @Mapper
 public interface SysUserTokenDao extends BaseDao<SysUserTokenEntity> {
 
-    SysUserTokenEntity getByToken(String token);
-
     void logout(@Param("userId") Long userId, @Param("expireDate") Date expireDate);
 
     /**

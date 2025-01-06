@@ -21,16 +21,6 @@
 			</foreach>
 		</if>
 	</select>
-	
-	<select id="getLogin" resultMap="SysUserEntity">
-		select 
-			* 
-		from 
-			sys_user 
-		where 
-			username = #{value}
-		and logical_delete = 0
-	</select>
 
 	<update id="updatePassword">
 		update 

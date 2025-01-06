@@ -31,7 +31,7 @@ public class SysRoleDataScopeServiceImpl extends BaseServiceImpl<SysRoleDataScop
     @Transactional(rollbackFor = Exception.class)
     public void saveOrUpdate(Long roleId, List<Long> deptIdList) {
         //先删除角色数据权限关系
-        deleteByRoleIds(new Long[]{roleId});
+//        deleteByRoleIds(new Long[]{roleId});
 
         //角色没有一个数据权限的情况
         if(CollUtil.isEmpty(deptIdList)){
@@ -48,9 +48,5 @@ public class SysRoleDataScopeServiceImpl extends BaseServiceImpl<SysRoleDataScop
             insert(sysRoleDataScopeEntity);
         }
     }
-
-    @Override
-    public void deleteByRoleIds(Long[] roleIds) {
-        baseDao.deleteByRoleIds(roleIds);
-    }
+    
 }

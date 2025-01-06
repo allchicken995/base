@@ -58,9 +58,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long[] ids) {
-    	for(Long id : ids) {
-    		deleteById(id);
-    	}
+    	deleteById(ids);
     }
 
 }

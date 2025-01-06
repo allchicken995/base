@@ -32,7 +32,7 @@ import java.util.Map;
 @AllArgsConstructor
 @RestControllerAdvice
 public class DefineExceptionHandler {
-    private final SysLogErrorService sysLogErrorService;
+    private final SysLogErrorService sysLogErrorServiceImpl;
 
     /**
      * 处理自定义异常
@@ -41,7 +41,6 @@ public class DefineExceptionHandler {
     public Result handleRenException(DefineException ex) {
         Result result = new Result();
         result.error(ex.getCode(), ex.getMsg());
-
         return result;
     }
 
@@ -49,7 +48,6 @@ public class DefineExceptionHandler {
     public Result handleDuplicateKeyException(DuplicateKeyException ex) {
         Result result = new Result();
         result.error(ErrorCode.DB_RECORD_EXISTS_0);
-
         return result;
     }
 
@@ -57,7 +55,6 @@ public class DefineExceptionHandler {
     public Result handleUnauthorizedException(UnauthorizedException ex) {
         Result result = new Result();
         result.error(ErrorCode.FORBIDDEN);
-
         return result;
     }
 
@@ -65,9 +62,7 @@ public class DefineExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result handleException(Exception ex) {
         log.error(ex.getMessage(), ex);
-
         saveLog(ex);
-
         return new Result().error();
     }
 
@@ -76,7 +71,6 @@ public class DefineExceptionHandler {
      */
     private void saveLog(Exception ex) {
         SysLogErrorEntity log = new SysLogErrorEntity();
-
         //请求相关信息
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         log.setIp(IpUtils.getIpAddr(request));
@@ -87,11 +81,9 @@ public class DefineExceptionHandler {
         if (MapUtil.isNotEmpty(params)) {
             log.setRequestParams(JsonUtils.toJsonString(params));
         }
-
         //异常信息
         log.setErrorInfo(ExceptionUtils.getErrorStackTrace(ex));
-
         //保存
-        sysLogErrorService.save(log);
+        sysLogErrorServiceImpl.save(log);
     }
 }

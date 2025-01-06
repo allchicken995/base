@@ -134,6 +134,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean insert(T entity) {
         return BaseServiceImpl.retBool(baseDao.insert(entity));
     }
@@ -150,6 +151,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateById(T entity) {
         return BaseServiceImpl.retBool(baseDao.updateById(entity));
     }
@@ -166,6 +168,34 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     }
     
     @Override
+	public List<T> getObjectList(T entity) {
+		QueryWrapper<T> wrapper = new QueryWrapper<>();
+        wrapper.eq("logical_delete", 0);
+        for(Field field : entity.getClass().getDeclaredFields()) {
+        	field.setAccessible(true);
+        	try {
+				Object object = field.get(entity);
+				if(object!=null) {
+					Annotation[] annotation = field.getAnnotations();
+		        	if(annotation!=null&&annotation.length>0) {
+		        		
+		        	}else {
+//		        		if(object.getClass().equals(String.class)) {
+//		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+//		        		}else {
+//		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+//		        		}
+		        		wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        	}
+				}
+			} catch (Exception e) {
+				throw new DefineException(e.getLocalizedMessage(),e);
+			} 
+        }
+		return baseDao.selectList(wrapper);
+	}
+    
+    @Override
 	public T getObject(T entity) {
 		QueryWrapper<T> wrapper = new QueryWrapper<>();
         wrapper.eq("logical_delete", 0);
@@ -178,11 +208,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		        	if(annotation!=null&&annotation.length>0) {
 		        		
 		        	}else {
-		        		if(object.getClass().equals(String.class)) {
-		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
-		        		}else {
-		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
-		        		}
+		        		wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
 		        	}
 				}
 			} catch (Exception e) {
@@ -201,6 +227,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 	}
 
 	@Override
+	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteById(Serializable id) {
 		QueryWrapper<T> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
@@ -213,4 +240,14 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         }
 	}
     
+	@Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean deleteById(Collection<? extends Serializable> idList) {
+    	for(Serializable id : idList) {
+    		if(!deleteById(id)) {
+    			throw new DefineException(ErrorCode.DATA_DELETE_ERROR_0);
+    		}
+    	}
+        return true;
+    }
 }

@@ -113,7 +113,7 @@ public class SysRoleServiceImpl extends BaseServiceImpl<SysRoleDao, SysRoleEntit
         sysRoleMenuService.deleteByRoleIds(ids);
 
         //删除角色数据权限关系
-        sysRoleDataScopeService.deleteByRoleIds(ids);
+//        sysRoleDataScopeService.deleteByRoleIds(ids);
     }
 
 }

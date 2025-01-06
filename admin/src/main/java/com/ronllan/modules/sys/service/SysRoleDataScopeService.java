@@ -25,10 +25,4 @@ public interface SysRoleDataScopeService extends BaseService<SysRoleDataScopeEnt
      * @param deptIdList  部门ID列表
      */
     void saveOrUpdate(Long roleId, List<Long> deptIdList);
-
-    /**
-     * 根据角色id，删除角色数据权限关系
-     * @param roleId 角色ids
-     */
-    void deleteByRoleIds(Long[] roleId);
 }

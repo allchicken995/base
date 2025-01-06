@@ -3,7 +3,6 @@ package com.ronllan.modules.security.service;
 import java.util.List;
 import java.util.Set;
 
-import com.ronllan.common.service.BaseService;
 import com.ronllan.common.user.UserDetail;
 import com.ronllan.modules.security.entity.SysUserTokenEntity;
 import com.ronllan.modules.sys.entity.SysUserEntity;
@@ -13,7 +12,7 @@ import com.ronllan.modules.sys.entity.SysUserEntity;
  *
  * @author glq gugameds066@gmail.com
  */
-public interface ShiroService extends BaseService<SysUserEntity>{
+public interface ShiroService{
     /**
      * 获取用户权限列表
      */

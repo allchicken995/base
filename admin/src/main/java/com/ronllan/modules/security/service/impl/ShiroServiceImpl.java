@@ -8,24 +8,25 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
-import com.ronllan.common.service.impl.BaseServiceImpl;
 import com.ronllan.common.user.UserDetail;
 import com.ronllan.modules.security.dao.SysUserTokenDao;
 import com.ronllan.modules.security.entity.SysUserTokenEntity;
 import com.ronllan.modules.security.service.ShiroService;
+import com.ronllan.modules.security.service.SysUserTokenService;
 import com.ronllan.modules.sys.dao.SysMenuDao;
 import com.ronllan.modules.sys.dao.SysRoleDataScopeDao;
-import com.ronllan.modules.sys.dao.SysUserDao;
 import com.ronllan.modules.sys.entity.SysUserEntity;
 import com.ronllan.modules.sys.enums.SuperAdminEnum;
+import com.ronllan.modules.sys.service.SysUserService;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class ShiroServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements ShiroService {
+public class ShiroServiceImpl implements ShiroService {
     private final SysMenuDao sysMenuDao;
-    private final SysUserTokenDao sysUserTokenDao;
+    private final SysUserService sysUserServiceImpl;
+    private final SysUserTokenService SysUserTokenServiceImpl;
     private final SysRoleDataScopeDao sysRoleDataScopeDao;
 
     @Override
@@ -52,12 +53,14 @@ public class ShiroServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity>
 
     @Override
     public SysUserTokenEntity getByToken(String token) {
-        return sysUserTokenDao.getByToken(token);
+    	SysUserTokenEntity entity = new SysUserTokenEntity();
+    	entity.setToken(token);
+        return SysUserTokenServiceImpl.getObject(entity);
     }
 
     @Override
     public SysUserEntity getUser(Long userId) {
-        return getObjectById(userId);
+        return sysUserServiceImpl.getObjectById(userId);
     }
 
     @Override

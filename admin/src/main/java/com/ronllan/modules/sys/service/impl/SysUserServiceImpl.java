@@ -1,6 +1,17 @@
 package com.ronllan.modules.sys.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ronllan.common.page.PageData;
+import com.ronllan.common.service.impl.BaseServiceImpl;
+import com.ronllan.common.user.UserDetail;
+import com.ronllan.common.utils.ConvertUtils;
 import com.ronllan.modules.security.dto.LoginDto;
 import com.ronllan.modules.security.password.PasswordUtils;
 import com.ronllan.modules.security.user.SecurityUser;
@@ -12,18 +23,7 @@ import com.ronllan.modules.sys.service.SysDeptService;
 import com.ronllan.modules.sys.service.SysRoleUserService;
 import com.ronllan.modules.sys.service.SysUserService;
 
-import com.ronllan.common.page.PageData;
-import com.ronllan.common.service.impl.BaseServiceImpl;
-import com.ronllan.common.user.UserDetail;
-import com.ronllan.common.utils.ConvertUtils;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -72,7 +72,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
     @Override
     public SysUserDto getLogin(LoginDto login) {
-    	SysUserEntity entity = baseDao.getLogin(login.getUsername());
+    	SysUserEntity entity = new SysUserEntity();
+    	entity.setUsername(login.getUsername());
+    	entity = getObject(entity);
         return ConvertUtils.sourceToTarget(entity, SysUserDto.class);
     }
 
@@ -121,10 +123,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long[] ids) {
-        //删除用户
-        baseDao.deleteBatchIds(Arrays.asList(ids));
-        //删除角色用户关系
-        sysRoleUserService.deleteByUserIds(ids);
+    	deleteById(ids);
     }
 
     @Override

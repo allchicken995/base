@@ -2,6 +2,7 @@ package com.ronllan.common.service;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * 基础服务接口，所有Service接口都要继承
@@ -48,6 +49,13 @@ public interface BaseService<T> {
     boolean updateById(Collection<T> entityList);
 
     /**
+     * 查询（批量查询）
+     *
+     * @param entity 实体对象
+     */
+    List<T> getObjectList(T entity);
+    
+    /**
      * <p>
      * 根据 实体对象 查询
      * </p>
@@ -73,5 +81,14 @@ public interface BaseService<T> {
      * @param id 主键ID
      */
     boolean deleteById(Serializable id);
+    
+    /**
+     * <p>
+     * 根据 ID 批量逻辑删除
+     * </p>
+     *
+     * @param idList 主键ID集合
+     */
+    boolean deleteById(Collection<? extends Serializable> idList);
     
 }
