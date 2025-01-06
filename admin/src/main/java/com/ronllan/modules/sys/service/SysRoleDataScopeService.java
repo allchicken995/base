@@ -25,4 +25,11 @@ public interface SysRoleDataScopeService extends BaseService<SysRoleDataScopeEnt
      * @param deptIdList  部门ID列表
      */
     void saveOrUpdate(Long roleId, List<Long> deptIdList);
+    
+    /**
+     * 获取用户对应的部门数据权限
+     * @param userId  用户ID
+     * @return        返回部门ID列表
+     */
+    List<Long> getDataScopeList(Long userId);
 }

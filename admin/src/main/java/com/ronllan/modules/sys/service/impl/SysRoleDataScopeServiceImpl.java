@@ -49,4 +49,9 @@ public class SysRoleDataScopeServiceImpl extends BaseServiceImpl<SysRoleDataScop
         }
     }
     
+    @Override
+    public List<Long> getDataScopeList(Long userId) {
+        return baseDao.getDataScopeList(userId);
+    }
+    
 }
