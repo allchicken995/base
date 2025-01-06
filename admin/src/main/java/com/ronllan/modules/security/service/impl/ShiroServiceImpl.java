@@ -1,10 +1,15 @@
 package com.ronllan.modules.security.service.impl;
 
-import com.ronllan.common.user.UserDetail;
-import lombok.AllArgsConstructor;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.ronllan.common.service.impl.BaseServiceImpl;
+import com.ronllan.common.user.UserDetail;
 import com.ronllan.modules.security.dao.SysUserTokenDao;
 import com.ronllan.modules.security.entity.SysUserTokenEntity;
 import com.ronllan.modules.security.service.ShiroService;
@@ -14,16 +19,12 @@ import com.ronllan.modules.sys.dao.SysUserDao;
 import com.ronllan.modules.sys.entity.SysUserEntity;
 import com.ronllan.modules.sys.enums.SuperAdminEnum;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class ShiroServiceImpl implements ShiroService {
+public class ShiroServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements ShiroService {
     private final SysMenuDao sysMenuDao;
-    private final SysUserDao sysUserDao;
     private final SysUserTokenDao sysUserTokenDao;
     private final SysRoleDataScopeDao sysRoleDataScopeDao;
 
@@ -56,7 +57,7 @@ public class ShiroServiceImpl implements ShiroService {
 
     @Override
     public SysUserEntity getUser(Long userId) {
-        return sysUserDao.selectById(userId);
+        return getObjectById(userId);
     }
 
     @Override

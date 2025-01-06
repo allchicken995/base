@@ -1,27 +1,19 @@
 package com.ronllan.modules.security.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.ronllan.common.entity.BaseEntity;
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.ronllan.common.entity.BaseEntity;
+
+import lombok.Data;
 
 /**
  * 系统用户Token
  */
 @Data
 @TableName("sys_user_token")
-public class SysUserTokenEntity implements Serializable {
-
-    /**
-     * id
-     */
-    @TableId
-    private Long id;
+public class SysUserTokenEntity extends BaseEntity implements Serializable {
     /**
      * 用户ID
      */
@@ -38,10 +30,5 @@ public class SysUserTokenEntity implements Serializable {
      * 更新时间
      */
     private Date updateDate;
-    /**
-     * 创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private Date createDate;
 
 }

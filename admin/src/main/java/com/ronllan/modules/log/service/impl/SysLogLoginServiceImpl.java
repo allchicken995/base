@@ -1,23 +1,22 @@
 package com.ronllan.modules.log.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.ronllan.modules.log.dao.SysLogLoginDao;
-import com.ronllan.modules.log.dto.SysLogLoginDto;
-import com.ronllan.modules.log.entity.SysLogLoginEntity;
-import com.ronllan.modules.log.service.SysLogLoginService;
-
-import com.ronllan.common.constant.Constant;
-import com.ronllan.common.page.PageData;
-import com.ronllan.common.service.impl.BaseServiceImpl;
-import com.ronllan.common.utils.ConvertUtils;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ronllan.common.constant.Constant;
+import com.ronllan.common.page.PageData;
+import com.ronllan.common.service.impl.BaseServiceImpl;
+import com.ronllan.common.utils.ConvertUtils;
+import com.ronllan.modules.log.dao.SysLogLoginDao;
+import com.ronllan.modules.log.dto.SysLogLoginDto;
+import com.ronllan.modules.log.entity.SysLogLoginEntity;
+import com.ronllan.modules.log.service.SysLogLoginService;
 
 /**
  * 登录日志
@@ -58,7 +57,8 @@ public class SysLogLoginServiceImpl extends BaseServiceImpl<SysLogLoginDao, SysL
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void save(SysLogLoginEntity entity) {
+    public void save(SysLogLoginDto dto) {
+    	SysLogLoginEntity entity = ConvertUtils.sourceToTarget(dto, SysLogLoginEntity.class);
         insert(entity);
     }
 

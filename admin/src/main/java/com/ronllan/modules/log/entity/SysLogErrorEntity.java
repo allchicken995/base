@@ -16,7 +16,6 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_log_error")
 public class SysLogErrorEntity extends BaseEntity {
 
-
     /**
      * 请求URI
      */

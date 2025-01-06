@@ -28,6 +28,12 @@ public abstract class BaseDto extends TreeNode implements Serializable {
     @NotNull(message = "{id.require}", groups = UpdateGroup.class)
     private Long id;
 	
+	@Schema(description = "创建者")
+	private Long creator;
+	
+	@Schema(description = "创建名")
+    private String creatorName;
+	
 	@Schema(description = "创建时间")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)

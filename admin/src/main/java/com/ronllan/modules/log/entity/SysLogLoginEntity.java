@@ -16,7 +16,6 @@ import lombok.EqualsAndHashCode;
 @TableName("sys_log_login")
 public class SysLogLoginEntity extends BaseEntity {
 
-
     /**
      * 用户操作   0：用户登录   1：用户退出
      */

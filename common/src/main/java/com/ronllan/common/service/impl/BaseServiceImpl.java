@@ -165,7 +165,6 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         return SqlHelper.executeBatch(this.currentModelClass(), this.log, list, batchSize, consumer);
     }
 
-
     @Override
     public boolean updateById(T entity) {
         return BaseServiceImpl.retBool(baseDao.updateById(entity));

@@ -1,6 +1,7 @@
 package com.ronllan.modules.log.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ronllan.common.dto.BaseDto;
 import com.ronllan.common.utils.DateUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -16,7 +17,7 @@ import java.util.Date;
  */
 @Data
 @Schema(description = "登录日志")
-public class SysLogLoginDto implements Serializable {
+public class SysLogLoginDto extends BaseDto implements Serializable {
 
     @Schema(description = "id")
     private Long id;
@@ -32,12 +33,5 @@ public class SysLogLoginDto implements Serializable {
 
     @Schema(description = "操作IP")
     private String ip;
-
-    @Schema(description = "用户名")
-    private String creatorName;
-
-    @Schema(description = "创建时间")
-    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createDate;
 
 }

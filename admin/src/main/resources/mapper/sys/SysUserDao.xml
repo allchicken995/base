@@ -23,11 +23,23 @@
 	</select>
 	
 	<select id="getLogin" resultMap="SysUserEntity">
-		select * from sys_user where username = #{value}
+		select 
+			* 
+		from 
+			sys_user 
+		where 
+			username = #{value}
+		and logical_delete = 0
 	</select>
 
 	<update id="updatePassword">
-		update sys_user set password = #{newPassword} where id = #{id}
+		update 
+			sys_user 
+		set 
+			password = #{newPassword} 
+		where 
+			id = #{id}
+		and logical_delete = 0	
 	</update>
 
 	<select id="getCountByDeptId" resultType="int">

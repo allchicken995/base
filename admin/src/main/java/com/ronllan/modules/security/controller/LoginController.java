@@ -1,24 +1,22 @@
 package com.ronllan.modules.security.controller;
 
-import com.ronllan.common.exception.ErrorCode;
-import com.ronllan.common.exception.DefineException;
-import com.ronllan.common.user.UserDetail;
-import com.ronllan.common.utils.IpUtils;
-import com.ronllan.common.utils.Result;
-import com.ronllan.common.validator.AssertUtils;
-import com.ronllan.common.validator.ValidatorUtils;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
+import java.io.IOException;
+import java.util.Date;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ronllan.modules.log.entity.SysLogLoginEntity;
+import com.ronllan.common.exception.DefineException;
+import com.ronllan.common.exception.ErrorCode;
+import com.ronllan.common.user.UserDetail;
+import com.ronllan.common.utils.IpUtils;
+import com.ronllan.common.utils.Result;
+import com.ronllan.common.validator.AssertUtils;
+import com.ronllan.common.validator.ValidatorUtils;
+import com.ronllan.modules.log.dto.SysLogLoginDto;
 import com.ronllan.modules.log.enums.LoginOperationEnum;
 import com.ronllan.modules.log.enums.LoginStatusEnum;
 import com.ronllan.modules.log.service.SysLogLoginService;
@@ -31,8 +29,11 @@ import com.ronllan.modules.sys.dto.SysUserDto;
 import com.ronllan.modules.sys.enums.UserStatusEnum;
 import com.ronllan.modules.sys.service.SysUserService;
 
-import java.io.IOException;
-import java.util.Date;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 /**
  * 登录
@@ -69,7 +70,7 @@ public class LoginController {
         }
         //用户信息
         SysUserDto user = sysUserService.getLogin(login);
-        SysLogLoginEntity log = new SysLogLoginEntity();
+        SysLogLoginDto log = new SysLogLoginDto();
         log.setOperation(LoginOperationEnum.LOGIN.value());
         log.setCreateDate(new Date());
         log.setIp(IpUtils.getIpAddr(request));
@@ -110,12 +111,10 @@ public class LoginController {
     @Operation(summary = "退出")
     public Result logout(HttpServletRequest request) {
         UserDetail user = SecurityUser.getUser();
-
         //退出
         sysUserTokenService.logout(user.getId());
-
         //用户信息
-        SysLogLoginEntity log = new SysLogLoginEntity();
+        SysLogLoginDto log = new SysLogLoginDto();
         log.setOperation(LoginOperationEnum.LOGOUT.value());
         log.setIp(IpUtils.getIpAddr(request));
         log.setUserAgent(request.getHeader(HttpHeaders.USER_AGENT));
@@ -125,7 +124,6 @@ public class LoginController {
         log.setCreatorName(user.getUsername());
         log.setCreateDate(new Date());
         sysLogLoginService.save(log);
-
         return new Result();
     }
 

@@ -38,13 +38,11 @@ public class CaptchaServiceImpl implements CaptchaService {
         response.setHeader("Pragma", "No-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
-
         //生成验证码
         SpecCaptcha captcha = new SpecCaptcha(150, 40);
         captcha.setLen(5);
         captcha.setCharType(Captcha.TYPE_DEFAULT);
         captcha.out(response.getOutputStream());
-
         //保存到缓存
         setCache(uuid, captcha.text());
     }
@@ -53,12 +51,10 @@ public class CaptchaServiceImpl implements CaptchaService {
     public boolean validate(String uuid, String code) {
         //获取验证码
         String captcha = getCache(uuid);
-
         //效验成功
         if (code.equalsIgnoreCase(captcha)) {
             return true;
         }
-
         return false;
     }
 
@@ -79,10 +75,8 @@ public class CaptchaServiceImpl implements CaptchaService {
             if (captcha != null) {
                 redisUtils.delete(key);
             }
-
             return captcha;
         }
-
         String captcha = localCache.getIfPresent(key);
         //删除验证码
         if (captcha != null) {

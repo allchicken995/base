@@ -27,12 +27,10 @@ public class SecurityUser {
         if(subject == null){
             return new UserDetail();
         }
-
         UserDetail user = (UserDetail)subject.getPrincipal();
         if(user == null){
             return new UserDetail();
         }
-
         return user;
     }
 
