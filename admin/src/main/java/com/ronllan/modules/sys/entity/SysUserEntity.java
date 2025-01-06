@@ -19,6 +19,18 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 @TableName("sys_user")
 public class SysUserEntity extends BaseEntity {
+	/**
+     * 构造器
+     */
+	public SysUserEntity() {
+		super();
+	}
+	/**
+     * 构造器
+     */
+	public SysUserEntity(Long id) {
+		super.setId(id);
+	}
     /**
      * 用户名
      */

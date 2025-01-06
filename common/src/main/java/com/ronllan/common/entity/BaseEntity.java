@@ -32,6 +32,16 @@ public abstract class BaseEntity implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private Date createDate;
     /**
+     * 更新者
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Long updater;
+    /**
+     * 更新时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updateDate;
+    /**
      * 逻辑删除
      */
     @TableField(fill = FieldFill.INSERT)

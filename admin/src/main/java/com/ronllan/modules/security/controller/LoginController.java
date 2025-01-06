@@ -68,7 +68,7 @@ public class LoginController {
             return new Result().error(ErrorCode.CAPTCHA_ERROR_0);
         }
         //用户信息
-        SysUserDto user = sysUserService.getByUsername(login.getUsername());
+        SysUserDto user = sysUserService.getLogin(login);
         SysLogLoginEntity log = new SysLogLoginEntity();
         log.setOperation(LoginOperationEnum.LOGIN.value());
         log.setCreateDate(new Date());

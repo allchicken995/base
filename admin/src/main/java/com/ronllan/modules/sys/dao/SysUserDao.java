@@ -20,10 +20,8 @@ public interface SysUserDao extends BaseDao<SysUserEntity> {
 
 	List<SysUserEntity> getList(Map<String, Object> params);
 
-	SysUserEntity getById(Long id);
-
-	SysUserEntity getByUsername(String username);
-
+	SysUserEntity getLogin(String username);
+	
 	int updatePassword(@Param("id") Long id, @Param("newPassword") String newPassword);
 
 	/**

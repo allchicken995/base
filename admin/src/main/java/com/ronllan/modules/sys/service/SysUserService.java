@@ -6,6 +6,7 @@ import com.ronllan.common.service.BaseService;
 import java.util.List;
 import java.util.Map;
 
+import com.ronllan.modules.security.dto.LoginDto;
 import com.ronllan.modules.sys.dto.SysUserDto;
 import com.ronllan.modules.sys.entity.SysUserEntity;
 
@@ -23,7 +24,7 @@ public interface SysUserService extends BaseService<SysUserEntity> {
 
 	SysUserDto get(Long id);
 
-	SysUserDto getByUsername(String username);
+	SysUserDto getLogin(LoginDto login);
 
 	void save(SysUserDto dto);
 

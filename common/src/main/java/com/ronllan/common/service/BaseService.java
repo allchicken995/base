@@ -81,20 +81,29 @@ public interface BaseService<T> {
 
     /**
      * <p>
+     * 根据 实体对象 查询
+     * </p>
+     *
+     * @param entity 实体对象
+     */
+    T getObject(T entity);
+    
+    /**
+     * <p>
      * 根据 ID 查询
      * </p>
      *
      * @param id 主键ID
      */
-    T selectById(Serializable id);
+    T getObjectById(Serializable id);
 
     /**
      * <p>
-     * 逻辑删除
+     * 根据 ID 逻辑删除
      * </p>
      *
-     * @param entity 实体对象
+     * @param id 主键ID
      */
-    boolean delete(T entity);
+    boolean deleteById(Serializable id);
     
 }

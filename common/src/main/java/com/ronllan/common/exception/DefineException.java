@@ -10,7 +10,6 @@ import com.ronllan.common.utils.MessageUtils;
  */
 public class DefineException extends RuntimeException {
 
-
     private int code;
     private String msg;
 

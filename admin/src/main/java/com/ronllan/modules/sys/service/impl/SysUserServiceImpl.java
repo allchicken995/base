@@ -1,6 +1,7 @@
 package com.ronllan.modules.sys.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.ronllan.modules.security.dto.LoginDto;
 import com.ronllan.modules.security.password.PasswordUtils;
 import com.ronllan.modules.security.user.SecurityUser;
 import com.ronllan.modules.sys.dao.SysUserDao;
@@ -65,13 +66,13 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
 
     @Override
     public SysUserDto get(Long id) {
-        SysUserEntity entity = baseDao.getById(id);
+        SysUserEntity entity = getObjectById(id);
         return ConvertUtils.sourceToTarget(entity, SysUserDto.class);
     }
 
     @Override
-    public SysUserDto getByUsername(String username) {
-        SysUserEntity entity = baseDao.getByUsername(username);
+    public SysUserDto getLogin(LoginDto login) {
+    	SysUserEntity entity = baseDao.getLogin(login.getUsername());
         return ConvertUtils.sourceToTarget(entity, SysUserDto.class);
     }
 
@@ -109,7 +110,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateUserInfo(SysUserDto dto) {
-        SysUserEntity entity = selectById(dto.getId());
+        SysUserEntity entity = getObjectById(dto.getId());
         entity.setHeadUrl(dto.getHeadUrl());
         entity.setRealName(dto.getRealName());
         entity.setMobile(dto.getMobile());

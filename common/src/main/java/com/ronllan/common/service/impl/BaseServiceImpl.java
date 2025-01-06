@@ -1,6 +1,8 @@
 package com.ronllan.common.service.impl;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -24,6 +27,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.ronllan.common.constant.Constant;
 import com.ronllan.common.dao.BaseDao;
+import com.ronllan.common.exception.DefineException;
 import com.ronllan.common.page.PageData;
 import com.ronllan.common.service.BaseService;
 import com.ronllan.common.utils.ConvertUtils;
@@ -188,15 +192,53 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
             sqlSession.update(sqlStatement, param);
         });
     }
-
+    
     @Override
-    public T selectById(Serializable id) {
-        return baseDao.selectById(id);
-    }
+	public T getObject(T entity) {
+		QueryWrapper<T> wrapper = new QueryWrapper<>();
+        wrapper.eq("logical_delete", 0);
+        for(Field field : entity.getClass().getDeclaredFields()) {
+        	field.setAccessible(true);
+        	try {
+				Object object = field.get(entity);
+				if(object!=null) {
+					Annotation[] annotation = field.getAnnotations();
+		        	if(annotation!=null&&annotation.length>0) {
+		        		
+		        	}else {
+		        		if(object.getClass().equals(String.class)) {
+		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        		}else {
+		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        		}
+		        	}
+				}
+			} catch (Exception e) {
+				throw new DefineException(e.getLocalizedMessage(),e);
+			} 
+        }
+		return baseDao.selectOne(wrapper);
+	}
+    
+	@Override
+	public T getObjectById(Serializable id) {
+		QueryWrapper<T> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.eq("logical_delete", 0);
+		return baseDao.selectOne(wrapper);
+	}
 
 	@Override
-	public boolean delete(T entity) {
-		return SqlHelper.retBool(baseDao.delete(entity));
+	public boolean deleteById(Serializable id) {
+		QueryWrapper<T> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        wrapper.eq("logical_delete", 0);
+        T object = baseDao.selectOne(wrapper);
+        if(object==null) {
+        	return true;
+        }else {
+        	return SqlHelper.retBool(baseDao.delete(baseDao.selectOne(wrapper)));
+        }
 	}
     
     

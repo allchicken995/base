@@ -38,8 +38,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
 
     @Override
     public ScheduleJobDto get(Long id) {
-        ScheduleJobEntity entity = baseDao.selectById(id);
-
+        ScheduleJobEntity entity = getObjectById(id);
         return ConvertUtils.sourceToTarget(entity, ScheduleJobDto.class);
     }
 
@@ -96,7 +95,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
     @Transactional(rollbackFor = Exception.class)
     public void run(Long[] ids) {
         for (Long id : ids) {
-            ScheduleUtils.run(scheduler, this.selectById(id));
+            ScheduleUtils.run(scheduler, getObjectById(id));
         }
     }
 

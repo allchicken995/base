@@ -14,13 +14,6 @@ import com.ronllan.common.annotation.ForeignKey;
  */
 public interface BaseDao<T> extends BaseMapper<T> {
 	/**
-     * 根据ID查询对象
-     *
-     * @param entity 实体对象
-     */
-	@Select("select * from ${tableName} where id=#{id} and logical_delete=0 ")
-	T getObjectById(T entity);
-	/**
      * 外键处理逻辑
      *
      * @param entity 实体对象

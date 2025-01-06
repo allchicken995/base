@@ -37,7 +37,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
 
     @Override
     public SysDictTypeDto get(Long id) {
-    	SysDictTypeEntity entity = baseDao.getObjectById(new SysDictTypeEntity(id));
+    	SysDictTypeEntity entity = getObjectById(id);
         return ConvertUtils.sourceToTarget(entity, SysDictTypeDto.class);
     }
 
@@ -59,7 +59,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long[] ids) {
     	for(Long id : ids) {
-    		baseDao.delete(new SysDictTypeEntity(id));
+    		deleteById(id);
     	}
     }
 

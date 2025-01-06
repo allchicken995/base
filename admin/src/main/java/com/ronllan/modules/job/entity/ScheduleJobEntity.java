@@ -19,9 +19,6 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = false)
 @TableName("schedule_job")
 public class ScheduleJobEntity extends BaseEntity {
-    @Serial
-    private static final long serialVersionUID = 1L;
-    
     /**
      * spring bean名称
      */
@@ -42,14 +39,4 @@ public class ScheduleJobEntity extends BaseEntity {
      * 备注
      */
     private String remark;
-    /**
-     * 更新者
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Long updater;
-    /**
-     * 更新时间
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateDate;
 }
