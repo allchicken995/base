@@ -69,7 +69,7 @@ public class ExcelDataListener<E, T> extends AnalysisEventListener<T> {
      */
     private void saveData() {
         LOGGER.info("{}条数据，开始存储数据库！", list.size());
-        baseService.insertBatch(list);
+        baseService.insert(list);
         LOGGER.info("存储数据库成功！");
     }
 }

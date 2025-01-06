@@ -6,21 +6,16 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
-import org.apache.ibatis.binding.MapperMethod;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -28,6 +23,7 @@ import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.ronllan.common.constant.Constant;
 import com.ronllan.common.dao.BaseDao;
 import com.ronllan.common.exception.DefineException;
+import com.ronllan.common.exception.ErrorCode;
 import com.ronllan.common.page.PageData;
 import com.ronllan.common.service.BaseService;
 import com.ronllan.common.utils.ConvertUtils;
@@ -144,25 +140,13 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean insertBatch(Collection<T> entityList) {
-        return insertBatch(entityList, 100);
-    }
-
-    /**
-     * 批量插入
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean insertBatch(Collection<T> entityList, int batchSize) {
-        String sqlStatement = getSqlStatement(SqlMethod.INSERT_ONE);
-        return executeBatch(entityList, batchSize, (sqlSession, entity) -> sqlSession.insert(sqlStatement, entity));
-    }
-
-    /**
-     * 执行批量操作
-     */
-    protected <E> boolean executeBatch(Collection<E> list, int batchSize, BiConsumer<SqlSession, E> consumer) {
-        return SqlHelper.executeBatch(this.currentModelClass(), this.log, list, batchSize, consumer);
+    public boolean insert(Collection<T> entityList) {
+    	for(T entity : entityList) {
+    		if(!insert(entity)) {
+    			throw new DefineException(ErrorCode.DATA_INSERT_ERROR_0);
+    		}
+    	}
+        return true;
     }
 
     @Override
@@ -171,25 +155,14 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     }
 
     @Override
-    public boolean update(T entity, Wrapper<T> updateWrapper) {
-        return BaseServiceImpl.retBool(baseDao.update(entity, updateWrapper));
-    }
-
-    @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateBatchById(Collection<T> entityList) {
-        return updateBatchById(entityList, 30);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean updateBatchById(Collection<T> entityList, int batchSize) {
-        String sqlStatement = getSqlStatement(SqlMethod.UPDATE_BY_ID);
-        return executeBatch(entityList, batchSize, (sqlSession, entity) -> {
-            MapperMethod.ParamMap<T> param = new MapperMethod.ParamMap<>();
-            param.put(Constants.ENTITY, entity);
-            sqlSession.update(sqlStatement, param);
-        });
+    public boolean updateById(Collection<T> entityList) {
+    	for(T entity : entityList) {
+    		if(!updateById(entity)) {
+    			throw new DefineException(ErrorCode.DATA_UPDATE_ERROR_0);
+    		}
+    	}
+        return true;
     }
     
     @Override
@@ -239,6 +212,5 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         	return SqlHelper.retBool(baseDao.delete(baseDao.selectOne(wrapper)));
         }
 	}
-    
     
 }

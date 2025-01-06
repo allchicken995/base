@@ -1,7 +1,5 @@
 package com.ronllan.common.service;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -24,22 +22,12 @@ public interface BaseService<T> {
 
     /**
      * <p>
-     * 插入（批量），该方法不支持 Oracle、SQL Server
+     * 插入（批量）
      * </p>
      *
      * @param entityList 实体对象集合
      */
-    boolean insertBatch(Collection<T> entityList);
-
-    /**
-     * <p>
-     * 插入（批量），该方法不支持 Oracle、SQL Server
-     * </p>
-     *
-     * @param entityList 实体对象集合
-     * @param batchSize  插入批次数量
-     */
-    boolean insertBatch(Collection<T> entityList, int batchSize);
+    boolean insert(Collection<T> entityList);
 
     /**
      * <p>
@@ -52,32 +40,12 @@ public interface BaseService<T> {
 
     /**
      * <p>
-     * 根据 whereEntity 条件，更新记录
-     * </p>
-     *
-     * @param entity        实体对象
-     * @param updateWrapper 实体对象封装操作类 {@link com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper}
-     */
-    boolean update(T entity, Wrapper<T> updateWrapper);
-
-    /**
-     * <p>
      * 根据ID 批量更新
      * </p>
      *
      * @param entityList 实体对象集合
      */
-    boolean updateBatchById(Collection<T> entityList);
-
-    /**
-     * <p>
-     * 根据ID 批量更新
-     * </p>
-     *
-     * @param entityList 实体对象集合
-     * @param batchSize  更新批次数量
-     */
-    boolean updateBatchById(Collection<T> entityList, int batchSize);
+    boolean updateById(Collection<T> entityList);
 
     /**
      * <p>

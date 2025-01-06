@@ -31,9 +31,5 @@ public class SysLanguageServiceImpl extends BaseServiceImpl<SysLanguageDao, SysL
             baseDao.updateLanguage(entity);
         }
     }
-
-    @Override
-    public void deleteLanguage(String tableName, Long tableId) {
-        baseDao.deleteLanguage(tableName, tableId);
-    }
+    
 }

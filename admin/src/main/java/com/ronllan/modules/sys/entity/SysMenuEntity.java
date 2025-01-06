@@ -25,6 +25,7 @@ public class SysMenuEntity extends BaseEntity {
 	@ForeignKeyField(handle={
     		"com.ronllan.modules.sys.entity.SysRoleMenuEntity.roleId="+ForeignKeyDict.CASCADE
     	   ,"com.ronllan.modules.sys.entity.SysRoleUserEntity.roleId="+ForeignKeyDict.CASCADE
+    	   ,"com.ronllan.modules.sys.entity.SysLanguageEntity.tableId="+ForeignKeyDict.CASCADE
     })
 	private Long fk;
     /**

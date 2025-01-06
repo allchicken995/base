@@ -62,11 +62,26 @@ public interface ErrorCode {
      * 存在关联数据，不允许删除
      */
     int DATA_DELETE_NOT_ALLOW_0 = 10010;
-    int SUPERIOR_DEPT_ERROR = 10011;
-    int SUPERIOR_MENU_ERROR = 10012;
-    int DATA_SCOPE_PARAMS_ERROR = 10013;
-    int DEPT_SUB_DELETE_ERROR = 10014;
-    int DEPT_USER_DELETE_ERROR = 10015;
+    /**
+     * 上级部门选择错误
+     */
+    int SUPERIOR_DEPT_ERROR_0 = 10011;
+    /**
+     * 上级菜单不能为自身
+     */
+    int SUPERIOR_MENU_ERROR_0 = 10012;
+    /**
+     * 数据权限接口，只能是Map类型参数
+     */
+    int DATA_SCOPE_PARAMS_ERROR_0 = 10013;
+    /**
+     * 数据插入失败
+     */
+    int DATA_INSERT_ERROR_0 = 10014;
+    /**
+     * 数据更新失败
+     */
+    int DATA_UPDATE_ERROR_0 = 10015;
     int ACT_DEPLOY_ERROR = 10016;
     int ACT_MODEL_IMG_ERROR = 10017;
     int ACT_MODEL_EXPORT_ERROR = 10018;

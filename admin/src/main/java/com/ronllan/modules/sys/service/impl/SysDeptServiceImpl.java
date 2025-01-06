@@ -1,6 +1,14 @@
 package com.ronllan.modules.sys.service.impl;
 
-import com.ronllan.common.annotation.ForeignKey;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ronllan.common.constant.Constant;
 import com.ronllan.common.exception.DefineException;
 import com.ronllan.common.exception.ErrorCode;
@@ -8,29 +16,19 @@ import com.ronllan.common.service.impl.BaseServiceImpl;
 import com.ronllan.common.user.UserDetail;
 import com.ronllan.common.utils.ConvertUtils;
 import com.ronllan.common.utils.TreeUtils;
-import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.ronllan.modules.security.user.SecurityUser;
 import com.ronllan.modules.sys.dao.SysDeptDao;
-import com.ronllan.modules.sys.dao.SysUserDao;
 import com.ronllan.modules.sys.dto.SysDeptDto;
 import com.ronllan.modules.sys.entity.SysDeptEntity;
 import com.ronllan.modules.sys.enums.SuperAdminEnum;
 import com.ronllan.modules.sys.service.SysDeptService;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.AllArgsConstructor;
 
 
 @AllArgsConstructor
 @Service
 public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntity> implements SysDeptService {
-    private final SysUserDao sysUserDao;
 
     @Override
     public List<SysDeptDto> list(Map<String, Object> params) {
@@ -73,18 +71,15 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
     @Transactional(rollbackFor = Exception.class)
     public void update(SysDeptDto dto) {
         SysDeptEntity entity = ConvertUtils.sourceToTarget(dto, SysDeptEntity.class);
-
         //上级部门不能为自身
         if (entity.getId().equals(entity.getPid())) {
-            throw new DefineException(ErrorCode.SUPERIOR_DEPT_ERROR);
+            throw new DefineException(ErrorCode.SUPERIOR_DEPT_ERROR_0);
         }
-
         //上级部门不能为下级部门
         List<Long> subDeptList = getSubDeptIdList(entity.getId());
         if (subDeptList.contains(entity.getPid())) {
-            throw new DefineException(ErrorCode.SUPERIOR_DEPT_ERROR);
+            throw new DefineException(ErrorCode.SUPERIOR_DEPT_ERROR_0);
         }
-
         entity.setPids(getPidList(entity.getPid()));
         updateById(entity);
     }
@@ -92,20 +87,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
-        //判断是否有子部门
-        List<Long> subList = getSubDeptIdList(id);
-        if (subList.size() > 1) {
-            throw new DefineException(ErrorCode.DEPT_SUB_DELETE_ERROR);
-        }
-
-        //判断部门下面是否有用户
-        int count = sysUserDao.getCountByDeptId(id);
-        if (count > 0) {
-            throw new DefineException(ErrorCode.DEPT_USER_DELETE_ERROR);
-        }
-
-        //删除
-        baseDao.deleteById(id);
+        delete(id);
     }
 
     @Override

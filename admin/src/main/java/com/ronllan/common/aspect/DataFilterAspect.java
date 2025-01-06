@@ -56,7 +56,7 @@ public class DataFilterAspect {
             }
             return ;
         }
-        throw new DefineException(ErrorCode.DATA_SCOPE_PARAMS_ERROR);
+        throw new DefineException(ErrorCode.DATA_SCOPE_PARAMS_ERROR_0);
     }
 
     /**

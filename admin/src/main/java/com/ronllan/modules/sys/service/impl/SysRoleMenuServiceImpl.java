@@ -60,10 +60,4 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuDao, SysR
 		baseDao.deleteByRoleIds(roleIds);
 	}
 
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void deleteByMenuId(Long menuId) {
-		baseDao.deleteByMenuId(menuId);
-	}
-
 }

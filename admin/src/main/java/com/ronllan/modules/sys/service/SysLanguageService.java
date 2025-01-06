@@ -22,11 +22,5 @@ public interface SysLanguageService extends BaseService<SysLanguageEntity> {
      */
     void saveOrUpdate(String tableName, Long tableId, String fieldName, String fieldValue, String language);
 
-    /**
-     * 删除国际化
-     * @param tableName   表名
-     * @param tableId     表主键
-     */
-    void deleteLanguage(String tableName, Long tableId);
 }
 
