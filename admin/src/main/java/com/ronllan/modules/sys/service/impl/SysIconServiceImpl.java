@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ronllan.common.page.PageData;
 import com.ronllan.common.service.impl.BaseServiceImpl;
 import com.ronllan.common.utils.ConvertUtils;
@@ -28,23 +27,18 @@ public class SysIconServiceImpl extends BaseServiceImpl<SysIconDao, SysIconEntit
 	
     @Override
     public PageData<SysIconDto> page(Map<String, Object> params) {
-        //分页
-        IPage<SysIconEntity> page = getPage(params, "sysIcon.sort", true);
-        //查询
-        List<SysIconEntity> list = baseDao.getList(params);
-        return getPageData(page,list,SysIconDto.class);
+        return getPage(params,SysIconDto.class);
     }
 
     @Override
     public List<SysIconDto> list(Map<String, Object> params) {
-        List<SysIconEntity> entityList = baseDao.getList(params);
-        List<SysIconDto> dtoList = ConvertUtils.sourceToTarget(entityList, SysIconDto.class);
-        return dtoList;
+        List<SysIconEntity> entityList = getObjectList(params);
+        return ConvertUtils.sourceToTarget(entityList, SysIconDto.class);
     }
 
     @Override
     public SysIconDto get(Long id) {
-    	SysIconEntity entity = baseDao.selectById(id);
+    	SysIconEntity entity = getObjectById(id);
         return ConvertUtils.sourceToTarget(entity, SysIconDto.class);
     }
 
@@ -66,12 +60,7 @@ public class SysIconServiceImpl extends BaseServiceImpl<SysIconDao, SysIconEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long[] ids) {
-    	for(Long id : ids) {
-    		SysIconDto dto = new SysIconDto();
-    		dto.setId(id);
-    		dto.setLogicalDelete(id);
-    		update(dto);
-    	}
+    	deleteById(ids);
     }
 
 }
