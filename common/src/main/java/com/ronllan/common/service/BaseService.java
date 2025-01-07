@@ -3,6 +3,9 @@ package com.ronllan.common.service;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+
+import com.ronllan.common.page.PageData;
 
 /**
  * 基础服务接口，所有Service接口都要继承
@@ -48,6 +51,21 @@ public interface BaseService<T> {
      */
     boolean updateById(Collection<T> entityList);
 
+    /**
+     * 查询（分页查询）
+     *
+     * @param params 查询条件
+     */
+    <T> PageData<T> getPage(Map<String, Object> params,Class<T> target);
+    
+    /**
+     * 查询（批量查询）
+     *
+     * @param params 查询条件
+     * @param target 目标对象
+     */
+    List<T> getObjectList(Map<String, Object> params);
+    
     /**
      * 查询（批量查询）
      *

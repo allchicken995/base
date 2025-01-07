@@ -168,6 +168,69 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     }
     
     @Override
+	public <T> PageData<T> getPage(Map<String, Object> params,Class<T> target) {
+    	QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.eq("logical_delete", 0);
+        String className = target.getCanonicalName().replace("dto", "entity").replace("Dto", "Entity");
+        for(String name : params.keySet()) {
+        	Object object = params.get(name);
+        	if(object!=null) {
+	        	Field field = null;
+	        	try {
+					field = Class.forName(className).getClass().getDeclaredField(name);
+				} catch (Exception e) {
+					field = null;
+				}
+	        	if(field!=null) {
+					Annotation[] annotation = field.getAnnotations();
+		        	if(annotation!=null&&annotation.length>0) {
+		        		
+		        	}else {
+		        		if(object.getClass().equals(String.class)) {
+		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        		}else {
+		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        		}
+		        	}
+	        	}
+        	}
+        }
+        IPage page = baseDao.selectPage(getPage(params, Constant.CREATE_DATE, false),wrapper);
+		return getPageData(page,target) ;
+	}
+    
+    @Override
+	public List<T> getObjectList(Map<String, Object> params) {
+    	QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.eq("logical_delete", 0);
+        String className = ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 1).getCanonicalName();
+        for(String name : params.keySet()) {
+        	Object object = params.get(name);
+        	if(object!=null) {
+	        	Field field = null;
+	        	try {
+					field = Class.forName(className).getClass().getDeclaredField(name);
+				} catch (Exception e) {
+					field = null;
+				}
+	        	if(field!=null) {
+					Annotation[] annotation = field.getAnnotations();
+		        	if(annotation!=null&&annotation.length>0) {
+		        		
+		        	}else {
+		        		if(object.getClass().equals(String.class)) {
+		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        		}else {
+		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        		}
+		        	}
+	        	}
+        	}
+        }
+        return baseDao.selectList(wrapper);
+	}
+
+	@Override
 	public List<T> getObjectList(T entity) {
 		QueryWrapper<T> wrapper = new QueryWrapper<>();
         wrapper.eq("logical_delete", 0);
@@ -180,11 +243,6 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		        	if(annotation!=null&&annotation.length>0) {
 		        		
 		        	}else {
-//		        		if(object.getClass().equals(String.class)) {
-//		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
-//		        		}else {
-//		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
-//		        		}
 		        		wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
 		        	}
 				}
@@ -236,7 +294,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         if(object==null) {
         	return true;
         }else {
-        	return SqlHelper.retBool(baseDao.delete(baseDao.selectOne(wrapper)));
+        	return SqlHelper.retBool(baseDao.delete(object));
         }
 	}
     

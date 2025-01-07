@@ -29,9 +29,10 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
     @Override
     public PageData<SysDictTypeDto> page(Map<String, Object> params) {
         //分页
-        IPage<SysDictTypeEntity> page = getPage(params, "sysDictType.create_date", false);
+        IPage<SysDictTypeEntity> page = getPage(params, "create_date", false);
         //查询
         List<SysDictTypeEntity> list = baseDao.getList(params);
+//        List<SysDictTypeEntity> list = getObjectList(params);
         return getPageData(page,list,SysDictTypeDto.class);
     }
 

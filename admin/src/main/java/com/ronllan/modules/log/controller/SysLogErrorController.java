@@ -1,29 +1,29 @@
 package com.ronllan.modules.log.controller;
 
-import com.github.xiaoymin.knife4j.annotations.Ignore;
-import com.ronllan.common.annotation.LogOperation;
-import com.ronllan.common.utils.ExcelUtils;
-import com.ronllan.modules.log.dto.SysLogErrorDto;
-import com.ronllan.modules.log.excel.SysLogErrorExcel;
-import com.ronllan.modules.log.service.SysLogErrorService;
+import java.util.List;
+import java.util.Map;
 
-import com.ronllan.common.constant.Constant;
-import com.ronllan.common.page.PageData;
-import com.ronllan.common.utils.Result;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Map;
+import com.ronllan.common.annotation.LogOperation;
+import com.ronllan.common.constant.Constant;
+import com.ronllan.common.page.PageData;
+import com.ronllan.common.utils.ExcelUtils;
+import com.ronllan.common.utils.Result;
+import com.ronllan.modules.log.dto.SysLogErrorDto;
+import com.ronllan.modules.log.excel.SysLogErrorExcel;
+import com.ronllan.modules.log.service.SysLogErrorService;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 
 
 /**
@@ -50,7 +50,6 @@ public class SysLogErrorController {
     @RequiresPermissions("sys:log:error")
     public Result<PageData<SysLogErrorDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
         PageData<SysLogErrorDto> page = sysLogErrorService.page(params);
-
         return new Result<PageData<SysLogErrorDto>>().ok(page);
     }
 
@@ -60,7 +59,6 @@ public class SysLogErrorController {
     @RequiresPermissions("sys:log:error")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
         List<SysLogErrorDto> list = sysLogErrorService.list(params);
-
         ExcelUtils.exportExcelToTarget(response, null, "异常日志", list, SysLogErrorExcel.class);
     }
 
