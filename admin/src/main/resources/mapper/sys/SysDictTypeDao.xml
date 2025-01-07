@@ -5,18 +5,5 @@
 
 	<resultMap id="SysDictTypeEntity" type="com.ronllan.modules.sys.entity.SysDictTypeEntity"></resultMap>
     
-    <select id="getList" resultMap="SysDictTypeEntity">
-		select 
-			sysDictType.*
-		from sys_dict_type sysDictType 
-		<where>
-			<if test="dictType != null and dictType.trim() != ''">
-				and sysDictType.dict_type like #{dictType}
-			</if>
-			<if test="dictName != null and dictName.trim() != ''">
-				and sysDictType.dict_name like #{dictName}
-			</if>
-		</where>
-	</select>
 	
 </mapper>

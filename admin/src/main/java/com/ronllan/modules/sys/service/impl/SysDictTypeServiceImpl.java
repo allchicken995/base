@@ -1,12 +1,10 @@
 package com.ronllan.modules.sys.service.impl;
 
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ronllan.common.page.PageData;
 import com.ronllan.common.service.impl.BaseServiceImpl;
 import com.ronllan.common.utils.ConvertUtils;
@@ -28,12 +26,7 @@ public class SysDictTypeServiceImpl extends BaseServiceImpl<SysDictTypeDao, SysD
 
     @Override
     public PageData<SysDictTypeDto> page(Map<String, Object> params) {
-        //分页
-        IPage<SysDictTypeEntity> page = getPage(params, "create_date", false);
-        //查询
-        List<SysDictTypeEntity> list = baseDao.getList(params);
-//        List<SysDictTypeEntity> list = getObjectList(params);
-        return getPageData(page,list,SysDictTypeDto.class);
+        return getPage(params,SysDictTypeDto.class);
     }
 
     @Override

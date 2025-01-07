@@ -1,8 +1,5 @@
 package com.ronllan.modules.sys.dao;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ronllan.common.dao.BaseDao;
@@ -15,10 +12,5 @@ import com.ronllan.modules.sys.entity.SysDictTypeEntity;
  */
 @Mapper
 public interface SysDictTypeDao extends BaseDao<SysDictTypeEntity> {
-
-    /**
-     * 字典类型列表
-     */
-    List<SysDictTypeEntity> getList(Map<String, Object> params);
     
 }
