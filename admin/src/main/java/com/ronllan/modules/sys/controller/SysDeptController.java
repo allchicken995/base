@@ -7,6 +7,7 @@ import com.ronllan.common.validator.group.AddGroup;
 import com.ronllan.common.validator.group.DefaultGroup;
 import com.ronllan.common.validator.group.UpdateGroup;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -19,6 +20,7 @@ import com.ronllan.modules.sys.service.SysUserService;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 部门管理
@@ -36,8 +38,8 @@ public class SysDeptController {
     @GetMapping("list")
     @Operation(summary = "列表")
     @RequiresPermissions("sys:dept:list")
-    public Result<List<SysDeptDto>> list() {
-        List<SysDeptDto> list = sysDeptService.list(new HashMap<>(1));
+    public Result<List<SysDeptDto>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
+        List<SysDeptDto> list = sysDeptService.list(params);
         return new Result<List<SysDeptDto>>().ok(list);
     }
 

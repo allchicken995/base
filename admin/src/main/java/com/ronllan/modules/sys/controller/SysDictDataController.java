@@ -41,7 +41,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("sys/dict/data")
 @Tag(name = "字典数据")
 public class SysDictDataController {
-    private final SysDictDataService sysDictDataService;
+    private final SysDictDataService sysDictDataServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "字典数据")
@@ -56,7 +56,7 @@ public class SysDictDataController {
     @RequiresPermissions("sys:dict:page")
     public Result<PageData<SysDictDataDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
         //字典类型
-        PageData<SysDictDataDto> page = sysDictDataService.page(params);
+        PageData<SysDictDataDto> page = sysDictDataServiceImpl.page(params);
         return new Result<PageData<SysDictDataDto>>().ok(page);
     }
     
@@ -64,7 +64,7 @@ public class SysDictDataController {
     @Operation(summary = "列表")
     @RequiresPermissions("sys:dict:list")
     public Result<List<SysDictDataDto>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        List<SysDictDataDto> data = sysDictDataService.list(params);
+        List<SysDictDataDto> data = sysDictDataServiceImpl.list(params);
         return new Result<List<SysDictDataDto>>().ok(data);
     }
 
@@ -72,7 +72,7 @@ public class SysDictDataController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:dict:info")
     public Result<SysDictDataDto> get(@PathVariable("id") Long id) {
-        SysDictDataDto data = sysDictDataService.get(id);
+        SysDictDataDto data = sysDictDataServiceImpl.get(id);
         return new Result<SysDictDataDto>().ok(data);
     }
 
@@ -83,7 +83,7 @@ public class SysDictDataController {
     public Result save(@RequestBody SysDictDataDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, DefaultGroup.class);
-        sysDictDataService.save(dto);
+        sysDictDataServiceImpl.save(dto);
         return new Result();
     }
 
@@ -94,7 +94,7 @@ public class SysDictDataController {
     public Result update(@RequestBody SysDictDataDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-        sysDictDataService.update(dto);
+        sysDictDataServiceImpl.update(dto);
         return new Result();
     }
 
@@ -105,7 +105,7 @@ public class SysDictDataController {
     public Result delete(@RequestBody Long[] ids) {
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
-        sysDictDataService.delete(ids);
+        sysDictDataServiceImpl.delete(ids);
         return new Result();
     }
 

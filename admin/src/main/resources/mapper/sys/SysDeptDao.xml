@@ -6,30 +6,33 @@
 	<resultMap id="SysDeptEntity" type="com.ronllan.modules.sys.entity.SysDeptEntity"></resultMap>
     <parameterMap id="SysDeptEntity" type="com.ronllan.modules.sys.entity.SysDeptEntity"></parameterMap>
 
-	<select id="getList" resultMap="SysDeptEntity">
-		select t1.*,(select t2.name from sys_dept t2 where t2.id=t1.pid)parentName from sys_dept t1
-		<where>
-			<if test="deptIdList != null">
-				t1.id in
-				<foreach item="id" collection="deptIdList" open="(" separator="," close=")">
-					#{id}
-				</foreach>
-			</if>
-		</where>
-		order by t1.sort asc
+	<select id="getObjectList" resultMap="SysDeptEntity">
+		select 
+			sysDept.*
+			,parent.name as parentName
+		from
+			sys_dept sysDept
+		left join sys_dept parent on sysDept.pid = parent.id and parent.logical_delete = 0
+		where
+			sysDept.logical_delete = 0
+		<if test="deptIdList != null">
+			and	sysDept.id in
+			<foreach item="id" collection="deptIdList" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
 	</select>
 
-	<select id="getById" resultMap="SysDeptEntity">
-		select t1.*,(select t2.name from sys_dept t2 where t2.id=t1.pid)parentName from sys_dept t1
-		where t1.id = #{value}
-	</select>
-
-	<select id="getIdAndPidList" resultMap="SysDeptEntity">
-		select t1.id, t1.pid from sys_dept t1
-	</select>
-
-	<select id="getSubDeptIdList" resultType="long">
-		select id from sys_dept where pids like #{id}
+	<select id="getObjectById" resultMap="SysDeptEntity">
+		select 
+			sysDept.*
+			,parent.name as parentName
+		from
+			sys_dept sysDept
+		left join sys_dept parent on sysDept.pid = parent.id and parent.logical_delete = 0
+		where
+			sysDept.logical_delete = 0
+		and sysDept.id = #{id}
 	</select>
 
 </mapper>

@@ -1,13 +1,11 @@
 package com.ronllan.modules.log.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.io.Serializable;
+
 import com.ronllan.common.dto.BaseDto;
-import com.ronllan.common.utils.DateUtils;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 登录日志
@@ -18,9 +16,6 @@ import java.util.Date;
 @Data
 @Schema(description = "登录日志")
 public class SysLogLoginDto extends BaseDto implements Serializable {
-
-    @Schema(description = "id")
-    private Long id;
 
     @Schema(description = "用户操作  0：用户登录   1：用户退出")
     private Integer operation;

@@ -37,32 +37,22 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
         if (user.getSuperAdmin() == SuperAdminEnum.NO.value()) {
             params.put("deptIdList", getSubDeptIdList(user.getDeptId()));
         }
-
         //查询部门列表
-        List<SysDeptEntity> entityList = baseDao.getList(params);
-
+        List<SysDeptEntity> entityList = baseDao.getObjectList(params);
         List<SysDeptDto> dtoList = ConvertUtils.sourceToTarget(entityList, SysDeptDto.class);
-
         return TreeUtils.build(dtoList);
     }
 
     @Override
     public SysDeptDto get(Long id) {
-        //超级管理员，部门ID为null
-        if (id == null) {
-            return null;
-        }
-
-        SysDeptEntity entity = baseDao.getById(id);
-
-        return ConvertUtils.sourceToTarget(entity, SysDeptDto.class);
+        SysDeptEntity entity = baseDao.getObjectById(id);
+        return ConvertUtils.sourceToTarget(entity,SysDeptDto.class);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(SysDeptDto dto) {
         SysDeptEntity entity = ConvertUtils.sourceToTarget(dto, SysDeptEntity.class);
-
         entity.setPids(getPidList(entity.getPid()));
         insert(entity);
     }
@@ -87,14 +77,19 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
-        delete(id);
+        deleteById(id);
     }
 
     @Override
     public List<Long> getSubDeptIdList(Long id) {
-        List<Long> deptIdList = baseDao.getSubDeptIdList("%" + id + "%");
-        deptIdList.add(id);
-
+    	List<Long> deptIdList = new ArrayList<Long>();
+    	deptIdList.add(id);
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("pids", String.valueOf(id));
+        List<SysDeptEntity> list = getObjectList(params);
+        for(SysDeptEntity temp : list) {
+        	deptIdList.add(temp.getId());
+        }
         return deptIdList;
     }
 
@@ -107,20 +102,16 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
         if (Constant.DEPT_ROOT.equals(pid)) {
             return Constant.DEPT_ROOT + "";
         }
-
         //所有部门的id、pid列表
-        List<SysDeptEntity> deptList = baseDao.getIdAndPidList();
-
+        List<SysDeptEntity> deptList = getObjectList(new SysDeptEntity());
         //list转map
         Map<Long, SysDeptEntity> map = new HashMap<>(deptList.size());
         for (SysDeptEntity entity : deptList) {
             map.put(entity.getId(), entity);
         }
-
         //递归查询所有上级部门ID列表
         List<Long> pidList = new ArrayList<>();
         getPidTree(pid, map, pidList);
-
         return StringUtils.join(pidList, ",");
     }
 
@@ -129,13 +120,11 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
         if (Constant.DEPT_ROOT.equals(pid)) {
             return;
         }
-
         //上级部门存在
         SysDeptEntity parent = map.get(pid);
         if (parent != null) {
             getPidTree(parent.getPid(), map, pidList);
         }
-
         pidList.add(pid);
     }
 }

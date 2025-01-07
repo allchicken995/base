@@ -1,14 +1,12 @@
 package com.ronllan.modules.sys.dao;
 
-import com.ronllan.common.annotation.ForeignKey;
-import com.ronllan.common.dao.BaseDao;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ronllan.common.dao.BaseDao;
 import com.ronllan.modules.sys.entity.SysDeptEntity;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * 部门管理
@@ -18,19 +16,8 @@ import java.util.Map;
 @Mapper
 public interface SysDeptDao extends BaseDao<SysDeptEntity> {
 
-    List<SysDeptEntity> getList(Map<String, Object> params);
+    List<SysDeptEntity> getObjectList(Map<String, Object> params);
 
-    SysDeptEntity getById(Long id);
-
-    /**
-     * 获取所有部门的id、pid列表
-     */
-    List<SysDeptEntity> getIdAndPidList();
-
-    /**
-     * 根据部门ID，获取所有子部门ID列表
-     * @param id   部门ID
-     */
-    List<Long> getSubDeptIdList(String id);
+    SysDeptEntity getObjectById(Long id);
 
 }

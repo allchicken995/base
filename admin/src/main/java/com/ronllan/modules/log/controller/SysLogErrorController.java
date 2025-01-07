@@ -37,7 +37,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("sys/log/error")
 @Tag(name = "异常日志")
 public class SysLogErrorController {
-    private final SysLogErrorService sysLogErrorService;
+    private final SysLogErrorService sysLogErrorServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -49,7 +49,7 @@ public class SysLogErrorController {
     })
     @RequiresPermissions("sys:log:error")
     public Result<PageData<SysLogErrorDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysLogErrorDto> page = sysLogErrorService.page(params);
+        PageData<SysLogErrorDto> page = sysLogErrorServiceImpl.page(params);
         return new Result<PageData<SysLogErrorDto>>().ok(page);
     }
 
@@ -58,7 +58,7 @@ public class SysLogErrorController {
     @LogOperation("导出")
     @RequiresPermissions("sys:log:error")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<SysLogErrorDto> list = sysLogErrorService.list(params);
+        List<SysLogErrorDto> list = sysLogErrorServiceImpl.list(params);
         ExcelUtils.exportExcelToTarget(response, null, "异常日志", list, SysLogErrorExcel.class);
     }
 

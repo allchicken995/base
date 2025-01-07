@@ -1,20 +1,15 @@
 package com.ronllan.modules.sys.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ronllan.common.utils.DateUtils;
-import com.ronllan.common.validator.group.AddGroup;
+import java.io.Serializable;
+
+import com.ronllan.common.dto.BaseDto;
 import com.ronllan.common.validator.group.DefaultGroup;
-import com.ronllan.common.validator.group.UpdateGroup;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 字典类型
@@ -23,13 +18,7 @@ import java.util.Date;
  */
 @Data
 @Schema(description = "字典类型")
-public class SysDictTypeDto implements Serializable {
-
-
-    @Schema(description = "id")
-    @Null(message = "{id.null}", groups = AddGroup.class)
-    @NotNull(message = "{id.require}", groups = UpdateGroup.class)
-    private Long id;
+public class SysDictTypeDto extends BaseDto implements Serializable {
 
     @Schema(description = "字典类型")
     @NotBlank(message = "{sysdict.type.require}", groups = DefaultGroup.class)
@@ -49,15 +38,6 @@ public class SysDictTypeDto implements Serializable {
     @Schema(description = "部门ID")
     @NotNull(message = "{sysdict.deptId.require}", groups = DefaultGroup.class)
     private Long deptId;
-    
-    @Schema(description = "创建时间")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createDate;
-
-    @Schema(description = "更新时间")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Date updateDate;
     
     @Schema(description = "部门名称")
     private String deptName;

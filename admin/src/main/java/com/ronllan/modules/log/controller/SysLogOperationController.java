@@ -37,7 +37,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("sys/log/operation")
 @Tag(name = "操作日志")
 public class SysLogOperationController {
-    private final SysLogOperationService sysLogOperationService;
+    private final SysLogOperationService sysLogOperationServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -50,7 +50,7 @@ public class SysLogOperationController {
     })
     @RequiresPermissions("sys:log:operation")
     public Result<PageData<SysLogOperationDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysLogOperationDto> page = sysLogOperationService.page(params);
+        PageData<SysLogOperationDto> page = sysLogOperationServiceImpl.page(params);
         return new Result<PageData<SysLogOperationDto>>().ok(page);
     }
 
@@ -59,7 +59,7 @@ public class SysLogOperationController {
     @LogOperation("导出")
     @RequiresPermissions("sys:log:operation")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<SysLogOperationDto> list = sysLogOperationService.list(params);
+        List<SysLogOperationDto> list = sysLogOperationServiceImpl.list(params);
         ExcelUtils.exportExcelToTarget(response, null, "操作日志", list, SysLogOperationExcel.class);
     }
 

@@ -38,6 +38,11 @@ public abstract class BaseDto extends TreeNode implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
     private Date createDate;
+
+    @Schema(description = "更新时间")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
+    private Date updateDate;
 	
 	@Schema(description = "逻辑删除")
     private Long logicalDelete;

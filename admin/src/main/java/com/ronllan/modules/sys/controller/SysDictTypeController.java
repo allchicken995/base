@@ -40,7 +40,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("sys/dict/type")
 @Tag(name = "字典类型")
 public class SysDictTypeController {
-    private final SysDictTypeService sysDictTypeService;
+    private final SysDictTypeService sysDictTypeServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "字典类型")
@@ -55,7 +55,7 @@ public class SysDictTypeController {
     @RequiresPermissions("sys:dict:page")
     public Result<PageData<SysDictTypeDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
         //字典类型
-        PageData<SysDictTypeDto> page = sysDictTypeService.page(params);
+        PageData<SysDictTypeDto> page = sysDictTypeServiceImpl.page(params);
         return new Result<PageData<SysDictTypeDto>>().ok(page);
     }
 
@@ -63,7 +63,7 @@ public class SysDictTypeController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:dict:info")
     public Result<SysDictTypeDto> get(@PathVariable("id") Long id) {
-        SysDictTypeDto data = sysDictTypeService.get(id);
+        SysDictTypeDto data = sysDictTypeServiceImpl.get(id);
         return new Result<SysDictTypeDto>().ok(data);
     }
 
@@ -74,7 +74,7 @@ public class SysDictTypeController {
     public Result save(@RequestBody SysDictTypeDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, DefaultGroup.class);
-        sysDictTypeService.save(dto);
+        sysDictTypeServiceImpl.save(dto);
         return new Result();
     }
 
@@ -85,7 +85,7 @@ public class SysDictTypeController {
     public Result update(@RequestBody SysDictTypeDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-        sysDictTypeService.update(dto);
+        sysDictTypeServiceImpl.update(dto);
         return new Result();
     }
 
@@ -96,7 +96,7 @@ public class SysDictTypeController {
     public Result delete(@RequestBody Long[] ids) {
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
-        sysDictTypeService.delete(ids);
+        sysDictTypeServiceImpl.delete(ids);
         return new Result();
     }
     
