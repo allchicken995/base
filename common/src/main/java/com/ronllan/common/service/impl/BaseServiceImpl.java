@@ -177,7 +177,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         	if(object!=null) {
 	        	Field field = null;
 	        	try {
-					field = Class.forName(className).getClass().getDeclaredField(name);
+					field = Class.forName(className).getDeclaredField(name);
 				} catch (Exception e) {
 					field = null;
 				}
@@ -186,9 +186,11 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		        	if(annotation!=null&&annotation.length>0) {
 		        		
 		        	}else {
-		        		if(object.getClass().equals(String.class)) {
-		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
-		        		}else {
+		        		if(field.getType().equals(String.class)) {
+		        			if(String.valueOf(object).length()>0) {
+		        				wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        			}
+	        			}else {
 		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
 		        		}
 		        	}
@@ -209,7 +211,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         	if(object!=null) {
 	        	Field field = null;
 	        	try {
-					field = Class.forName(className).getClass().getDeclaredField(name);
+					field = Class.forName(className).getDeclaredField(name);
 				} catch (Exception e) {
 					field = null;
 				}
@@ -218,8 +220,10 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		        	if(annotation!=null&&annotation.length>0) {
 		        		
 		        	}else {
-		        		if(object.getClass().equals(String.class)) {
-		        			wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        		if(field.getType().equals(String.class)) {
+		        			if(String.valueOf(object).length()>0) {
+		        				wrapper.like(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
+		        			}
 		        		}else {
 		        			wrapper.eq(field.getName().replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), object);
 		        		}
