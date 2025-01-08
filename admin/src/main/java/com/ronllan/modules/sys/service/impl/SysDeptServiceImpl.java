@@ -38,7 +38,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
             params.put("deptIdList", getSubDeptIdList(user.getDeptId()));
         }
         //查询部门列表
-        List<SysDeptEntity> entityList = baseDao.getObjectList(params);
+        List<SysDeptEntity> entityList = getObjectList("getObjectList",params);
         List<SysDeptDto> dtoList = ConvertUtils.sourceToTarget(entityList, SysDeptDto.class);
         return TreeUtils.build(dtoList);
     }

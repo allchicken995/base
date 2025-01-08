@@ -5,16 +5,5 @@
 
 	<resultMap id="SysDictDataEntity" type="com.ronllan.modules.sys.entity.SysDictDataEntity"></resultMap>
 
-	<select id="getList" resultMap="SysDictDataEntity">
-		select sysDictData.*
-			from sys_dict_data sysDictData 
-			inner join sys_dict_type sysDictType on sysDictData.dict_type_id = sysDictType.id
-		<where>
-			<if test="dictName != null and dictName.trim() != ''">
-				and sysDictType.dict_name like #{dictName}
-			</if>
-		</where>
-		order by sysDictData.sort
-	</select>	
 	
 </mapper>

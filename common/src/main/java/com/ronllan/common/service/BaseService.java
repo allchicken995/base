@@ -56,6 +56,7 @@ public interface BaseService<T> {
      * 查询（分页查询）
      *
      * @param params 查询条件
+     * @param target 目标对象
      */
     <T> PageData<T> getPage(Map<String, Object> params,Class<T> target);
     
@@ -63,9 +64,16 @@ public interface BaseService<T> {
      * 查询（批量查询）
      *
      * @param params 查询条件
-     * @param target 目标对象
      */
     List<T> getObjectList(Map<String, Object> params);
+    
+    /**
+     * 查询（批量查询）
+     *
+     * @param sqlMethod 自定义sql方法名
+     * @param params 查询条件
+     */
+    List<T> getObjectList(String sqlMethod,Map<String, Object> params);
     
     /**
      * 查询（批量查询）
@@ -94,10 +102,11 @@ public interface BaseService<T> {
 
     /**
      * <p>
-     * 自定义查询
+     * 根据 ID 自定义查询
      * </p>
      *
-     * @param sqlMethod 自定义SQL名
+     * @param sqlMethod 自定义sql方法名
+     * @param id 主键ID
      */
     T getObjectById(String sqlMethod,Serializable id);
     
