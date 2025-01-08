@@ -3,7 +3,7 @@ package com.ronllan.modules.sys.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.ronllan.common.annotation.ForeignKeyField;
-import com.ronllan.common.dict.ForeignKeyDict;
+import com.ronllan.common.constant.Constant;
 import com.ronllan.common.entity.BaseEntity;
 
 import lombok.Data;
@@ -23,9 +23,9 @@ public class SysMenuEntity extends BaseEntity {
      */
 	@TableField(exist = false)
 	@ForeignKeyField(handle={
-    		"com.ronllan.modules.sys.entity.SysRoleMenuEntity.roleId="+ForeignKeyDict.CASCADE
-    	   ,"com.ronllan.modules.sys.entity.SysRoleUserEntity.roleId="+ForeignKeyDict.CASCADE
-    	   ,"com.ronllan.modules.sys.entity.SysLanguageEntity.tableId="+ForeignKeyDict.CASCADE
+    		"com.ronllan.modules.sys.entity.SysRoleMenuEntity.roleId="+Constant.CASCADE
+    	   ,"com.ronllan.modules.sys.entity.SysRoleUserEntity.roleId="+Constant.CASCADE
+    	   ,"com.ronllan.modules.sys.entity.SysLanguageEntity.tableId="+Constant.CASCADE
     })
 	private Long fk;
     /**

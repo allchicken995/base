@@ -3,7 +3,7 @@ package com.ronllan.modules.sys.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.ronllan.common.annotation.ForeignKeyField;
-import com.ronllan.common.dict.ForeignKeyDict;
+import com.ronllan.common.constant.Constant;
 import com.ronllan.common.entity.BaseEntity;
 
 import lombok.Data;
@@ -22,7 +22,7 @@ public class SysDictTypeEntity extends BaseEntity {
      * 外键
      */
 	@TableField(exist = false)
-    @ForeignKeyField(handle={"com.ronllan.modules.sys.entity.SysDictDataEntity.dictTypeId="+ForeignKeyDict.CASCADE})
+    @ForeignKeyField(handle={"com.ronllan.modules.sys.entity.SysDictDataEntity.dictTypeId="+Constant.CASCADE})
     private Long fk;
     /**
      * 字典类型

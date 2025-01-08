@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.ronllan.common.annotation.ForeignKeyField;
-import com.ronllan.common.dict.ForeignKeyDict;
+import com.ronllan.common.constant.Constant;
 import com.ronllan.common.entity.BaseEntity;
 
 import lombok.Data;
@@ -27,10 +27,10 @@ public class SysDeptEntity extends BaseEntity {
      */
 	@TableField(exist = false)
 	@ForeignKeyField(handle={
-    		"com.ronllan.modules.sys.entity.SysUserEntity.deptId="+ForeignKeyDict.SETNULL
-    	   ,"com.ronllan.modules.sys.entity.SysUserEntity.deptId="+ForeignKeyDict.SETNULL
-    	   ,"com.ronllan.modules.sys.entity.SysRoleEntity.deptId="+ForeignKeyDict.SETNULL
-    	   ,"com.ronllan.modules.sys.entity.SysRoleDataScopeEntity.deptId="+ForeignKeyDict.SETNULL
+    		"com.ronllan.modules.sys.entity.SysUserEntity.deptId="+Constant.SETNULL
+    	   ,"com.ronllan.modules.sys.entity.SysUserEntity.deptId="+Constant.SETNULL
+    	   ,"com.ronllan.modules.sys.entity.SysRoleEntity.deptId="+Constant.SETNULL
+    	   ,"com.ronllan.modules.sys.entity.SysRoleDataScopeEntity.deptId="+Constant.SETNULL
     })
 	private Long fk;
 	/**

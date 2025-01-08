@@ -78,7 +78,26 @@ public interface Constant {
      * token header
      */
     String TOKEN_HEADER = "token";
-
+    /**
+     * 逻辑删除标记
+     */
+    String LOGICAL_DELETE = "logical_delete";
+    /**
+     * 不处理
+     */
+    String NOACTION = "NOACTION";
+    /**
+     * 级联删除
+     */
+	String CASCADE = "CASCADE";
+	/**
+     * 不允许删除
+     */
+	String RESTRICT = "RESTRICT";
+	/**
+     * 设置成null
+     */
+	String SETNULL = "SETNULL";
     /**
      * 云存储配置KEY
      */

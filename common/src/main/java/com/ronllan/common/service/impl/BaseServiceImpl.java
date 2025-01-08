@@ -170,7 +170,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     @Override
 	public <T> PageData<T> getPage(Map<String, Object> params,Class<T> target) {
     	QueryWrapper wrapper = new QueryWrapper<>();
-        wrapper.eq("logical_delete", 0);
+        wrapper.eq(Constant.LOGICAL_DELETE, 0);
         String className = target.getCanonicalName().replace("dto", "entity").replace("Dto", "Entity");
         for(String name : params.keySet()) {
         	Object object = params.get(name);
@@ -204,7 +204,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     @Override
 	public List<T> getObjectList(Map<String, Object> params) {
     	QueryWrapper wrapper = new QueryWrapper<>();
-        wrapper.eq("logical_delete", 0);
+        wrapper.eq(Constant.LOGICAL_DELETE, 0);
         String className = ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 1).getCanonicalName();
         for(String name : params.keySet()) {
         	Object object = params.get(name);
@@ -237,7 +237,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 	@Override
 	public List<T> getObjectList(T entity) {
 		QueryWrapper<T> wrapper = new QueryWrapper<>();
-        wrapper.eq("logical_delete", 0);
+        wrapper.eq(Constant.LOGICAL_DELETE, 0);
         for(Field field : entity.getClass().getDeclaredFields()) {
         	field.setAccessible(true);
         	try {
@@ -260,7 +260,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     @Override
 	public T getObject(T entity) {
 		QueryWrapper<T> wrapper = new QueryWrapper<>();
-        wrapper.eq("logical_delete", 0);
+        wrapper.eq(Constant.LOGICAL_DELETE, 0);
         for(Field field : entity.getClass().getDeclaredFields()) {
         	field.setAccessible(true);
         	try {
@@ -283,8 +283,8 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 	@Override
 	public T getObjectById(Serializable id) {
 		QueryWrapper<T> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
-        wrapper.eq("logical_delete", 0);
+        wrapper.eq(Constant.ID, id);
+        wrapper.eq(Constant.LOGICAL_DELETE, 0);
 		return baseDao.selectOne(wrapper);
 	}
 
@@ -292,8 +292,8 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteById(Serializable id) {
 		QueryWrapper<T> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", id);
-        wrapper.eq("logical_delete", 0);
+        wrapper.eq(Constant.ID, id);
+        wrapper.eq(Constant.LOGICAL_DELETE, 0);
         T object = baseDao.selectOne(wrapper);
         if(object==null) {
         	return true;
@@ -304,7 +304,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     
 	@Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean deleteById(Collection<? extends Serializable> idList) {
+    public boolean deleteById(Serializable[] idList) {
     	for(Serializable id : idList) {
     		if(!deleteById(id)) {
     			throw new DefineException(ErrorCode.DATA_DELETE_ERROR_0);

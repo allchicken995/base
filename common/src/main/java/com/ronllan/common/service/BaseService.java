@@ -107,6 +107,6 @@ public interface BaseService<T> {
      *
      * @param idList 主键ID集合
      */
-    boolean deleteById(Collection<? extends Serializable> idList);
+    boolean deleteById(Serializable[] idList);
     
 }

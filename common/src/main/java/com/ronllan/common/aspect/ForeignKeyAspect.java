@@ -17,7 +17,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.ronllan.common.annotation.ForeignKeyField;
 import com.ronllan.common.dao.BaseDao;
-import com.ronllan.common.dict.ForeignKeyDict;
+import com.ronllan.common.constant.Constant;
 import com.ronllan.common.entity.BaseEntity;
 import com.ronllan.common.exception.DefineException;
 import com.ronllan.common.exception.ErrorCode;
@@ -89,7 +89,7 @@ public class ForeignKeyAspect {
     						BaseEntity target = (BaseEntity) joinPoint.getArgs()[0];
     						BaseDao dao = (BaseDao) applicationContext.getBean(Class.forName(handleInterfaceName));
     						switch (handleType) {
-								case ForeignKeyDict.CASCADE:
+								case Constant.CASCADE:
 									QueryWrapper wrapper = new QueryWrapper<>();
 							        wrapper.eq(foreignKey.replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase(), target.getId());
 									List<BaseEntity> list = dao.selectList(wrapper);
@@ -97,7 +97,7 @@ public class ForeignKeyAspect {
 										dao.delete(entity);
 									}
 									break;
-								case ForeignKeyDict.SETNULL:
+								case Constant.SETNULL:
 									String tableName = null;
 									Object object = Class.forName(handleClassName).newInstance();
 									for(Annotation temp : object.getClass().getAnnotations()) {
@@ -117,9 +117,9 @@ public class ForeignKeyAspect {
 									}
 									dao.handleForeignKey(object);
 									break;
-								case ForeignKeyDict.NOACTION:
+								case Constant.NOACTION:
 									break;
-								case ForeignKeyDict.RESTRICT:
+								case Constant.RESTRICT:
 									throw new DefineException(ErrorCode.DATA_DELETE_NOT_ALLOW_0);
 							}
     					}
