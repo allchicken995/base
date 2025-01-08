@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "字典类型")
-public class SysDictTypeDto extends BaseDto implements Serializable {
+public class SysDictTypeDto extends BaseDto{
 
     @Schema(description = "字典类型")
     @NotBlank(message = "{sysdict.type.require}", groups = DefaultGroup.class)

@@ -1,22 +1,19 @@
 package com.ronllan.modules.sys.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.List;
+
+import org.hibernate.validator.constraints.Range;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ronllan.common.utils.DateUtils;
+import com.ronllan.common.dto.BaseDto;
 import com.ronllan.common.validator.group.AddGroup;
 import com.ronllan.common.validator.group.DefaultGroup;
-import com.ronllan.common.validator.group.UpdateGroup;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import lombok.Data;
-import org.hibernate.validator.constraints.Range;
-
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
 /**
  * 用户管理
@@ -26,11 +23,7 @@ import java.util.List;
  */
 @Data
 @Schema(description = "用户管理")
-public class SysUserDto implements Serializable {
-    @Schema(description = "id")
-    @Null(message = "{id.null}", groups = AddGroup.class)
-    @NotNull(message = "{id.require}", groups = UpdateGroup.class)
-    private Long id;
+public class SysUserDto extends BaseDto{
 
     @Schema(description = "用户名", required = true)
     @NotBlank(message = "{sysuser.username.require}", groups = DefaultGroup.class)
@@ -62,11 +55,6 @@ public class SysUserDto implements Serializable {
     @Schema(description = "状态  0：停用    1：正常", required = true)
     @Range(min = 0, max = 1, message = "{sysuser.status.range}", groups = DefaultGroup.class)
     private Integer status;
-
-    @Schema(description = "创建时间")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createDate;
 
     @Schema(description = "超级管理员   0：否   1：是")
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

@@ -21,7 +21,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "菜单管理")
-public class SysMenuDto extends BaseDto implements Serializable {
+public class SysMenuDto extends BaseDto{
 
     @Schema(description = "上级ID")
     @NotNull(message = "{sysmenu.pid.require}", groups = DefaultGroup.class)

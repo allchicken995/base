@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "角色菜单关系")
-public class SysRoleMenuDto extends BaseDto implements Serializable {
+public class SysRoleMenuDto extends BaseDto{
 
 	@Schema(description = "菜单ID")
 	private Long menuId;

@@ -18,7 +18,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "图标管理")
-public class SysIconDto extends BaseDto implements Serializable {
+public class SysIconDto extends BaseDto{
 
     @Schema(description = "图标名称")
     @NotBlank(message = "{sysicon.name.require}", groups = DefaultGroup.class)
@@ -27,7 +27,7 @@ public class SysIconDto extends BaseDto implements Serializable {
     @Schema(description = "正常图标")
     private Long normalIcon;
 
-    @Schema(description = "'选中图标")
+    @Schema(description = "选中图标")
     private String selectedIcon;
 
     @Schema(description = "排序")

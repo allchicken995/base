@@ -19,7 +19,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "部门管理")
-public class SysDeptDto extends BaseDto implements Serializable {
+public class SysDeptDto extends BaseDto{
 
     @Schema(description = "上级ID")
     @NotNull(message = "{sysdept.pid.require}", groups = DefaultGroup.class)
