@@ -32,14 +32,14 @@ import java.util.Map;
 @RequestMapping("/sys/dept")
 @Tag(name = "部门管理")
 public class SysDeptController {
-    private final SysDeptService sysDeptService;
-    private final SysUserService sysUserService;
+    private final SysDeptService sysDeptServiceImpl;
+    private final SysUserService sysUserServiceImpl;
 
     @GetMapping("list")
     @Operation(summary = "列表")
     @RequiresPermissions("sys:dept:list")
     public Result<List<SysDeptDto>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        List<SysDeptDto> list = sysDeptService.list(params);
+        List<SysDeptDto> list = sysDeptServiceImpl.list(params);
         return new Result<List<SysDeptDto>>().ok(list);
     }
 
@@ -47,9 +47,9 @@ public class SysDeptController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:dept:info")
     public Result<SysDeptDto> get(@PathVariable("id") Long id) {
-        SysDeptDto data = sysDeptService.get(id);
+        SysDeptDto data = sysDeptServiceImpl.get(id);
         if (data.getLeaderId() != null) {
-            data.setLeaderName(sysUserService.get(data.getLeaderId()).getRealName());
+            data.setLeaderName(sysUserServiceImpl.get(data.getLeaderId()).getRealName());
         }
         return new Result<SysDeptDto>().ok(data);
     }
@@ -61,7 +61,7 @@ public class SysDeptController {
     public Result save(@RequestBody SysDeptDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
-        sysDeptService.save(dto);
+        sysDeptServiceImpl.save(dto);
         return new Result();
     }
 
@@ -72,7 +72,7 @@ public class SysDeptController {
     public Result update(@RequestBody SysDeptDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-        sysDeptService.update(dto);
+        sysDeptServiceImpl.update(dto);
         return new Result();
     }
 
@@ -83,7 +83,7 @@ public class SysDeptController {
     public Result delete(@PathVariable("id") Long id) {
         //效验数据
         AssertUtils.isNull(id, "id");
-        sysDeptService.delete(id);
+        sysDeptServiceImpl.delete(id);
         return new Result();
     }
 

@@ -12,9 +12,10 @@ import com.ronllan.common.user.UserDetail;
 import com.ronllan.modules.security.entity.SysUserTokenEntity;
 import com.ronllan.modules.security.service.ShiroService;
 import com.ronllan.modules.security.service.SysUserTokenService;
-import com.ronllan.modules.sys.dao.SysMenuDao;
+import com.ronllan.modules.sys.dto.SysMenuDto;
 import com.ronllan.modules.sys.entity.SysUserEntity;
 import com.ronllan.modules.sys.enums.SuperAdminEnum;
+import com.ronllan.modules.sys.service.SysMenuService;
 import com.ronllan.modules.sys.service.SysRoleDataScopeService;
 import com.ronllan.modules.sys.service.SysUserService;
 
@@ -23,7 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class ShiroServiceImpl implements ShiroService {
-    private final SysMenuDao sysMenuDao;
+    private final SysMenuService sysMenuServiceImpl;
     private final SysUserService sysUserServiceImpl;
     private final SysUserTokenService sysUserTokenServiceImpl;
     private final SysRoleDataScopeService sysRoleDataScopeServiceImpl;
@@ -31,22 +32,20 @@ public class ShiroServiceImpl implements ShiroService {
     @Override
     public Set<String> getUserPermissions(UserDetail user) {
         //系统管理员，拥有最高权限
-        List<String> permissionsList;
+        List<SysMenuDto> permissionsList;
         if (user.getSuperAdmin() == SuperAdminEnum.YES.value()) {
-            permissionsList = sysMenuDao.getPermissionsList();
+            permissionsList = sysMenuServiceImpl.getPermissionsList();
         } else {
-            permissionsList = sysMenuDao.getUserPermissionsList(user.getId());
+            permissionsList = sysMenuServiceImpl.getUserPermissionsList(user.getId());
         }
-
         //用户权限列表
         Set<String> permsSet = new HashSet<>();
-        for (String permissions : permissionsList) {
-            if (StringUtils.isBlank(permissions)) {
+        for (SysMenuDto dto : permissionsList) {
+            if (StringUtils.isBlank(dto.getPermissions())) {
                 continue;
             }
-            permsSet.addAll(Arrays.asList(permissions.trim().split(",")));
+            permsSet.addAll(Arrays.asList(dto.getPermissions().trim().split(",")));
         }
-
         return permsSet;
     }
 

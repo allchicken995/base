@@ -42,7 +42,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/sys/icon")
 @Tag(name = "图标管理")
 public class SysIconController {
-    private final SysIconService sysIconService;
+    private final SysIconService sysIconServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -55,7 +55,7 @@ public class SysIconController {
     })
     @RequiresPermissions("sys:icon:page")
     public Result<PageData<SysIconDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysIconDto> page = sysIconService.page(params);
+        PageData<SysIconDto> page = sysIconServiceImpl.page(params);
         return new Result<PageData<SysIconDto>>().ok(page);
     }
 
@@ -63,7 +63,7 @@ public class SysIconController {
     @Operation(summary = "列表")
     @RequiresPermissions("sys:icon:list")
     public Result<List<SysIconDto>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        List<SysIconDto> data = sysIconService.list(params);
+        List<SysIconDto> data = sysIconServiceImpl.list(params);
         return new Result<List<SysIconDto>>().ok(data);
     }
 
@@ -71,7 +71,7 @@ public class SysIconController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:icon:info")
     public Result<SysIconDto> get(@PathVariable("id") Long id) {
-    	SysIconDto data = sysIconService.get(id);
+    	SysIconDto data = sysIconServiceImpl.get(id);
         return new Result<SysIconDto>().ok(data);
     }
 
@@ -82,7 +82,7 @@ public class SysIconController {
     public Result save(@RequestBody SysIconDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
-        sysIconService.save(dto);
+        sysIconServiceImpl.save(dto);
         return new Result();
     }
 
@@ -93,7 +93,7 @@ public class SysIconController {
     public Result update(@RequestBody SysIconDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-        sysIconService.update(dto);
+        sysIconServiceImpl.update(dto);
         return new Result();
     }
 
@@ -104,7 +104,7 @@ public class SysIconController {
     public Result delete(@RequestBody Long[] ids) {
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
-        sysIconService.delete(ids);
+        sysIconServiceImpl.delete(ids);
         return new Result();
     }
     

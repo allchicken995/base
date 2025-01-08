@@ -28,50 +28,67 @@
 	</select>
 
 	<select id="getMenuList" resultMap="SysMenuEntity">
-		select t1.*, (select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
-		and lang.table_id=t1.id and lang.language=#{language}) as name
-	  	from sys_menu t1
-		<where>
-			<if test="menuType != null">
-				t1.menu_type = #{menuType}
-			</if>
-		</where>
-		order by t1.sort asc
-	</select>
-	
-	<select id="getAdminMenuList" resultMap="SysMenuEntity">
-		select t1.*, (select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
-		and lang.table_id=t1.id and lang.language=#{language}) as name
-	  	from sys_menu t1
-	  	where
-	  		t1.menu_type in(0,1)
-		order by t1.sort asc
+		select 
+			sysMenu.*,
+			sysLanguage.field_value as name
+	  	from 
+	  		sys_menu sysMenu
+			left join sys_language sysLanguage on sysLanguage.table_id = sysMenu.id 
+				and sysLanguage.table_name='sys_menu' 
+				and sysLanguage.field_name='name'
+				and sysLanguage.language=#{language}
+				and sysLanguage.logical_delete = 0
+		where
+			sysMenu.logical_delete = 0
+		<if test="menuTypeList != null">
+			and	sysMenu.menu_type in
+			<foreach item="type" collection="menuTypeList" open="(" separator="," close=")">
+				#{type}
+			</foreach>
+		</if>
+		order by sysMenu.sort asc
 	</select>
 
 	<select id="getUserMenuList" resultMap="SysMenuEntity">
-		select t3.*, (select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
-		and lang.table_id=t3.id and lang.language=#{language}) as name from sys_role_user t1
-		left join sys_role_menu t2 on t1.role_id = t2.role_id
-		left join sys_menu t3 on t2.menu_id = t3.id
-		where t1.user_id = #{userId}
-		<if test="menuType != null">
-			and t3.menu_type = #{menuType}
+		select 
+			sysMenu.*,
+			sysLanguage.field_value as name
+		from 
+			sys_role_user sysRoleUser
+		inner join sys_role_menu sysRoleMenu on sysRoleUser.role_id = sysRoleMenu.role_id
+			and sysRoleMenu.logical_delete = 0
+		inner join sys_menu sysMenu on sysRoleMenu.menu_id = sysMenu.id
+			and sysMenu.logical_delete = 0
+		left join sys_language sysLanguage on sysLanguage.table_id = sysMenu.id 
+			and sysLanguage.table_name='sys_menu' 
+			and sysLanguage.field_name='name'
+			and sysLanguage.language=#{language}
+			and sysLanguage.logical_delete = 0
+		where 
+			sysRoleUser.logical_delete = 0
+		and	sysRoleUser.user_id = #{userId}
+		<if test="menuTypeList != null">
+			and	sysMenu.menu_type in
+			<foreach item="type" collection="menuTypeList" open="(" separator="," close=")">
+				#{type}
+			</foreach>
 		</if>
-		order by t3.sort asc
+		order by sysMenu.sort asc
 	</select>
 
-	<select id="getUserPermissionsList" resultType="string">
-		select t3.permissions from sys_role_user t1 left join sys_role_menu t2 on t1.role_id = t2.role_id
-			left join sys_menu t3 on t2.menu_id = t3.id
-		where t1.user_id = #{userId} order by t3.sort asc
-	</select>
-
-	<select id="getPermissionsList" resultType="string">
-		select permissions from sys_menu
-	</select>
-
-	<select id="getListPid" resultMap="SysMenuEntity">
-		select * from sys_menu where pid = #{value}
+	<select id="getUserPermissionsList" resultMap="SysMenuEntity">
+		select 
+			sysMenu.* 
+		from 
+			sys_role_user sysRoleUser
+			inner join sys_role_menu sysRoleMenu on sysRoleUser.role_id = sysRoleMenu.role_id
+				and sysRoleMenu.logical_delete = 0
+			inner join sys_menu sysMenu on sysRoleMenu.menu_id = sysMenu.id
+				and sysMenu.logical_delete = 0
+		where 
+			sysRoleUser.logical_delete = 0
+		and	sysRoleUser.user_id = #{userId}
+		order by sysMenu.sort asc
 	</select>
 	
 </mapper>

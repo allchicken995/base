@@ -4,6 +4,7 @@ import com.ronllan.common.service.BaseService;
 import com.ronllan.common.user.UserDetail;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ronllan.modules.sys.dto.SysMenuDto;
 import com.ronllan.modules.sys.entity.SysMenuEntity;
@@ -27,9 +28,9 @@ public interface SysMenuService extends BaseService<SysMenuEntity> {
 	/**
 	 * 菜单列表
 	 *
-	 * @param type 菜单类型
+	 * @param params 查询条件
 	 */
-	List<SysMenuDto> getAllMenuList(Integer type);
+	List<SysMenuDto> list(Map<String, Object> params);
 
 	/**
 	 * 用户菜单列表
@@ -37,11 +38,16 @@ public interface SysMenuService extends BaseService<SysMenuEntity> {
 	 * @param user  用户
 	 * @param type 菜单类型
 	 */
-	List<SysMenuDto> getUserMenuList(UserDetail user, Integer type);
+	List<SysMenuDto> getUserMenuList(UserDetail user, Integer[] type);
+	
+	/**
+	 * 查询用户权限列表
+	 * @param userId  用户ID
+	 */
+	List<SysMenuDto> getUserPermissionsList(Long userId);
 
 	/**
-	 * 根据父菜单，查询子菜单
-	 * @param pid  父菜单ID
+	 * 查询所有权限列表
 	 */
-	List<SysMenuDto> getListPid(Long pid);
+	List<SysMenuDto> getPermissionsList();
 }

@@ -1,6 +1,7 @@
 package com.ronllan.modules.sys.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ronllan.common.annotation.LogOperation;
@@ -40,14 +42,14 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/sys/menu")
 @Tag(name = "菜单管理")
 public class SysMenuController {
-    private final SysMenuService sysMenuService;
-    private final ShiroService shiroService;
+    private final SysMenuService sysMenuServiceImpl;
+    private final ShiroService shiroServiceImpl;
 
     @GetMapping("nav")
     @Operation(summary = "导航")
     public Result<List<SysMenuDto>> nav() {
         UserDetail user = SecurityUser.getUser();
-        List<SysMenuDto> list = sysMenuService.getUserMenuList(user, MenuTypeEnum.MENU.value());
+        List<SysMenuDto> list = sysMenuServiceImpl.getUserMenuList(user, MenuTypeEnum.MENU.value());
         return new Result<List<SysMenuDto>>().ok(list);
     }
 
@@ -55,15 +57,14 @@ public class SysMenuController {
     @Operation(summary = "权限标识")
     public Result<Set<String>> permissions() {
         UserDetail user = SecurityUser.getUser();
-        Set<String> set = shiroService.getUserPermissions(user);
+        Set<String> set = shiroServiceImpl.getUserPermissions(user);
         return new Result<Set<String>>().ok(set);
     }
 
     @GetMapping("list")
     @Operation(summary = "列表")
-    @Parameter(name = "type", description = "菜单类型 0：菜单 1：按钮  null：全部")
-    public Result<List<SysMenuDto>> list(Integer type) {
-        List<SysMenuDto> list = sysMenuService.getAllMenuList(type);
+    public Result<List<SysMenuDto>> list(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
+        List<SysMenuDto> list = sysMenuServiceImpl.list(params);
         return new Result<List<SysMenuDto>>().ok(list);
     }
 
@@ -71,7 +72,7 @@ public class SysMenuController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:menu:info")
     public Result<SysMenuDto> get(@PathVariable("id") Long id) {
-        SysMenuDto data = sysMenuService.get(id);
+        SysMenuDto data = sysMenuServiceImpl.get(id);
         return new Result<SysMenuDto>().ok(data);
     }
 
@@ -82,7 +83,7 @@ public class SysMenuController {
     public Result save(@RequestBody SysMenuDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, DefaultGroup.class);
-        sysMenuService.save(dto);
+        sysMenuServiceImpl.save(dto);
         return new Result();
     }
 
@@ -93,7 +94,7 @@ public class SysMenuController {
     public Result update(@RequestBody SysMenuDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, DefaultGroup.class);
-        sysMenuService.update(dto);
+        sysMenuServiceImpl.update(dto);
         return new Result();
     }
 
@@ -104,7 +105,7 @@ public class SysMenuController {
     public Result delete(@PathVariable("id") Long id) {
         //效验数据
         AssertUtils.isNull(id, "id");
-        sysMenuService.delete(id);
+        sysMenuServiceImpl.delete(id);
         return new Result();
     }
 
@@ -113,7 +114,7 @@ public class SysMenuController {
     @RequiresPermissions("sys:menu:select")
     public Result<List<SysMenuDto>> select() {
         UserDetail user = SecurityUser.getUser();
-        List<SysMenuDto> list = sysMenuService.getUserMenuList(user, null);
+        List<SysMenuDto> list = sysMenuServiceImpl.getUserMenuList(user, null);
         return new Result<List<SysMenuDto>>().ok(list);
     }
 }

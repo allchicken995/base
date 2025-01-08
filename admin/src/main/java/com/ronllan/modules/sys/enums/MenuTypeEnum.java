@@ -10,19 +10,19 @@ public enum MenuTypeEnum {
     /**
      * 菜单
      */
-    MENU(0),
+    MENU(new Integer[]{0,1}),
     /**
      * 按钮
      */
-    BUTTON(1);
+    BUTTON(new Integer[]{2});
 
-    private int value;
+    private Integer[] value;
 
-    MenuTypeEnum(int value) {
+    MenuTypeEnum(Integer[] value) {
         this.value = value;
     }
 
-    public int value() {
+    public Integer[] value() {
         return this.value;
     }
 }

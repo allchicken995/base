@@ -81,30 +81,42 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
     }
 
     @Override
-    public List<SysMenuDto> getAllMenuList(Integer menuType) {
-        List<SysMenuEntity> menuList = baseDao.getMenuList(menuType, HttpContextUtils.getLanguage());
+    public List<SysMenuDto> list(Map<String, Object> params) {
+    	params.put("language", HttpContextUtils.getLanguage());
+        List<SysMenuEntity> menuList = getObjectList("getMenuList",params);
         List<SysMenuDto> dtoList = ConvertUtils.sourceToTarget(menuList, SysMenuDto.class);
         return TreeUtils.build(dtoList, Constant.MENU_ROOT);
     }
 
     @Override
-    public List<SysMenuDto> getUserMenuList(UserDetail user, Integer menuType) {
-        List<SysMenuEntity> menuList;
+    public List<SysMenuDto> getUserMenuList(UserDetail user, Integer[] menuTypeList) {
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("menuTypeList", menuTypeList);
+    	params.put("language", HttpContextUtils.getLanguage());
+        List<SysMenuEntity> menuList = null;
         //系统管理员，拥有最高权限
         if (user.getSuperAdmin() == SuperAdminEnum.YES.value()) {
-            menuList = baseDao.getAdminMenuList(HttpContextUtils.getLanguage());
+            menuList = getObjectList("getMenuList",params);
         } else {
-            menuList = baseDao.getUserMenuList(user.getId(), menuType, HttpContextUtils.getLanguage());
+        	params.put("userId", user.getId());
+        	menuList = getObjectList("getUserMenuList",params);
         }
         List<SysMenuDto> dtoList = ConvertUtils.sourceToTarget(menuList, SysMenuDto.class);
         return TreeUtils.build(dtoList);
     }
 
     @Override
-    public List<SysMenuDto> getListPid(Long pid) {
-        List<SysMenuEntity> menuList = baseDao.getListPid(pid);
-
+    public List<SysMenuDto> getUserPermissionsList(Long userId) {
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put("userId", userId);
+        List<SysMenuEntity> menuList = getObjectList("getUserPermissionsList",params);
         return ConvertUtils.sourceToTarget(menuList, SysMenuDto.class);
     }
+
+	@Override
+	public List<SysMenuDto> getPermissionsList() {
+		List<SysMenuEntity> menuList = getObjectList(new SysMenuEntity());
+        return ConvertUtils.sourceToTarget(menuList, SysMenuDto.class);
+	}
 
 }
