@@ -84,6 +84,16 @@ public interface BaseService<T> {
     
     /**
      * <p>
+     * 根据 查询条件 自定义查询
+     * </p>
+     *
+     * @param sqlMethod 自定义sql方法名
+     * @param params 查询条件
+     */
+    T getObject(String sqlMethod,Map<String, Object> params);
+    
+    /**
+     * <p>
      * 根据 实体对象 查询
      * </p>
      *

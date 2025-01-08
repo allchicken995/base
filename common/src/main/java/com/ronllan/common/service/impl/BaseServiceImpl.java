@@ -255,6 +255,18 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         }
 		return baseDao.selectList(wrapper);
 	}
+	
+	@Override
+	public T getObject(String sqlMethod,Map<String, Object> params) {
+		String statement = this.currentMapperClass().getName() + StringPool.DOT + sqlMethod;
+		try {
+			sqlSessionFactory.getConfiguration().getMappedStatement(statement);
+		} catch (Exception e) {
+			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
+		}
+    	SqlSession sqlSession = sqlSessionFactory.openSession();
+    	return sqlSession.selectOne(statement, params);
+    }
     
     @Override
 	public T getObject(T entity) {

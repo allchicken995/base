@@ -17,8 +17,6 @@ import java.util.List;
 @Mapper
 public interface SysMenuDao extends BaseDao<SysMenuEntity> {
 
-	SysMenuEntity getById(@Param("id") Long id, @Param("language") String language);
-
 	/**
 	 * 查询所有菜单列表
 	 *

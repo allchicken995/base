@@ -1,6 +1,8 @@
 package com.ronllan.modules.sys.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +31,10 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
 
     @Override
     public SysMenuDto get(Long id) {
-        SysMenuEntity entity = baseDao.getById(id, HttpContextUtils.getLanguage());
+    	Map<String, Object> params = new HashMap<String, Object>();
+    	params.put(Constant.ID, id);
+    	params.put("language", HttpContextUtils.getLanguage());
+        SysMenuEntity entity = getObject("getObject",params);
         SysMenuDto dto = ConvertUtils.sourceToTarget(entity, SysMenuDto.class);
         return dto;
     }

@@ -5,14 +5,26 @@
 
 	<resultMap id="SysMenuEntity" type="com.ronllan.modules.sys.entity.SysMenuEntity"></resultMap>
 
-	<select id="getObjectById" resultMap="SysMenuEntity">
-		select t1.*,
-		(select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
-		and lang.table_id=t1.pid and lang.language=#{language}) as parentName,
-		(select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
-		and lang.table_id=t1.id and lang.language=#{language}) as name
-		from sys_menu t1
-		where t1.id = #{id}
+	<select id="getObject" resultMap="SysMenuEntity">
+		select 
+			sysMenu.*,
+			sysLanguage.field_value as name,
+			parentLanguage.field_value as parentName
+		from 
+			sys_menu sysMenu
+			left join sys_language sysLanguage on sysLanguage.table_id = sysMenu.id 
+				and sysLanguage.table_name='sys_menu' 
+				and sysLanguage.field_name='name'
+				and sysLanguage.language=#{language}
+				and sysLanguage.logical_delete = 0
+			left join sys_language parentLanguage on sysLanguage.table_id = sysMenu.pid 
+				and parentLanguage.table_name='sys_menu' 
+				and parentLanguage.field_name='name'
+				and parentLanguage.language=#{language}
+				and parentLanguage.logical_delete = 0
+		where 
+			sysMenu.logical_delete = 0
+			and sysMenu.id = #{id}
 	</select>
 
 	<select id="getMenuList" resultMap="SysMenuEntity">
