@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ronllan.common.annotation.LogOperation;
-import com.ronllan.common.exception.ErrorCode;
 import com.ronllan.common.user.UserDetail;
 import com.ronllan.common.utils.Result;
 import com.ronllan.common.validator.AssertUtils;
@@ -105,11 +104,6 @@ public class SysMenuController {
     public Result delete(@PathVariable("id") Long id) {
         //效验数据
         AssertUtils.isNull(id, "id");
-        //判断是否有子菜单或按钮
-        List<SysMenuDto> list = sysMenuService.getListPid(id);
-        if (list.size() > 0) {
-//            return new Result().error(ErrorCode.SUB_MENU_EXIST);
-        }
         sysMenuService.delete(id);
         return new Result();
     }

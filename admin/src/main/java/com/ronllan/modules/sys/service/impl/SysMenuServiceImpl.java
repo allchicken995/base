@@ -16,6 +16,7 @@ import com.ronllan.common.utils.ConvertUtils;
 import com.ronllan.common.utils.HttpContextUtils;
 import com.ronllan.common.utils.TreeUtils;
 import com.ronllan.modules.sys.dao.SysMenuDao;
+import com.ronllan.modules.sys.dto.SysLanguageDto;
 import com.ronllan.modules.sys.dto.SysMenuDto;
 import com.ronllan.modules.sys.entity.SysMenuEntity;
 import com.ronllan.modules.sys.enums.SuperAdminEnum;
@@ -27,7 +28,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntity> implements SysMenuService {
-    private final SysLanguageService sysLanguageService;
+    private final SysLanguageService sysLanguageServiceImpl;
 
     @Override
     public SysMenuDto get(Long id) {
@@ -43,10 +44,15 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
     @Transactional(rollbackFor = Exception.class)
     public void save(SysMenuDto dto) {
         SysMenuEntity entity = ConvertUtils.sourceToTarget(dto, SysMenuEntity.class);
-
         //保存菜单
         insert(entity);
-        saveLanguage(entity.getId(), "name", entity.getName());
+        SysLanguageDto sysLanguageDto = new SysLanguageDto();
+        sysLanguageDto.setTableName("sys_menu");
+        sysLanguageDto.setTableId(entity.getId());
+        sysLanguageDto.setFieldName("name");
+        sysLanguageDto.setFieldValue(entity.getName());
+        sysLanguageDto.setLanguage(HttpContextUtils.getLanguage());
+        sysLanguageServiceImpl.saveOrUpdate(sysLanguageDto);
     }
 
     @Override
@@ -59,13 +65,19 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
         }
         //更新菜单
         updateById(entity);
-        saveLanguage(entity.getId(), "name", entity.getName());
+        SysLanguageDto sysLanguageDto = new SysLanguageDto();
+        sysLanguageDto.setTableName("sys_menu");
+        sysLanguageDto.setTableId(entity.getId());
+        sysLanguageDto.setFieldName("name");
+        sysLanguageDto.setFieldValue(entity.getName());
+        sysLanguageDto.setLanguage(HttpContextUtils.getLanguage());
+        sysLanguageServiceImpl.saveOrUpdate(sysLanguageDto);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
-        delete(id);
+        deleteById(id);
     }
 
     @Override
@@ -93,10 +105,6 @@ public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntit
         List<SysMenuEntity> menuList = baseDao.getListPid(pid);
 
         return ConvertUtils.sourceToTarget(menuList, SysMenuDto.class);
-    }
-
-    private void saveLanguage(Long tableId, String fieldName, String fieldValue) {
-        sysLanguageService.saveOrUpdate("sys_menu", tableId, fieldName, fieldValue, HttpContextUtils.getLanguage());
     }
 
 }
