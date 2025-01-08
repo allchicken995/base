@@ -1,6 +1,8 @@
 package com.ronllan.modules.sys.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,24 +30,32 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuDao, SysR
 	@Transactional(rollbackFor = Exception.class)
 	public void saveOrUpdate(Long roleId, List<SysRoleMenuDto> menuIdList) {
 		//先删除角色菜单关系
-		deleteByRoleIds(new Long[]{roleId});
-		//角色没有一个菜单权限的情况
-		if(CollUtil.isEmpty(menuIdList)){
-			return ;
+		SysRoleMenuEntity entity = new SysRoleMenuEntity();
+		entity.setRoleId(roleId);
+		List<SysRoleMenuEntity> entityList = getObjectList(entity);
+		if(CollUtil.isNotEmpty(entityList)) {
+			for(SysRoleMenuEntity temp : entityList) {
+				deleteById(temp.getId());
+			}
 		}
-		//保存角色菜单关系
-		for(SysRoleMenuDto dto : menuIdList){
-			SysRoleMenuEntity sysRoleMenuEntity = new SysRoleMenuEntity();
-			sysRoleMenuEntity.setMenuId(dto.getMenuId());
-			sysRoleMenuEntity.setRoleId(roleId);
-			//保存
-			insert(sysRoleMenuEntity);
+		//角色没有一个菜单权限的情况
+		if(CollUtil.isNotEmpty(menuIdList)){
+			//保存角色菜单关系
+			for(SysRoleMenuDto dto : menuIdList){
+				SysRoleMenuEntity sysRoleMenuEntity = new SysRoleMenuEntity();
+				sysRoleMenuEntity.setMenuId(dto.getMenuId());
+				sysRoleMenuEntity.setRoleId(roleId);
+				//保存
+				insert(sysRoleMenuEntity);
+			}
 		}
 	}
 
 	@Override
 	public List<SysRoleMenuDto> getMenuRoleList(Long roleId){
-		List<SysRoleMenuEntity> entityList = baseDao.getMenuRoleList(roleId);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("roleId",roleId);
+		List<SysRoleMenuEntity> entityList = getObjectList("getMenuRoleList",params);
 		List<SysRoleMenuDto> dtoList = ConvertUtils.sourceToTarget(entityList, SysRoleMenuDto.class);
 		for(SysRoleMenuDto dto : dtoList) {
 			dto.setId(dto.getMenuId());
@@ -53,11 +63,5 @@ public class SysRoleMenuServiceImpl extends BaseServiceImpl<SysRoleMenuDao, SysR
 		}
 		return TreeUtils.build(dtoList);
 	}
-
-	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void deleteByRoleIds(Long[] roleIds) {
-		baseDao.deleteByRoleIds(roleIds);
-	}
-
+	
 }

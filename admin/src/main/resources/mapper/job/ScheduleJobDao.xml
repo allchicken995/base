@@ -4,8 +4,14 @@
 <mapper namespace="com.ronllan.modules.job.dao.ScheduleJobDao">
 	
 	<!-- 批量更新状态 -->
-	<update id="updateBatch"> 
-		update schedule_job set status = #{status} where id in
+	<update id="update"> 
+		update 
+			schedule_job 
+		set 
+			status = #{status} 
+		where 
+			logical_delete = 0
+		and	id in
 		<foreach item="id" collection="ids"  open="(" separator="," close=")">
 			#{id}
 		</foreach>

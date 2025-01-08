@@ -39,7 +39,7 @@ import com.ronllan.common.utils.ConvertUtils;
 public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseService<T> {
 	
     @Autowired
-    protected M baseDao;
+    private M baseDao;
     
     @Autowired
     private SqlSessionFactory sqlSessionFactory;
@@ -100,17 +100,6 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         return getPageData(page,page.getRecords(), target);
     }
 
-    protected void paramsToLike(Map<String, Object> params, String... likes) {
-        for (String like : likes) {
-            String val = (String) params.get(like);
-            if (StringUtils.isNotBlank(val)) {
-                params.put(like, "%" + val + "%");
-            } else {
-                params.put(like, null);
-            }
-        }
-    }
-
     protected Class<M> currentMapperClass() {
         return (Class<M>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 0);
     }
@@ -135,6 +124,19 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     		}
     	}
         return true;
+    }
+    
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+	public boolean update(String sqlMethod,Map<String, Object> params) {
+		String statement = this.currentMapperClass().getName() + StringPool.DOT + sqlMethod;
+		try {
+			sqlSessionFactory.getConfiguration().getMappedStatement(statement);
+		} catch (Exception e) {
+			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
+		}
+    	SqlSession sqlSession = sqlSessionFactory.openSession();
+    	return SqlHelper.retBool(sqlSession.update(statement, params));
     }
 
     @Override
@@ -186,6 +188,19 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         }
         IPage page = baseDao.selectPage(getPage(params, Constant.CREATE_DATE, false),wrapper);
 		return getPageData(page,target) ;
+	}
+    
+    @Override
+	public <T> PageData<T> getPage(String sqlMethod,Map<String, Object> params,Class<T> target) {
+    	String statement = this.currentMapperClass().getName() + StringPool.DOT + sqlMethod;
+		try {
+			sqlSessionFactory.getConfiguration().getMappedStatement(statement);
+		} catch (Exception e) {
+			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
+		}
+		IPage<T> page = (IPage<T>) getPage(params, Constant.CREATE_DATE, false);
+    	SqlSession sqlSession = sqlSessionFactory.openSession();
+    	return getPageData(page,sqlSession.selectList(statement, params),target);
 	}
     
     @Override

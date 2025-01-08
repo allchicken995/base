@@ -36,6 +36,16 @@ public interface BaseService<T> {
 
     /**
      * <p>
+     * 根据 自定义sql 选择修改
+     * </p>
+     *
+     * @param sqlMethod 自定义sql方法名
+     * @param params 查询条件
+     */
+    boolean update(String sqlMethod,Map<String, Object> params);
+    
+    /**
+     * <p>
      * 根据 ID 选择修改
      * </p>
      *
@@ -59,6 +69,15 @@ public interface BaseService<T> {
      * @param target 目标对象
      */
     <T> PageData<T> getPage(Map<String, Object> params,Class<T> target);
+    
+    /**
+     * 查询（分页查询）
+     *
+     * @param sqlMethod 自定义sql方法名
+     * @param params 查询条件
+     * @param target 目标对象
+     */
+    <T> PageData<T> getPage(String sqlMethod,Map<String, Object> params,Class<T> target);
     
     /**
      * 查询（批量查询）

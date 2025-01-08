@@ -3,5 +3,24 @@
 
 <mapper namespace="com.ronllan.modules.sys.dao.SysRoleDao">
 
+	<resultMap id="SysRoleEntity" type="com.ronllan.modules.sys.entity.SysRoleEntity"></resultMap>
+
+	<select id="getObjectList" resultMap="SysRoleEntity">
+		select 
+			SysRole.*
+		from 
+			sys_role SysRole
+		where 
+			SysRole.logical_delete = 0
+		<if test="name != null and name.trim() != ''">
+			and SysRole.name like concat(concat('%',#{name}),'%')
+		</if>
+		<if test="deptIdList != null">
+			and SysRole.dept_id in
+			<foreach item="id" collection="deptIdList" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+	</select>
 
 </mapper>

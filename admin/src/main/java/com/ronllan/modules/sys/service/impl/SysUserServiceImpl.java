@@ -7,7 +7,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.ronllan.common.page.PageData;
 import com.ronllan.common.service.impl.BaseServiceImpl;
 import com.ronllan.common.user.UserDetail;
@@ -34,23 +33,17 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntity> implements SysUserService {
-    private final SysRoleUserService sysRoleUserService;
-    private final SysDeptService sysDeptService;
+    private final SysRoleUserService sysRoleUserServiceImpl;
+    private final SysDeptService sysDeptServiceImpl;
 
     @Override
     public PageData<SysUserDto> page(Map<String, Object> params) {
-        //转换成like
-        paramsToLike(params, "username");
-        //分页
-        IPage<SysUserEntity> page = getPage(params, "t1.create_date", false);
         //普通管理员，只能查询所属部门及子部门的数据
         UserDetail user = SecurityUser.getUser();
         if (user.getSuperAdmin() == SuperAdminEnum.NO.value()) {
-            params.put("deptIdList", sysDeptService.getSubDeptIdList(user.getDeptId()));
+            params.put("deptIdList", sysDeptServiceImpl.getSubDeptIdList(user.getDeptId()));
         }
-        //查询
-        List<SysUserEntity> list = baseDao.getList(params);
-        return getPageData(page,list,SysUserDto.class);
+        return getPage("getObjectList",params,SysUserDto.class);
     }
 
     @Override
@@ -58,9 +51,9 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         //普通管理员，只能查询所属部门及子部门的数据
         UserDetail user = SecurityUser.getUser();
         if (user.getSuperAdmin() == SuperAdminEnum.NO.value()) {
-            params.put("deptIdList", sysDeptService.getSubDeptIdList(user.getDeptId()));
+            params.put("deptIdList", sysDeptServiceImpl.getSubDeptIdList(user.getDeptId()));
         }
-        List<SysUserEntity> entityList = baseDao.getList(params);
+        List<SysUserEntity> entityList = getObjectList("getObjectList",params);
         return ConvertUtils.sourceToTarget(entityList, SysUserDto.class);
     }
 
@@ -89,7 +82,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         entity.setSuperAdmin(SuperAdminEnum.NO.value());
         insert(entity);
         //保存角色用户关系
-        sysRoleUserService.saveOrUpdate(entity.getId(), dto.getRoleIdList());
+        sysRoleUserServiceImpl.saveOrUpdate(entity.getId(), dto.getRoleIdList());
     }
 
     @Override
@@ -106,7 +99,7 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
         //更新用户
         updateById(entity);
         //更新角色用户关系
-        sysRoleUserService.saveOrUpdate(entity.getId(), dto.getRoleIdList());
+        sysRoleUserServiceImpl.saveOrUpdate(entity.getId(), dto.getRoleIdList());
     }
 
     @Override
@@ -130,17 +123,10 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUserDao, SysUserEntit
     @Transactional(rollbackFor = Exception.class)
     public void updatePassword(Long id, String newPassword) {
         newPassword = PasswordUtils.encode(newPassword);
-        baseDao.updatePassword(id, newPassword);
-    }
-
-    @Override
-    public int getCountByDeptId(Long deptId) {
-        return baseDao.getCountByDeptId(deptId);
-    }
-
-    @Override
-    public List<Long> getUserIdListByDeptId(List<Long> deptIdList) {
-        return baseDao.getUserIdListByDeptId(deptIdList);
+        SysUserEntity entity = new SysUserEntity();
+        entity.setId(id);
+        entity.setPassword(newPassword);
+        updateById(entity);
     }
 
 }

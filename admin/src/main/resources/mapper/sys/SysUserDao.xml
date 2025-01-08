@@ -5,42 +5,28 @@
 	
 	<resultMap id="SysUserEntity" type="com.ronllan.modules.sys.entity.SysUserEntity"></resultMap>
 
-	<select id="getList" resultMap="SysUserEntity">
-		select t1.*, (select t2.name from sys_dept t2 where t2.id=t1.dept_id) deptName
-			from sys_user t1 where t1.super_admin = 0
+	<select id="getObjectList" resultMap="SysUserEntity">
+		select 
+			sysUser.*, 
+			sysDept.name as deptName
+		from 
+			sys_user sysUser 
+			left join sys_dept sysDept on sysDept.id = sysUser.dept_id
+				and sysDept.logical_delete = 0
+		where 
+			sysUser.super_admin = 0
 		<if test="username != null and username.trim() != ''">
-			and t1.username like #{username}
+			and sysUser.username like #{username}
 		</if>
 		<if test="deptId != null and deptId.trim() != ''">
-			and t1.dept_id = #{deptId}
+			and sysUser.dept_id = #{deptId}
 		</if>
 		<if test="deptIdList != null">
-			and t1.dept_id in
+			and sysUser.dept_id in
 			<foreach item="id" collection="deptIdList" open="(" separator="," close=")">
 				#{id}
 			</foreach>
 		</if>
-	</select>
-
-	<update id="updatePassword">
-		update 
-			sys_user 
-		set 
-			password = #{newPassword} 
-		where 
-			id = #{id}
-		and logical_delete = 0	
-	</update>
-
-	<select id="getCountByDeptId" resultType="int">
-		select count(*) from sys_user where dept_id = #{value}
-	</select>
-
-	<select id="getUserIdListByDeptId" resultType="Long">
-		select id from sys_user where dept_id in
-			<foreach item="deptId" collection="list" open="(" separator="," close=")">
-				#{deptId}
-			</foreach>
 	</select>
 
 </mapper>

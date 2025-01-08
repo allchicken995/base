@@ -1,47 +1,28 @@
 package com.ronllan.modules.job.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import java.util.Map;
+
+import org.springframework.stereotype.Service;
+
+import com.ronllan.common.page.PageData;
+import com.ronllan.common.service.impl.BaseServiceImpl;
+import com.ronllan.common.utils.ConvertUtils;
 import com.ronllan.modules.job.dao.ScheduleJobLogDao;
 import com.ronllan.modules.job.dto.ScheduleJobLogDto;
 import com.ronllan.modules.job.entity.ScheduleJobLogEntity;
 import com.ronllan.modules.job.service.ScheduleJobLogService;
-
-import com.ronllan.common.constant.Constant;
-import com.ronllan.common.page.PageData;
-import com.ronllan.common.service.impl.BaseServiceImpl;
-import com.ronllan.common.utils.ConvertUtils;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class ScheduleJobLogServiceImpl extends BaseServiceImpl<ScheduleJobLogDao, ScheduleJobLogEntity> implements ScheduleJobLogService {
 
 	@Override
 	public PageData<ScheduleJobLogDto> page(Map<String, Object> params) {
-		IPage<ScheduleJobLogEntity> page = baseDao.selectPage(
-			getPage(params, Constant.CREATE_DATE, false),
-			getWrapper(params)
-		);
-		return getPageData(page, ScheduleJobLogDto.class);
-	}
-
-	private QueryWrapper<ScheduleJobLogEntity> getWrapper(Map<String, Object> params){
-		String jobId = (String)params.get("jobId");
-
-		QueryWrapper<ScheduleJobLogEntity> wrapper = new QueryWrapper<>();
-		wrapper.eq(StringUtils.isNotBlank(jobId), "job_id", jobId);
-
-		return wrapper;
+		return getPage(params,ScheduleJobLogDto.class);
 	}
 
 	@Override
 	public ScheduleJobLogDto get(Long id) {
-		ScheduleJobLogEntity entity = baseDao.selectById(id);
-
+		ScheduleJobLogEntity entity = getObjectById(id);
 		return ConvertUtils.sourceToTarget(entity, ScheduleJobLogDto.class);
 	}
 

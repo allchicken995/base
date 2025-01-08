@@ -1,26 +1,23 @@
 package com.ronllan.modules.job.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.quartz.Scheduler;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.ronllan.common.constant.Constant;
+import com.ronllan.common.page.PageData;
+import com.ronllan.common.service.impl.BaseServiceImpl;
+import com.ronllan.common.utils.ConvertUtils;
 import com.ronllan.modules.job.dao.ScheduleJobDao;
 import com.ronllan.modules.job.dto.ScheduleJobDto;
 import com.ronllan.modules.job.entity.ScheduleJobEntity;
 import com.ronllan.modules.job.service.ScheduleJobService;
 import com.ronllan.modules.job.utils.ScheduleUtils;
 
-import com.ronllan.common.constant.Constant;
-import com.ronllan.common.page.PageData;
-import com.ronllan.common.service.impl.BaseServiceImpl;
-import com.ronllan.common.utils.ConvertUtils;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
-import org.quartz.Scheduler;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 @AllArgsConstructor
 @Service
@@ -29,11 +26,7 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
 
     @Override
     public PageData<ScheduleJobDto> page(Map<String, Object> params) {
-        IPage<ScheduleJobEntity> page = baseDao.selectPage(
-                getPage(params, Constant.CREATE_DATE, false),
-                getWrapper(params)
-        );
-        return getPageData(page, ScheduleJobDto.class);
+        return getPage(params,ScheduleJobDto.class);
     }
 
     @Override
@@ -42,23 +35,12 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
         return ConvertUtils.sourceToTarget(entity, ScheduleJobDto.class);
     }
 
-    private QueryWrapper<ScheduleJobEntity> getWrapper(Map<String, Object> params) {
-        String beanName = (String) params.get("beanName");
-
-        QueryWrapper<ScheduleJobEntity> wrapper = new QueryWrapper<>();
-        wrapper.like(StringUtils.isNotBlank(beanName), "bean_name", beanName);
-
-        return wrapper;
-    }
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(ScheduleJobDto dto) {
         ScheduleJobEntity entity = ConvertUtils.sourceToTarget(dto, ScheduleJobEntity.class);
-
         entity.setStatus(Constant.ScheduleStatus.NORMAL.getValue());
-        this.insert(entity);
-
+        insert(entity);
         ScheduleUtils.createScheduleJob(scheduler, entity);
     }
 
@@ -66,10 +48,8 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
     @Transactional(rollbackFor = Exception.class)
     public void update(ScheduleJobDto dto) {
         ScheduleJobEntity entity = ConvertUtils.sourceToTarget(dto, ScheduleJobEntity.class);
-
         ScheduleUtils.updateScheduleJob(scheduler, entity);
-
-        this.updateById(entity);
+        updateById(entity);
     }
 
     @Override
@@ -77,18 +57,16 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
     public void deleteBatch(Long[] ids) {
         for (Long id : ids) {
             ScheduleUtils.deleteScheduleJob(scheduler, id);
+            deleteById(id);
         }
-
-        //删除数据
-//        this.deleteBatchIds(Arrays.asList(ids));
     }
 
     @Override
-    public int updateBatch(Long[] ids, int status) {
-        Map<String, Object> map = new HashMap<>(2);
-        map.put("ids", ids);
-        map.put("status", status);
-        return baseDao.updateBatch(map);
+    public boolean updateBatch(Long[] ids, int status) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("ids", ids);
+        params.put("status", status);
+        return update("update",params);
     }
 
     @Override
@@ -105,7 +83,6 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
         for (Long id : ids) {
             ScheduleUtils.pauseJob(scheduler, id);
         }
-
         updateBatch(ids, Constant.ScheduleStatus.PAUSE.getValue());
     }
 
@@ -115,7 +92,6 @@ public class ScheduleJobServiceImpl extends BaseServiceImpl<ScheduleJobDao, Sche
         for (Long id : ids) {
             ScheduleUtils.resumeJob(scheduler, id);
         }
-
         updateBatch(ids, Constant.ScheduleStatus.NORMAL.getValue());
     }
 

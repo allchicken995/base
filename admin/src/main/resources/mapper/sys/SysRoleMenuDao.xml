@@ -4,7 +4,6 @@
 <mapper namespace="com.ronllan.modules.sys.dao.SysRoleMenuDao">
 
 	<resultMap id="SysRoleMenuEntity" type="com.ronllan.modules.sys.entity.SysRoleMenuEntity"></resultMap>
-    <parameterMap id="SysRoleMenuEntity" type="com.ronllan.modules.sys.entity.SysRoleMenuEntity"></parameterMap>
 
 	<select id="getMenuRoleList" resultMap="SysRoleMenuEntity">
 		select 
@@ -13,14 +12,10 @@
 		from 
 			sys_role_menu sysRoleMenu
 		inner join sys_menu sysMenu on sysMenu.id = sysRoleMenu.menu_id
+			and sysMenu.logical_delete = 0
 		where 
-			role_id = #{value}
+			sysRoleMenu.logical_delete = 0
+		and role_id = #{roleId}
 	</select>
-
-	<delete id="deleteByRoleIds">
-		delete from sys_role_menu where role_id in
-		<foreach item="roleId" collection="array" open="(" separator="," close=")">
-			#{roleId}
-		</foreach>
-	</delete>
+	
 </mapper>

@@ -5,24 +5,32 @@
 
 	<resultMap id="SysUserTokenEntity" type="com.ronllan.modules.security.entity.SysUserTokenEntity"></resultMap>
 
-	<select id="getByToken" resultMap="SysUserTokenEntity">
-		select * from sys_user_token where token = #{value}
-	</select>
-
-	<select id="getByUserId" resultMap="SysUserTokenEntity">
-		select * from sys_user_token where user_id = #{value}
-	</select>
-
 	<update id="logout">
-		update sys_user_token set expire_date = #{expireDate} where user_id = #{userId}
+		update 
+			sys_user_token 
+		set 
+			expire_date = #{expireDate} 
+		where 
+			user_id = #{userId}
+		and logical_delete = 0
 	</update>
 
 	<select id="getOnlineList" resultMap="SysUserTokenEntity">
-		select t1.user_id, t1.expire_date, t1.update_date as login_date, t2.username, t2.real_name
-		from sys_user_token t1, sys_user t2
-		where t1.user_id = t2.id and expire_date > #{expireDate}
+		select 
+			sysUserToken.user_id,
+		    sysUserToken.expire_date,
+		    sysUserToken.update_date as login_date,
+		    sysUser.username,
+		    sysUser.real_name
+		from 
+			sys_user_token sysUserToken 
+			inner join sys_user sysUser on sysUser.id = sysUserToken.user_id
+				and sysUser.logical_delete = 0
+		where 
+			sysUserToken.logical_delete = 0
+		and	sysUserToken.expire_date > #{expireDate}
 		<if test="username != null and username.trim() != ''">
-			and t2.username like #{username}
+			and sysUser.username like concat(concat('%',#{username}),'%')
 		</if>
 	</select>
 </mapper>

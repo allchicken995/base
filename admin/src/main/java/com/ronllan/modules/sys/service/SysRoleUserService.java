@@ -22,18 +22,6 @@ public interface SysRoleUserService extends BaseService<SysRoleUserEntity> {
     void saveOrUpdate(Long userId, List<Long> roleIdList);
 
     /**
-     * 根据角色ids，删除角色用户关系
-     * @param roleIds 角色ids
-     */
-    void deleteByRoleIds(Long[] roleIds);
-
-    /**
-     * 根据用户id，删除角色用户关系
-     * @param userIds 用户ids
-     */
-    void deleteByUserIds(Long[] userIds);
-
-    /**
      * 角色ID列表
      * @param userId  用户ID
      */

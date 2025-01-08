@@ -6,6 +6,7 @@ import com.ronllan.modules.security.dao.SysUserTokenDao;
 import com.ronllan.modules.security.entity.SysUserTokenEntity;
 import com.ronllan.modules.security.oauth2.TokenGenerator;
 import com.ronllan.modules.security.service.SysUserTokenService;
+import com.ronllan.modules.sys.dto.SysUserDto;
 import com.ronllan.modules.sys.entity.SysOnlineEntity;
 
 import com.ronllan.common.constant.Constant;
@@ -72,17 +73,17 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
     @Override
     public void logout(Long userId) {
         Date expireDate = DateUtil.offsetMinute(new Date(), -1);
-        baseDao.logout(userId, expireDate);
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("expireDate", expireDate);
+        params.put("userId", userId);
+        update("logout",params);
     }
 
     @Override
     public PageData<SysOnlineEntity> onlinePage(Map<String, Object> params) {
-        //分页
-        IPage<?> page = getPage(params, Constant.UPDATE_DATE, false);
         //查询
         params.put(Constant.EXPIRE_DATE, new Date());
         params.put(Constant.ORDER_FIELD, Constant.UPDATE_DATE);
-        List<SysOnlineEntity> list = baseDao.getOnlineList(params);
-        return new PageData<>(page,list);
+        return getPage("getOnlineList",params,SysOnlineEntity.class);
     }
 }
