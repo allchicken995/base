@@ -15,6 +15,21 @@ import java.util.List;
  */
 @Slf4j
 public class ConvertUtils {
+	
+	public static <T> T clone(T source) {
+        if (source == null) {
+            return null;
+        }
+        T targetObject = null;
+        try {
+            targetObject = (T) source.getClass().newInstance();
+            BeanUtils.copyProperties(source, targetObject);
+        } catch (Exception e) {
+            log.error("clone error ", e);
+        }
+        return targetObject;
+    }
+	
     public static <T> T sourceToTarget(Object source, Class<T> target) {
         if (source == null) {
             return null;
@@ -26,7 +41,6 @@ public class ConvertUtils {
         } catch (Exception e) {
             log.error("convert error ", e);
         }
-
         return targetObject;
     }
 

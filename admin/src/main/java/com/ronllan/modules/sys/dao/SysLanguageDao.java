@@ -12,9 +12,5 @@ import com.ronllan.modules.sys.entity.SysLanguageEntity;
  */
 @Mapper
 public interface SysLanguageDao extends BaseDao<SysLanguageEntity> {
-
-    SysLanguageEntity getLanguage(SysLanguageEntity entity);
-
-    void updateLanguage(SysLanguageEntity entity);
     
 }

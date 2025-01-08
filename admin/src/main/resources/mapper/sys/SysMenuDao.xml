@@ -5,7 +5,7 @@
 
 	<resultMap id="SysMenuEntity" type="com.ronllan.modules.sys.entity.SysMenuEntity"></resultMap>
 
-	<select id="getById" resultMap="SysMenuEntity">
+	<select id="getObjectById" resultMap="SysMenuEntity">
 		select t1.*,
 		(select lang.field_value from sys_language lang where lang.table_name='sys_menu' and lang.field_name='name'
 		and lang.table_id=t1.pid and lang.language=#{language}) as parentName,

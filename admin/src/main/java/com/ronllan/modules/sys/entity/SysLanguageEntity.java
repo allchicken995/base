@@ -1,9 +1,9 @@
 package com.ronllan.modules.sys.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import com.ronllan.common.entity.BaseEntity;
 
-import java.io.Serializable;
+import lombok.Data;
 
 /**
  * 国际化
@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 @Data
 @TableName("sys_language")
-public class SysLanguageEntity implements Serializable {
+public class SysLanguageEntity extends BaseEntity {
     /**
      * 表名
      */
