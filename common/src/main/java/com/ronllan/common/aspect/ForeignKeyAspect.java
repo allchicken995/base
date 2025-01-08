@@ -40,17 +40,17 @@ public class ForeignKeyAspect {
     public void before(JoinPoint joinPoint) throws Throwable {
     	Object[] args = joinPoint.getArgs();
     	if (args != null && args.length > 0) {
-    		String tableName = null;
+    		String table = null;
     		Object object = args[0];
     		for(Annotation annotation : object.getClass().getAnnotations()) {
     			if(TableName.class.getCanonicalName().equals(annotation.annotationType().getCanonicalName())) {
-    				tableName = ((TableName)annotation).value();
+    				table = ((TableName)annotation).value();
     			}
     		}
     		for (Field field : object.getClass().getSuperclass().getDeclaredFields()) {
     			field.setAccessible(true);
-				if("tableName".equals(field.getName())){
-					field.set(object, tableName);
+				if("table".equals(field.getName())){
+					field.set(object, table);
 					break;
 				}
 			}
@@ -98,17 +98,17 @@ public class ForeignKeyAspect {
 									}
 									break;
 								case Constant.SETNULL:
-									String tableName = null;
+									String table = null;
 									Object object = Class.forName(handleClassName).newInstance();
 									for(Annotation temp : object.getClass().getAnnotations()) {
 						    			if(TableName.class.getCanonicalName().equals(temp.annotationType().getCanonicalName())) {
-						    				tableName = ((TableName)temp).value();
+						    				table = ((TableName)temp).value();
 						    			}
 						    		}
 									for (Field temp : object.getClass().getSuperclass().getDeclaredFields()) {
 										temp.setAccessible(true);
-										if("tableName".equals(temp.getName())){
-											temp.set(object, tableName);
+										if("table".equals(temp.getName())){
+											temp.set(object, table);
 										}else if("foreignKey".equals(temp.getName())){
 											temp.set(object, foreignKey.replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase());
 										}else if("foreignValue".equals(temp.getName())){

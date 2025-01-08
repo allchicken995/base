@@ -17,7 +17,7 @@ public interface BaseDao<T> extends BaseMapper<T> {
      *
      * @param entity 实体对象
      */
-	@Update("update ${tableName} set ${foreignKey} = null where ${foreignKey} = #{foreignValue} and logical_delete !=0 ")
+	@Update("update ${table} set ${foreignKey} = null where ${foreignKey} = #{foreignValue} and logical_delete !=0 ")
     int handleForeignKey(T entity);
 	/**
      * 逻辑删除
@@ -25,6 +25,6 @@ public interface BaseDao<T> extends BaseMapper<T> {
      * @param entity 实体对象
      */
 	@ForeignKey
-	@Update("update ${tableName} set logical_delete = id where id = #{id} ")
+	@Update("update ${table} set logical_delete = id where id = #{id} ")
     int delete(T entity);
 }

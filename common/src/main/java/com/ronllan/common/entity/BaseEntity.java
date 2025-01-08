@@ -50,7 +50,7 @@ public abstract class BaseEntity implements Serializable {
      * 表名
      */
     @TableField(exist = false)
-    private String tableName;
+    private String table;
     /**
      * 外键名
      */
