@@ -45,7 +45,7 @@ public class SysDeptServiceImpl extends BaseServiceImpl<SysDeptDao, SysDeptEntit
 
     @Override
     public SysDeptDto get(Long id) {
-        SysDeptEntity entity = baseDao.getObjectById(id);
+        SysDeptEntity entity = getObjectById("getObjectById",id);
         return ConvertUtils.sourceToTarget(entity,SysDeptDto.class);
     }
 

@@ -65,7 +65,7 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
         }
         Map<String, Object> map = new HashMap<>(2);
         map.put(Constant.TOKEN_HEADER, token);
-        map.put("expire", EXPIRE);
+        map.put(Constant.EXPIRE, EXPIRE);
         return new Result().ok(map);
     }
 
@@ -78,9 +78,10 @@ public class SysUserTokenServiceImpl extends BaseServiceImpl<SysUserTokenDao, Sy
     @Override
     public PageData<SysOnlineEntity> onlinePage(Map<String, Object> params) {
         //分页
-        IPage<?> page = getPage(params, "sysUserToken.update_date", false);
+        IPage<?> page = getPage(params, Constant.UPDATE_DATE, false);
         //查询
-        params.put("expireDate", new Date());
+        params.put(Constant.EXPIRE_DATE, new Date());
+        params.put(Constant.ORDER_FIELD, Constant.UPDATE_DATE);
         List<SysOnlineEntity> list = baseDao.getOnlineList(params);
         return new PageData<>(page,list);
     }

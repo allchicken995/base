@@ -4,19 +4,22 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
@@ -37,6 +40,9 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 	
     @Autowired
     protected M baseDao;
+    
+    @Autowired
+    private SqlSessionFactory sqlSessionFactory;
     
     protected Log log = LogFactory.getLog(getClass());
 
@@ -105,21 +111,6 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         }
     }
 
-    /**
-     * <p>
-     * 判断数据库操作是否成功
-     * </p>
-     * <p>
-     * 注意！！ 该方法为 Integer 判断，不可传入 int 基本类型
-     * </p>
-     *
-     * @param result 数据库操作返回影响条数
-     * @return boolean
-     */
-    protected static boolean retBool(Integer result) {
-        return SqlHelper.retBool(result);
-    }
-
     protected Class<M> currentMapperClass() {
         return (Class<M>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 0);
     }
@@ -129,14 +120,10 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         return (Class<T>) ReflectionKit.getSuperClassGenericType(this.getClass(), BaseServiceImpl.class, 1);
     }
 
-    protected String getSqlStatement(SqlMethod sqlMethod) {
-        return SqlHelper.getSqlStatement(this.currentMapperClass(), sqlMethod);
-    }
-
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean insert(T entity) {
-        return BaseServiceImpl.retBool(baseDao.insert(entity));
+        return SqlHelper.retBool(baseDao.insert(entity));
     }
 
     @Override
@@ -153,7 +140,7 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateById(T entity) {
-        return BaseServiceImpl.retBool(baseDao.updateById(entity));
+        return SqlHelper.retBool(baseDao.updateById(entity));
     }
 
     @Override
@@ -287,7 +274,21 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
         wrapper.eq(Constant.LOGICAL_DELETE, 0);
 		return baseDao.selectOne(wrapper);
 	}
-
+	
+	@Override
+	public T getObjectById(String sqlMethod,Serializable id) {
+		String statement = this.currentMapperClass().getName() + StringPool.DOT + sqlMethod;
+		try {
+			sqlSessionFactory.getConfiguration().getMappedStatement(statement);
+		} catch (Exception e) {
+			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
+		}
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(Constant.ID, id);
+    	SqlSession sqlSession = sqlSessionFactory.openSession();
+    	return sqlSession.selectOne(statement, params);
+    }
+	
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public boolean deleteById(Serializable id) {

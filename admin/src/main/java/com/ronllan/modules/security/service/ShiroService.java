@@ -12,7 +12,7 @@ import com.ronllan.modules.sys.entity.SysUserEntity;
  *
  * @author glq gugameds066@gmail.com
  */
-public interface ShiroService{
+public interface ShiroService {
     /**
      * 获取用户权限列表
      */

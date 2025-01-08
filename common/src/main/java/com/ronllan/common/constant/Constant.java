@@ -47,17 +47,22 @@ public interface Constant {
      * 创建时间字段名
      */
     String CREATE_DATE = "create_date";
-
+    /**
+     * 更新时间字段名
+     */
+    String UPDATE_DATE = "update_date";
+    /**
+     * 失效时间字段名
+     */
+    String EXPIRE_DATE = "expire_date";
     /**
      * 创建时间字段名
      */
     String ID = "id";
-
     /**
      * 数据权限过滤
      */
     String SQL_FILTER = "sqlFilter";
-
     /**
      * 当前页码
      */
@@ -78,6 +83,10 @@ public interface Constant {
      * token header
      */
     String TOKEN_HEADER = "token";
+    /**
+     * expire
+     */
+    String EXPIRE = "expire";
     /**
      * 逻辑删除标记
      */

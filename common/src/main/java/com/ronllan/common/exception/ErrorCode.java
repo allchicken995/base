@@ -82,7 +82,10 @@ public interface ErrorCode {
      * 数据更新失败
      */
     int DATA_UPDATE_ERROR_0 = 10015;
-    int ACT_DEPLOY_ERROR = 10016;
+    /**
+     * sql方法{0}调用出错
+     */
+    int SQLMETHOD_ERROR_1 = 10016;
     int ACT_MODEL_IMG_ERROR = 10017;
     int ACT_MODEL_EXPORT_ERROR = 10018;
     int UPLOAD_FILE_EMPTY = 10019;

@@ -13,6 +13,7 @@ import com.ronllan.common.page.PageData;
  * @author glq gugameds066@gmail.com
  */
 public interface BaseService<T> {
+	
     Class<T> currentModelClass();
 
     /**
@@ -91,6 +92,15 @@ public interface BaseService<T> {
      */
     T getObjectById(Serializable id);
 
+    /**
+     * <p>
+     * 自定义查询
+     * </p>
+     *
+     * @param sqlMethod 自定义SQL名
+     */
+    T getObjectById(String sqlMethod,Serializable id);
+    
     /**
      * <p>
      * 根据 ID 逻辑删除

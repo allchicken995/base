@@ -18,6 +18,4 @@ public interface SysDeptDao extends BaseDao<SysDeptEntity> {
 
     List<SysDeptEntity> getObjectList(Map<String, Object> params);
 
-    SysDeptEntity getObjectById(Long id);
-
 }
