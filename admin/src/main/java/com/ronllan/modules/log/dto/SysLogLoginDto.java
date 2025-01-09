@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "登录日志")
-public class SysLogLoginDto extends BaseDto implements Serializable {
+public class SysLogLoginDto extends BaseDto{
 
     @Schema(description = "用户操作  0：用户登录   1：用户退出")
     private Integer operation;

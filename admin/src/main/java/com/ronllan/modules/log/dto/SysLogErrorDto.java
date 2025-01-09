@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "异常日志")
-public class SysLogErrorDto extends BaseDto implements Serializable {
+public class SysLogErrorDto extends BaseDto{
     @Schema(description = "请求URI")
     private String requestUri;
     

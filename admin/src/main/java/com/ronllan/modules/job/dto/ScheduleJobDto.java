@@ -1,21 +1,14 @@
 package com.ronllan.modules.job.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ronllan.common.utils.DateUtils;
-import com.ronllan.common.validator.group.AddGroup;
+import org.hibernate.validator.constraints.Range;
+
+import com.ronllan.common.dto.BaseDto;
 import com.ronllan.common.validator.group.DefaultGroup;
-import com.ronllan.common.validator.group.UpdateGroup;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import lombok.Data;
-import org.hibernate.validator.constraints.Range;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 定时任务
@@ -24,12 +17,7 @@ import java.util.Date;
  */
 @Data
 @Tag(name = "定时任务")
-public class ScheduleJobDto implements Serializable {
-
-    @Schema(description = "id")
-    @Null(message = "{id.null}", groups = AddGroup.class)
-    @NotNull(message = "{id.require}", groups = UpdateGroup.class)
-    private Long id;
+public class ScheduleJobDto extends BaseDto{
 
     @Schema(description = "spring bean名称")
     @NotBlank(message = "{schedule.bean.require}", groups = DefaultGroup.class)
@@ -48,10 +36,5 @@ public class ScheduleJobDto implements Serializable {
 
     @Schema(description = "备注")
     private String remark;
-
-    @Schema(description = "创建时间")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createDate;
 
 }

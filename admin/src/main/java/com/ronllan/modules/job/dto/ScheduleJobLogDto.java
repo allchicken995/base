@@ -1,13 +1,9 @@
 package com.ronllan.modules.job.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.ronllan.common.utils.DateUtils;
+import com.ronllan.common.dto.BaseDto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 定时任务日志
@@ -17,10 +13,7 @@ import java.util.Date;
  */
 @Data
 @Schema(description = "定时任务日志")
-public class ScheduleJobLogDto implements Serializable {
-
-    @Schema(description = "id")
-    private Long id;
+public class ScheduleJobLogDto extends BaseDto{
 
     @Schema(description = "任务id")
     private Long jobId;
@@ -39,9 +32,5 @@ public class ScheduleJobLogDto implements Serializable {
 
     @Schema(description = "耗时(单位：毫秒)")
     private Integer times;
-
-    @Schema(description = "创建时间")
-    @JsonFormat(pattern = DateUtils.DATE_TIME_PATTERN)
-    private Date createDate;
 
 }

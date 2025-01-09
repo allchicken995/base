@@ -1,11 +1,9 @@
 package com.ronllan.modules.job.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Data;
+import com.ronllan.common.entity.BaseEntity;
 
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Data;
 
 /**
  * 定时任务日志
@@ -14,12 +12,7 @@ import java.util.Date;
  */
 @Data
 @TableName("schedule_job_log")
-public class ScheduleJobLogEntity implements Serializable {
-    /**
-     * id
-     */
-    @TableId
-    private Long id;
+public class ScheduleJobLogEntity extends BaseEntity {
     /**
      * 任务id
      */
@@ -44,9 +37,5 @@ public class ScheduleJobLogEntity implements Serializable {
      * 耗时(单位：毫秒)
      */
     private Integer times;
-    /**
-     * 创建时间
-     */
-    private Date createDate;
 
 }

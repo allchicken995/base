@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @Schema(description = "操作日志")
-public class SysLogOperationDto extends BaseDto implements Serializable {
+public class SysLogOperationDto extends BaseDto{
 
     @Schema(description = "用户操作")
     private String operation;
