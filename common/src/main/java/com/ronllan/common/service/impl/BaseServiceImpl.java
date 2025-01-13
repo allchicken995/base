@@ -135,8 +135,9 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		} catch (Exception e) {
 			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
 		}
-    	SqlSession sqlSession = sqlSessionFactory.openSession();
-    	return SqlHelper.retBool(sqlSession.update(statement, params));
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			return SqlHelper.retBool(sqlSession.update(statement, params));
+		}
     }
 
     @Override
@@ -199,8 +200,9 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
 		}
 		IPage<T> page = (IPage<T>) getPage(params, Constant.CREATE_DATE, false);
-    	SqlSession sqlSession = sqlSessionFactory.openSession();
-    	return getPageData(page,sqlSession.selectList(statement, params),target);
+    	try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    		return getPageData(page,sqlSession.selectList(statement, params),target);
+    	}
 	}
     
     @Override
@@ -244,8 +246,9 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		} catch (Exception e) {
 			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
 		}
-    	SqlSession sqlSession = sqlSessionFactory.openSession();
-    	return sqlSession.selectList(statement, params);
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    		return sqlSession.selectList(statement, params);
+		}
     }
 
 	@Override
@@ -279,8 +282,9 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		} catch (Exception e) {
 			throw new DefineException(ErrorCode.SQLMETHOD_ERROR_1,sqlMethod);
 		}
-    	SqlSession sqlSession = sqlSessionFactory.openSession();
-    	return sqlSession.selectOne(statement, params);
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    		return sqlSession.selectOne(statement, params);
+		}
     }
     
     @Override
@@ -324,8 +328,9 @@ public abstract class BaseServiceImpl<M extends BaseDao<T>, T> implements BaseSe
 		}
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(Constant.ID, id);
-    	SqlSession sqlSession = sqlSessionFactory.openSession();
-    	return sqlSession.selectOne(statement, params);
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+    		return sqlSession.selectOne(statement, params);
+		}
     }
 	
 	@Override
