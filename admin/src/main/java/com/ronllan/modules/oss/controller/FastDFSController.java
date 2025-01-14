@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 
 
 /**
- * 异常日志
+ * FastDFS相关接口
  *
  * @author glq gugameds066@gmail.com
  * @since 1.0.0
