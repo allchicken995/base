@@ -37,10 +37,19 @@
         <lombok.version>1.18.32</lombok.version>
         <jcraft.version>0.1.55</jcraft.version>
         <fastjson.version>1.2.78</fastjson.version>
+        <fastdfs.version>1.27.2</fastdfs.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
 
     <dependencies>
+		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -149,6 +158,11 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
     		<version>${fastjson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.tobato</groupId>
+            <artifactId>fastdfs-client</artifactId>
+            <version>${fastdfs.version}</version>
         </dependency>
     </dependencies>
 

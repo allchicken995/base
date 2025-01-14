@@ -86,7 +86,10 @@ public interface ErrorCode {
      * sql方法{0}调用出错
      */
     int SQLMETHOD_ERROR_1 = 10016;
-    int ACT_MODEL_IMG_ERROR = 10017;
+    /**
+     * 文件上传失败
+     */
+    int UPLOAD_FILE_ERROR_0 = 10017;
     int ACT_MODEL_EXPORT_ERROR = 10018;
     int UPLOAD_FILE_EMPTY = 10019;
     int TOKEN_NOT_EMPTY = 10020;
@@ -118,5 +121,4 @@ public interface ErrorCode {
     int BACK_PROCESS_PARALLEL_ERROR = 10046;
     int BACK_PROCESS_HANDLEING_ERROR = 10047;
     int DEL_MYSELF_ERROR = 10048;
-    int UPLOAD_FILE_ERROR = 10049;
 }
