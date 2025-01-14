@@ -27,7 +27,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @RequestMapping("oss/fastdfs")
-@Tag(name = "异常日志")
+@Tag(name = "FastDFS文件服务")
 public class FastDFSController {
     private final FastDFSService fastDFSServiceImpl;
 
