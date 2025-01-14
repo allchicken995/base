@@ -38,18 +38,12 @@
         <jcraft.version>0.1.55</jcraft.version>
         <fastjson.version>1.2.78</fastjson.version>
         <fastdfs.version>1.27.2</fastdfs.version>
+        <mybatis-spring.version>3.0.3</mybatis-spring.version>
+        <javax.annotation.version>1.3.2</javax.annotation.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
 
     <dependencies>
-		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -63,6 +57,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -126,7 +124,7 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>3.0.3</version>
+            <version>${mybatis-spring.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
@@ -164,6 +162,11 @@
             <artifactId>fastdfs-client</artifactId>
             <version>${fastdfs.version}</version>
         </dependency>
+        <dependency>
+    		<groupId>javax.annotation</groupId>
+    		<artifactId>javax.annotation-api</artifactId>
+    		<version>${javax.annotation.version}</version>
+		</dependency>
     </dependencies>
 
     <!-- 阿里云maven仓库 -->
