@@ -26,6 +26,7 @@ public class SysMenuEntity extends BaseEntity {
     		"com.ronllan.modules.sys.entity.SysRoleMenuEntity.roleId="+Constant.CASCADE
     	   ,"com.ronllan.modules.sys.entity.SysRoleUserEntity.roleId="+Constant.CASCADE
     	   ,"com.ronllan.modules.sys.entity.SysLanguageEntity.tableId="+Constant.CASCADE
+    	   ,"com.ronllan.modules.sys.entity.SysMenuEntity.pid="+Constant.CASCADE
     })
 	private Long fk;
     /**
