@@ -25,7 +25,7 @@ public class SysIconDto extends BaseDto{
     private String name;
 
     @Schema(description = "正常图标")
-    private Long normalIcon;
+    private String normalIcon;
 
     @Schema(description = "选中图标")
     private String selectedIcon;
