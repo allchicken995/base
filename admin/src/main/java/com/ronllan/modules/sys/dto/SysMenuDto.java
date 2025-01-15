@@ -45,7 +45,7 @@ public class SysMenuDto extends BaseDto{
     @Schema(description = "正常图标")
     private String normalIcon;
 
-    @Schema(description = "'选中图标")
+    @Schema(description = "选中图标")
     private String selectedIcon;
 
     @Schema(description = "授权(多个用逗号分隔，如：sys:user:list,sys:user:save)")

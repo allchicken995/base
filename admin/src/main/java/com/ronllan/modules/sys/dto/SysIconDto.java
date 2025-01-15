@@ -1,7 +1,5 @@
 package com.ronllan.modules.sys.dto;
 
-import java.io.Serializable;
-
 import com.ronllan.common.dto.BaseDto;
 import com.ronllan.common.validator.group.DefaultGroup;
 
