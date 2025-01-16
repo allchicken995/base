@@ -33,7 +33,7 @@ public class Base64ServiceImpl implements Base64Service {
 	        String ext = FilenameUtils.getExtension(file.getOriginalFilename()).toLowerCase();
 	        String url = Base64.getEncoder().encodeToString(outputStream.toByteArray());
 			result.put("ext", ext);
-			result.put("url", url);
+			result.put("url", "data:"+file.getContentType()+";base64,"+url);
 		} catch (Exception e) {
 			throw new DefineException(ErrorCode.UPLOAD_FILE_ERROR_0);
 		}
