@@ -32,7 +32,7 @@ import java.util.Map;
 @Tag(name = "定时任务")
 @AllArgsConstructor
 public class ScheduleJobController {
-    private final ScheduleJobService scheduleJobService;
+    private final ScheduleJobService scheduleJobServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -45,8 +45,7 @@ public class ScheduleJobController {
     })
     @RequiresPermissions("sys:schedule:page")
     public Result<PageData<ScheduleJobDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<ScheduleJobDto> page = scheduleJobService.page(params);
-
+        PageData<ScheduleJobDto> page = scheduleJobServiceImpl.page(params);
         return new Result<PageData<ScheduleJobDto>>().ok(page);
     }
 
@@ -54,8 +53,7 @@ public class ScheduleJobController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:schedule:info")
     public Result<ScheduleJobDto> info(@PathVariable("id") Long id) {
-        ScheduleJobDto schedule = scheduleJobService.get(id);
-
+        ScheduleJobDto schedule = scheduleJobServiceImpl.get(id);
         return new Result<ScheduleJobDto>().ok(schedule);
     }
 
@@ -65,9 +63,7 @@ public class ScheduleJobController {
     @RequiresPermissions("sys:schedule:save")
     public Result save(@RequestBody ScheduleJobDto dto) {
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
-
-        scheduleJobService.save(dto);
-
+        scheduleJobServiceImpl.save(dto);
         return new Result();
     }
 
@@ -77,9 +73,7 @@ public class ScheduleJobController {
     @RequiresPermissions("sys:schedule:update")
     public Result update(@RequestBody ScheduleJobDto dto) {
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-
-        scheduleJobService.update(dto);
-
+        scheduleJobServiceImpl.update(dto);
         return new Result();
     }
 
@@ -88,8 +82,7 @@ public class ScheduleJobController {
     @LogOperation("删除")
     @RequiresPermissions("sys:schedule:delete")
     public Result delete(@RequestBody Long[] ids) {
-        scheduleJobService.deleteBatch(ids);
-
+    	scheduleJobServiceImpl.deleteBatch(ids);
         return new Result();
     }
 
@@ -98,8 +91,7 @@ public class ScheduleJobController {
     @LogOperation("立即执行")
     @RequiresPermissions("sys:schedule:run")
     public Result run(@RequestBody Long[] ids) {
-        scheduleJobService.run(ids);
-
+    	scheduleJobServiceImpl.run(ids);
         return new Result();
     }
 
@@ -108,8 +100,7 @@ public class ScheduleJobController {
     @LogOperation("暂停")
     @RequiresPermissions("sys:schedule:pause")
     public Result pause(@RequestBody Long[] ids) {
-        scheduleJobService.pause(ids);
-
+    	scheduleJobServiceImpl.pause(ids);
         return new Result();
     }
 
@@ -118,8 +109,7 @@ public class ScheduleJobController {
     @LogOperation("恢复")
     @RequiresPermissions("sys:schedule:resume")
     public Result resume(@RequestBody Long[] ids) {
-        scheduleJobService.resume(ids);
-
+    	scheduleJobServiceImpl.resume(ids);
         return new Result();
     }
 

@@ -52,19 +52,14 @@ public class ScheduleUtils {
         try {
         	//构建job信息
             JobDetail jobDetail = JobBuilder.newJob(ScheduleJob.class).withIdentity(getJobKey(scheduleJob.getId())).build();
-
             //表达式调度构建器
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
             		.withMisfireHandlingInstructionDoNothing();
-
             //按新的cronExpression表达式构建一个新的trigger
             CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(getTriggerKey(scheduleJob.getId())).withSchedule(scheduleBuilder).build();
-
             //放入参数，运行时的方法可以获取
             jobDetail.getJobDataMap().put(JOB_PARAM_KEY, scheduleJob);
-
             scheduler.scheduleJob(jobDetail, trigger);
-            
             //暂停任务
             if(scheduleJob.getStatus() == Constant.ScheduleStatus.PAUSE.getValue()){
             	pauseJob(scheduler, scheduleJob.getId());
@@ -84,22 +79,16 @@ public class ScheduleUtils {
             //表达式调度构建器
             CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(scheduleJob.getCronExpression())
             		.withMisfireHandlingInstructionDoNothing();
-
             CronTrigger trigger = getCronTrigger(scheduler, scheduleJob.getId());
-            
             //按新的cronExpression表达式重新构建trigger
             trigger = trigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(scheduleBuilder).build();
-            
             //参数
             trigger.getJobDataMap().put(JOB_PARAM_KEY, scheduleJob);
-            
             scheduler.rescheduleJob(triggerKey, trigger);
-            
             //暂停任务
             if(scheduleJob.getStatus() == Constant.ScheduleStatus.PAUSE.getValue()){
             	pauseJob(scheduler, scheduleJob.getId());
             }
-            
         } catch (SchedulerException e) {
             throw new DefineException(ErrorCode.JOB_ERROR, e);
         }
@@ -113,7 +102,6 @@ public class ScheduleUtils {
         	//参数
         	JobDataMap dataMap = new JobDataMap();
         	dataMap.put(JOB_PARAM_KEY, scheduleJob);
-        	
             scheduler.triggerJob(getJobKey(scheduleJob.getId()), dataMap);
         } catch (SchedulerException e) {
             throw new DefineException(ErrorCode.JOB_ERROR, e);

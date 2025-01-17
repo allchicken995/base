@@ -32,7 +32,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/sys/online")
 @Tag(name = "在线用户")
 public class SysOnlineController {
-    private final SysUserTokenService sysUserTokenService;
+    private final SysUserTokenService sysUserTokenServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -44,7 +44,7 @@ public class SysOnlineController {
     })
     @RequiresPermissions("sys:online:all")
     public Result<PageData<SysOnlineEntity>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysOnlineEntity> page = sysUserTokenService.onlinePage(params);
+        PageData<SysOnlineEntity> page = sysUserTokenServiceImpl.onlinePage(params);
         return new Result<PageData<SysOnlineEntity>>().ok(page);
     }
 
@@ -55,7 +55,7 @@ public class SysOnlineController {
         //效验数据
         AssertUtils.isNull(id, "id");
         //退出
-        sysUserTokenService.logout(id);
+        sysUserTokenServiceImpl.logout(id);
         return new Result();
     }
 }

@@ -120,5 +120,8 @@ public interface ErrorCode {
     int END_PROCESS_MESSAGE = 10045;
     int BACK_PROCESS_PARALLEL_ERROR = 10046;
     int BACK_PROCESS_HANDLEING_ERROR = 10047;
-    int DEL_MYSELF_ERROR = 10048;
+    /**
+     * 不能删除自己
+     */
+    int DEL_MYSELF_ERROR_0 = 10048;
 }

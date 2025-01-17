@@ -25,6 +25,11 @@ import com.ronllan.modules.sys.service.SysMenuService;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * 菜单管理
+ *
+ * @author glq gugameds066@gmail.com
+ */
 @AllArgsConstructor
 @Service
 public class SysMenuServiceImpl extends BaseServiceImpl<SysMenuDao, SysMenuEntity> implements SysMenuService {

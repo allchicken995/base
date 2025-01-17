@@ -54,8 +54,8 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/sys/user")
 @Tag(name = "用户管理")
 public class SysUserController {
-    private final SysUserService sysUserService;
-    private final SysRoleUserService sysRoleUserService;
+    private final SysUserService sysUserServiceImpl;
+    private final SysRoleUserService sysRoleUserServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -69,7 +69,7 @@ public class SysUserController {
     })
     @RequiresPermissions("sys:user:page")
     public Result<PageData<SysUserDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysUserDto> page = sysUserService.page(params);
+        PageData<SysUserDto> page = sysUserServiceImpl.page(params);
         return new Result<PageData<SysUserDto>>().ok(page);
     }
 
@@ -77,9 +77,9 @@ public class SysUserController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:user:info")
     public Result<SysUserDto> get(@PathVariable("id") Long id) {
-        SysUserDto data = sysUserService.get(id);
+        SysUserDto data = sysUserServiceImpl.get(id);
         //用户角色列表
-        List<Long> roleIdList = sysRoleUserService.getRoleIdList(id);
+        List<Long> roleIdList = sysRoleUserServiceImpl.getRoleIdList(id);
         data.setRoleIdList(roleIdList);
         return new Result<SysUserDto>().ok(data);
     }
@@ -102,7 +102,7 @@ public class SysUserController {
         if (!PasswordUtils.matches(dto.getPassword(), user.getPassword())) {
             return new Result().error(ErrorCode.PASSWORD_ERROR_0);
         }
-        sysUserService.updatePassword(user.getId(), dto.getNewPassword());
+        sysUserServiceImpl.updatePassword(user.getId(), dto.getNewPassword());
         return new Result();
     }
 
@@ -113,7 +113,7 @@ public class SysUserController {
     public Result save(@RequestBody SysUserDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
-        sysUserService.save(dto);
+        sysUserServiceImpl.save(dto);
         return new Result();
     }
 
@@ -124,7 +124,7 @@ public class SysUserController {
     public Result update(@RequestBody SysUserDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-        sysUserService.update(dto);
+        sysUserServiceImpl.update(dto);
         return new Result();
     }
 
@@ -133,7 +133,7 @@ public class SysUserController {
     @LogOperation("修改")
     @RequiresPermissions("sys:user:update")
     public Result updateUserInfo(@RequestBody SysUserDto dto) {
-        sysUserService.updateUserInfo(dto);
+        sysUserServiceImpl.updateUserInfo(dto);
         return new Result();
     }
 
@@ -146,9 +146,9 @@ public class SysUserController {
         AssertUtils.isArrayEmpty(ids, "id");
         List<Long> idList = Arrays.asList(ids);
         if (idList.contains(SecurityUser.getUserId())) {
-            throw new DefineException(ErrorCode.DEL_MYSELF_ERROR);
+            throw new DefineException(ErrorCode.DEL_MYSELF_ERROR_0);
         }
-//        sysUserService.deleteBatchIds(idList);
+        sysUserServiceImpl.delete(ids);
         return new Result();
     }
 
@@ -158,7 +158,7 @@ public class SysUserController {
     @RequiresPermissions("sys:user:export")
     @Parameter(name = "username", description = "用户名")
     public void export(@Parameter(hidden = true) @RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<SysUserDto> list = sysUserService.list(params);
+        List<SysUserDto> list = sysUserServiceImpl.list(params);
         ExcelUtils.exportExcelToTarget(response, null, "用户管理", list, SysUserExcel.class);
     }
 }

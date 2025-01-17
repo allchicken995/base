@@ -1,21 +1,25 @@
 package com.ronllan.modules.job.controller;
 
-import com.github.xiaoymin.knife4j.annotations.Ignore;
-import com.ronllan.modules.job.dto.ScheduleJobLogDto;
-import com.ronllan.modules.job.service.ScheduleJobLogService;
+import java.util.Map;
+
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ronllan.common.constant.Constant;
 import com.ronllan.common.page.PageData;
 import com.ronllan.common.utils.Result;
+import com.ronllan.modules.job.dto.ScheduleJobLogDto;
+import com.ronllan.modules.job.service.ScheduleJobLogService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 /**
  * 定时任务日志
@@ -41,7 +45,6 @@ public class ScheduleJobLogController {
     @RequiresPermissions("sys:schedule:log")
     public Result<PageData<ScheduleJobLogDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
         PageData<ScheduleJobLogDto> page = scheduleJobLogService.page(params);
-
         return new Result<PageData<ScheduleJobLogDto>>().ok(page);
     }
 
@@ -50,7 +53,6 @@ public class ScheduleJobLogController {
     @RequiresPermissions("sys:schedule:log")
     public Result<ScheduleJobLogDto> info(@PathVariable("id") Long id) {
         ScheduleJobLogDto log = scheduleJobLogService.get(id);
-
         return new Result<ScheduleJobLogDto>().ok(log);
     }
 }

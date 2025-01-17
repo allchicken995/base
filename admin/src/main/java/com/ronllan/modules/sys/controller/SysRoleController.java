@@ -45,9 +45,9 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/sys/role")
 @Tag(name = "角色管理")
 public class SysRoleController {
-    private final SysRoleService sysRoleService;
-    private final SysRoleMenuService sysRoleMenuService;
-    private final SysRoleDataScopeService sysRoleDataScopeService;
+    private final SysRoleService sysRoleServiceImpl;
+    private final SysRoleMenuService sysRoleMenuServiceImpl;
+    private final SysRoleDataScopeService sysRoleDataScopeServiceImpl;
 
     @GetMapping("page")
     @Operation(summary = "分页")
@@ -60,7 +60,7 @@ public class SysRoleController {
     })
     @RequiresPermissions("sys:role:page")
     public Result<PageData<SysRoleDto>> page(@Parameter(hidden = true) @RequestParam Map<String, Object> params) {
-        PageData<SysRoleDto> page = sysRoleService.page(params);
+        PageData<SysRoleDto> page = sysRoleServiceImpl.page(params);
         return new Result<PageData<SysRoleDto>>().ok(page);
     }
 
@@ -68,7 +68,7 @@ public class SysRoleController {
     @Operation(summary = "列表")
     @RequiresPermissions("sys:role:list")
     public Result<List<SysRoleDto>> list() {
-        List<SysRoleDto> data = sysRoleService.list(new HashMap<>(1));
+        List<SysRoleDto> data = sysRoleServiceImpl.list(new HashMap<>(1));
         return new Result<List<SysRoleDto>>().ok(data);
     }
 
@@ -76,11 +76,11 @@ public class SysRoleController {
     @Operation(summary = "信息")
     @RequiresPermissions("sys:role:info")
     public Result<SysRoleDto> get(@PathVariable("id") Long id) {
-        SysRoleDto data = sysRoleService.get(id);
+        SysRoleDto data = sysRoleServiceImpl.get(id);
         //查询角色对应的菜单
-        data.setMenuRoleList(sysRoleMenuService.getMenuRoleList(id));
+        data.setMenuRoleList(sysRoleMenuServiceImpl.getMenuRoleList(id));
         //查询角色对应的数据权限
-        List<Long> deptIdList = sysRoleDataScopeService.getDeptIdList(id);
+        List<Long> deptIdList = sysRoleDataScopeServiceImpl.getDeptIdList(id);
         data.setDeptIdList(deptIdList);
         return new Result<SysRoleDto>().ok(data);
     }
@@ -92,7 +92,7 @@ public class SysRoleController {
     public Result save(@RequestBody SysRoleDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
-        sysRoleService.save(dto);
+        sysRoleServiceImpl.save(dto);
         return new Result();
     }
 
@@ -103,7 +103,7 @@ public class SysRoleController {
     public Result update(@RequestBody SysRoleDto dto) {
         //效验数据
         ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-        sysRoleService.update(dto);
+        sysRoleServiceImpl.update(dto);
         return new Result();
     }
 
@@ -114,7 +114,7 @@ public class SysRoleController {
     public Result delete(@RequestBody Long[] ids) {
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
-        sysRoleService.delete(ids);
+        sysRoleServiceImpl.delete(ids);
         return new Result();
     }
 }

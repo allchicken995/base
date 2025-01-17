@@ -44,10 +44,10 @@ import lombok.AllArgsConstructor;
 @RestController
 @Tag(name = "登录管理")
 public class LoginController {
-    private final SysUserService sysUserService;
-    private final SysUserTokenService sysUserTokenService;
-    private final CaptchaService captchaService;
-    private final SysLogLoginService sysLogLoginService;
+    private final SysUserService sysUserServiceImpl;
+    private final SysUserTokenService sysUserTokenServiceImpl;
+    private final CaptchaService captchaServiceImpl;
+    private final SysLogLoginService sysLogLoginServiceImpl;
 
     @GetMapping("captcha")
     @Operation(summary = "验证码")
@@ -55,7 +55,7 @@ public class LoginController {
         //uuid不能为空
         AssertUtils.isBlank(uuid, ErrorCode.IDENTIFIER_NOT_NULL_0);
         //生成验证码
-        captchaService.create(response, uuid);
+        captchaServiceImpl.create(response, uuid);
     }
 
     @PostMapping("login")
@@ -64,12 +64,12 @@ public class LoginController {
         //效验数据
         ValidatorUtils.validateEntity(login);
         //验证码是否正确
-        boolean flag = captchaService.validate(login.getUuid(), login.getCaptcha());
+        boolean flag = captchaServiceImpl.validate(login.getUuid(), login.getCaptcha());
         if (!flag) {
             return new Result().error(ErrorCode.CAPTCHA_ERROR_0);
         }
         //用户信息
-        SysUserDto user = sysUserService.getLogin(login);
+        SysUserDto user = sysUserServiceImpl.getLogin(login);
         SysLogLoginDto log = new SysLogLoginDto();
         log.setOperation(LoginOperationEnum.LOGIN.value());
         log.setCreateDate(new Date());
@@ -80,7 +80,7 @@ public class LoginController {
         if (user == null) {
             log.setStatus(LoginStatusEnum.FAIL.value());
             log.setCreatorName(login.getUsername());
-            sysLogLoginService.save(log);
+            sysLogLoginServiceImpl.save(log);
             throw new DefineException(ErrorCode.ACCOUNT_PASSWORD_ERROR_0);
         }
         //密码错误
@@ -88,7 +88,7 @@ public class LoginController {
             log.setStatus(LoginStatusEnum.FAIL.value());
             log.setCreator(user.getId());
             log.setCreatorName(user.getUsername());
-            sysLogLoginService.save(log);
+            sysLogLoginServiceImpl.save(log);
             throw new DefineException(ErrorCode.ACCOUNT_PASSWORD_ERROR_0);
         }
         //账号停用
@@ -96,15 +96,15 @@ public class LoginController {
             log.setStatus(LoginStatusEnum.LOCK.value());
             log.setCreator(user.getId());
             log.setCreatorName(user.getUsername());
-            sysLogLoginService.save(log);
+            sysLogLoginServiceImpl.save(log);
             throw new DefineException(ErrorCode.ACCOUNT_DISABLE_0);
         }
         //登录成功
         log.setStatus(LoginStatusEnum.SUCCESS.value());
         log.setCreator(user.getId());
         log.setCreatorName(user.getUsername());
-        sysLogLoginService.save(log);
-        return sysUserTokenService.createToken(user.getId());
+        sysLogLoginServiceImpl.save(log);
+        return sysUserTokenServiceImpl.createToken(user.getId());
     }
 
     @PostMapping("logout")
@@ -112,7 +112,7 @@ public class LoginController {
     public Result logout(HttpServletRequest request) {
         UserDetail user = SecurityUser.getUser();
         //退出
-        sysUserTokenService.logout(user.getId());
+        sysUserTokenServiceImpl.logout(user.getId());
         //用户信息
         SysLogLoginDto log = new SysLogLoginDto();
         log.setOperation(LoginOperationEnum.LOGOUT.value());
@@ -123,7 +123,7 @@ public class LoginController {
         log.setCreator(user.getId());
         log.setCreatorName(user.getUsername());
         log.setCreateDate(new Date());
-        sysLogLoginService.save(log);
+        sysLogLoginServiceImpl.save(log);
         return new Result();
     }
 

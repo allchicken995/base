@@ -26,6 +26,7 @@ public class SysUserEntity extends BaseEntity {
     		"com.ronllan.modules.security.entity.SysUserTokenEntity.userId="+Constant.CASCADE
     	   ,"com.ronllan.modules.sys.entity.SysUserPostEntity.userId="+Constant.CASCADE
     	   ,"com.ronllan.modules.sys.entity.SysRoleUserEntity.userId="+Constant.CASCADE
+    	   ,"com.ronllan.modules.sys.entity.SysNoticeUserEntity.receiverId="+Constant.CASCADE
     })
     private Long fk;
     /**
