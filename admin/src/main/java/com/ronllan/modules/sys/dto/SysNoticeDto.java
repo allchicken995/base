@@ -13,7 +13,7 @@ import lombok.Data;
 /**
  * 通知管理
  *
- * @author Mark sunlightcs@gmail.com
+ * @author glq gugameds066@gmail.com
  */
 @Data
 @Schema(description = "通知管理")

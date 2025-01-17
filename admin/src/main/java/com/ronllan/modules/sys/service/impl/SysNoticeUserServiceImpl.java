@@ -1,15 +1,14 @@
 package com.ronllan.modules.sys.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ronllan.common.service.impl.BaseServiceImpl;
+import com.ronllan.common.utils.ConvertUtils;
 import com.ronllan.modules.sys.dao.SysNoticeUserDao;
+import com.ronllan.modules.sys.dto.SysNoticeUserDto;
 import com.ronllan.modules.sys.entity.SysNoticeUserEntity;
 import com.ronllan.modules.sys.service.SysNoticeUserService;
-
-import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 /**
  * 我的通知
@@ -19,28 +18,31 @@ import java.util.Date;
 @Service
 public class SysNoticeUserServiceImpl extends BaseServiceImpl<SysNoticeUserDao, SysNoticeUserEntity> implements SysNoticeUserService {
 
-//    @Override
-//    public void insertAllUser(SysNoticeUserEntity entity) {
-//        baseMapper.insertAllUser(entity);
-//    }
-//
-//    @Override
-//    public void updateReadStatus(Long receiverId, Long noticeId) {
-//        SysNoticeUserEntity entity = new SysNoticeUserEntity()
-//                .setReceiverId(receiverId)
-//                .setNoticeId(noticeId)
-//                .setReadStatus(NoticeReadStatusEnum.READ.value())
-//                .setReadDate(new Date());
-//
-//        //标记为已读
-//        QueryWrapper<SysNoticeUserEntity> query = new QueryWrapper<>();
-//        query.eq("receiver_id", receiverId);
-//        query.eq("notice_id", noticeId);
-//        baseMapper.update(entity, query);
-//    }
-//
-//    @Override
-//    public int getUnReadNoticeCount(Long receiverId) {
-//        return baseMapper.getUnReadNoticeCount(receiverId);
-//    }
+	@Override
+    @Transactional(rollbackFor = Exception.class)
+    public void save(SysNoticeUserDto dto) {
+		SysNoticeUserEntity entity = ConvertUtils.sourceToTarget(dto, SysNoticeUserEntity.class);
+		insert(entity);
+    }
+	
+	@Override
+    @Transactional(rollbackFor = Exception.class)
+    public void update(SysNoticeUserDto dto) {
+		SysNoticeUserEntity entity = ConvertUtils.sourceToTarget(dto, SysNoticeUserEntity.class);
+		if(entity.getId()!=null) {
+			updateById(entity);
+		}else {
+			SysNoticeUserEntity update = getObject(entity);
+			if(update!=null) {
+				updateById(entity);
+			}
+		}
+	}
+
+	@Override
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Long[] ids) {
+    	deleteById(ids);
+    }
+	
 }

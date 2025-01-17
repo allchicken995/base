@@ -16,13 +16,15 @@ public interface SysNoticeService extends BaseService<SysNoticeEntity> {
 
 	PageData<SysNoticeDto> page(Map<String, Object> params);
 	
-//    /**
-//     * 获取被通知的用户
-//     */
-//    PageData<SysNoticeDTO> getNoticeUserPage(Map<String, Object> params);
-//
-//    /**
-//     * 获取我的通知列表
-//     */
-//    PageData<SysNoticeDTO> getMyNoticePage(Map<String, Object> params);
+	void save(SysNoticeDto dto);
+	
+	SysNoticeDto get(Long id);
+	
+	void update(SysNoticeDto dto);
+	
+	void delete(Long[] ids);
+    /**
+     * 获取我的通知列表
+     */
+    PageData<SysNoticeDto> getMyNoticePage(Map<String, Object> params);
 }
