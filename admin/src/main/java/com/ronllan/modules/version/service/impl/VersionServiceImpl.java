@@ -1,6 +1,7 @@
 package com.ronllan.modules.version.service.impl;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 
 import com.ronllan.common.exception.DefineException;
 import com.ronllan.common.exception.ErrorCode;
@@ -31,7 +33,17 @@ public class VersionServiceImpl implements VersionService {
     public List<VersionDto> list(Map<String, Object> params) {
     	List<VersionDto> dtoList = new ArrayList();
     	List<VersionDto> temp = new ArrayList();
-    	try (BufferedReader reader = new BufferedReader(new FileReader("C:\\eclipse-workspace\\base-java\\admin\\src\\main\\resources\\version.txt"))) {
+    	String fileName = "version.txt";
+    	File file = null;
+    	try {
+    		file = ResourceUtils.getFile(System.getProperty("user.dir")+"/"+fileName);
+    		if(!file.exists()){
+        		file = ResourceUtils.getFile("classpath:"+fileName);
+        	}
+		} catch (Exception e) {
+			
+		}
+    	try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
     		VersionDto dto = null;
     		String line;
             while ((line = reader.readLine()) != null) {
