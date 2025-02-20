@@ -3,6 +3,8 @@ package com.ronllan.modules.version.service.impl;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -35,15 +37,19 @@ public class VersionServiceImpl implements VersionService {
     	List<VersionDto> temp = new ArrayList();
     	String fileName = "version.txt";
     	File file = null;
+    	InputStream inputStream = null;
     	try {
     		file = ResourceUtils.getFile(System.getProperty("user.dir")+"/"+fileName);
     		if(!file.exists()){
         		file = ResourceUtils.getFile("classpath:"+fileName);
+        		if(!file.exists()){
+        			inputStream = getClass().getResourceAsStream("/"+fileName);
+        		}
         	}
 		} catch (Exception e) {
-			
+			inputStream = getClass().getResourceAsStream("/"+fileName);
 		}
-    	try (BufferedReader reader = new BufferedReader(new FileReader(file.getPath()))) {
+    	try (BufferedReader reader = new BufferedReader(inputStream!=null?new InputStreamReader(inputStream):new FileReader(file.getPath()))) {
     		VersionDto dto = null;
     		String line;
             while ((line = reader.readLine()) != null) {
