@@ -40,7 +40,6 @@ public class IpUtils {
         } catch (Exception e) {
             log.error("IPUtils ERROR ", e);
         }
-
         return ip;
     }
 

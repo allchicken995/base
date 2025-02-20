@@ -23,7 +23,6 @@ public class HttpContextUtils {
         if (requestAttributes == null) {
             return null;
         }
-
         return ((ServletRequestAttributes) requestAttributes).getRequest();
     }
 
@@ -38,7 +37,6 @@ public class HttpContextUtils {
                 params.put(parameter, value);
             }
         }
-
         return params;
     }
 
@@ -61,10 +59,8 @@ public class HttpContextUtils {
         if (request == null) {
             return defaultLanguage;
         }
-
         //请求语言
         defaultLanguage = request.getHeader(HttpHeaders.ACCEPT_LANGUAGE);
-
         return defaultLanguage;
     }
 }

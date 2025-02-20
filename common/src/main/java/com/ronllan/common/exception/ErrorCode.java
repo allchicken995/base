@@ -90,7 +90,10 @@ public interface ErrorCode {
      * 文件上传失败
      */
     int UPLOAD_FILE_ERROR_0 = 10017;
-    int ACT_MODEL_EXPORT_ERROR = 10018;
+    /**
+     * 文件读取失败
+     */
+    int READ_FILE_ERROR_0 = 10018;
     int UPLOAD_FILE_EMPTY = 10019;
     int TOKEN_NOT_EMPTY = 10020;
     int TOKEN_INVALID = 10021;
