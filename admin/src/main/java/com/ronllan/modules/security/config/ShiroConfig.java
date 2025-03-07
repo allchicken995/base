@@ -73,6 +73,7 @@ public class ShiroConfig {
         filterMap.put("/pay/wechat/**", "anon");
         filterMap.put("/mp/portal/**", "anon");
         filterMap.put("/ureport/**", "anon");
+        filterMap.put("/chat/**", "anon");
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 

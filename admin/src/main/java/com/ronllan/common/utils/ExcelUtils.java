@@ -41,7 +41,10 @@ public class ExcelUtils {
         response.setCharacterEncoding("UTF-8");
         fileName = URLEncoder.encode(fileName, StandardCharsets.UTF_8);
         response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-        EasyExcel.write(response.getOutputStream(), pojoClass).registerConverter(new LongStringConverter()).sheet(sheetName).doWrite(list);
+        EasyExcel.write(response.getOutputStream(), pojoClass)
+                .registerConverter(new LongStringConverter())
+                .sheet(sheetName)
+                .doWrite(list);
     }
 
     /**

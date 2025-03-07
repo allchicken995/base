@@ -176,6 +176,19 @@
 			<artifactId>xstream</artifactId>
 			<version>1.4.20</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>4.9.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+			<version>3.2.5</version>
+		</dependency>
+
 
 		<!-- 积木报表，不支持 springboot3.x -->
 <!--		<dependency>-->

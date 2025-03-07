@@ -2,6 +2,7 @@ package com.ronllan.websocket;
 
 import com.ronllan.common.constant.Constant;
 import com.ronllan.common.utils.JsonUtils;
+import com.ronllan.modules.chat.entity.MessageEntity;
 import com.ronllan.websocket.config.WebSocketConfig;
 import com.ronllan.websocket.data.MessageData;
 import com.ronllan.websocket.data.WebSocketData;
@@ -78,6 +79,14 @@ public class WebSocketServer {
         });
     }
 
+    public void sendMessage(Long userId, MessageEntity message) {
+        servers.values().forEach(info -> {
+            if (userId.equals(info.getUserId())){
+                sendMessage(info.getSession(), message);
+            }
+        });
+    }
+
     /**
      * 发送信息给全部用户
      *
@@ -92,6 +101,14 @@ public class WebSocketServer {
             session.getBasicRemote().sendText(JsonUtils.toJsonString(message));
         } catch (IOException e) {
             log.error("send message error，" + e.getMessage(), e);
+        }
+    }
+
+    public void sendMessage(Session session, MessageEntity message) {
+        try {
+            session.getBasicRemote().sendText(JsonUtils.toJsonString(message));
+        } catch (IOException e){
+            log.error("send messageEntity error, " + e.getMessage(), e);
         }
     }
 }

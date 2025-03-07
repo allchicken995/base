@@ -3,9 +3,10 @@ spring:
     druid:
       #MySQL
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://120.27.243.97:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
+      url: jdbc:mysql://localhost:3306/base?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true
       username: root
-      password: Hs123456!
+      password: 123456
+      #password: Hs123456!
       #达梦8
 #      driver-class-name: dm.jdbc.driver.DmDriver
 #      url: jdbc:dm://localhost:5236/security_enterprise?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&nullCatalogMeansCurrent=true&compatibleMode=oracle
