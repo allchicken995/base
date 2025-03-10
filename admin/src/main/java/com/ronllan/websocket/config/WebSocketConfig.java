@@ -38,7 +38,7 @@ public class WebSocketConfig extends ServerEndpointConfig.Configurator implement
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
-        registry.addEndpoint("/ws/ep").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/websocket").setAllowedOrigins("*").withSockJS();
 
     }
 

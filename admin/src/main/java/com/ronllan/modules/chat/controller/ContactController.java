@@ -45,8 +45,8 @@ public class ContactController {
     @Operation(summary = "获取好友列表")
     @LogOperation("获取好友列表")
     //@RequiresPermissions("chat:contact:list")
-    public Result list(){
-        contactService.list();
+    public Result list(Long userId){
+        contactService.list(userId);
         return new Result();
     }
 
