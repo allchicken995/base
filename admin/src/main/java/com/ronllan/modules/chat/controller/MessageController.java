@@ -49,8 +49,8 @@ public class MessageController {
     }
 
     @GetMapping("/list")
-    @Operation(summary = "分页获取消息列表")
-    @LogOperation("分页获取消息列表")
+    @Operation(summary = "获取消息列表")
+    @LogOperation("获取消息列表")
     //@RequiresPermissions("chat:msg:list")
     public Result list(Long userId, Long contactId){
         List<MessageEntity> list = messageServiceImpl.list(userId, contactId);
