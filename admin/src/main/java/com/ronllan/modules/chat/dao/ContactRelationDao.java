@@ -20,6 +20,6 @@ public interface ContactRelationDao extends BaseDao<ContactRelationEntity> {
     Integer getStateById(Long userId, Long contactId);
 
     @Select("select contact_id from chat_contact_relation where logical_delete = 0 and user_id = #{userId}")
-    List getContactList(Long userId);
+    List<String> getContactList(Long userId);
 
 }

@@ -58,7 +58,7 @@ public class ContactServiceImpl extends BaseServiceImpl<ContactRelationDao, Cont
     @Override
     public List list(Long userId) {
         //获取联系人
-        contactRelationDao.getContactList(userId);
-        return null;
+        List<String> contactIdList = contactRelationDao.getContactList(userId);
+        return contactIdList;
     }
 }

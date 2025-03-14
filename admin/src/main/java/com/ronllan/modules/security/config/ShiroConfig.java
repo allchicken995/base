@@ -74,6 +74,9 @@ public class ShiroConfig {
         filterMap.put("/mp/portal/**", "anon");
         filterMap.put("/ureport/**", "anon");
         filterMap.put("/chat/**", "anon");
+        filterMap.put("/ws/**", "anon");
+        filterMap.put("/sys/file/**", "anon");
+        filterMap.put("/webSocket/**", "anon");
         filterMap.put("/**", "oauth2");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 

@@ -72,3 +72,8 @@ logging:
 #      url: jdbc:postgresql://123456:5432/security_enterprise
 #      username: postgres
 #      password: 123456
+
+upload:
+  file:
+    url: http://192.168.0.116/uploads/
+    dir: D:\Data
